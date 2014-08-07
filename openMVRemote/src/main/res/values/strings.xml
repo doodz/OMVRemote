@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">OMVRemote</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_host_settings">HostSettingsActivity</string>
+    <string name="title_activity_remote">RemoteActivity</string>
+    <string name="title_activity_info_system">InfoSystemActivity</string>
+    <string name="Hostname">hostname</string>
+    <string name="Version">version</string>
+    <string name="Processor">processor</string>
+    <string name="Kernel">kernel</string>
+    <string name="title_activity_services">ServicesActivity</string>
+
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_delete_host">Are you sure you want to delete the OMV host "%s"?</string>
+    <string name="dialog_ok">Yes</string>
+    <string name="dialog_ko">No</string>
+</resources>
