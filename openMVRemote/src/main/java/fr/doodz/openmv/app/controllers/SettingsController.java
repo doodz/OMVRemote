@@ -18,7 +18,7 @@ import java.util.Hashtable;
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
 import fr.doodz.openmv.api.object.Host;
 import fr.doodz.openmv.app.R;
-import fr.doodz.openmv.app.SettingsActivity;
+import fr.doodz.openmv.app.Activity.SettingsActivity;
 import fr.doodz.openmv.utils.HostFactory;
 
 /**

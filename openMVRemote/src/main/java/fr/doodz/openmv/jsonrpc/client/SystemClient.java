@@ -98,33 +98,32 @@ public class SystemClient extends Client implements ISystemClient {
         final ArrayList<Upgraded> upgradeds = new ArrayList<Upgraded>();
 
         JsonNode result = mConnection.getJson(manager, "getUpgraded", "Apt",null);
-        final JsonNode jsonMovies = result.get("data");
-        if (jsonMovies != null) {
-            for (Iterator<JsonNode> i = jsonMovies.elements(); i.hasNext(); ) {
-                JsonNode jsonService = (JsonNode)i.next();
+        if (result != null) {
+            for (Iterator<JsonNode> i = result.elements(); i.hasNext(); ) {
+                JsonNode jsonService = i.next();
                 upgradeds.add( new Upgraded(
-                                getString2(jsonService,"Architecture"),
-                                getString2(jsonService,"Description"),
-                                getString2(jsonService,"Essential"),
-                                getString2(jsonService,"Filename"),
-                                getString2(jsonService,"Installedsize"),
-                                getString2(jsonService,"Longdescription"),
-                                getString2(jsonService,"Maintainer"),
-                                getString2(jsonService,"Md5sum"),
-                                getString2(jsonService,"Name"),
-                                getString2(jsonService,"Oldversion"),
-                                getString2(jsonService,"PackageName"),
-                                getString2(jsonService,"Predepends"),
-                                getString2(jsonService,"Priority"),
-                                getString2(jsonService,"Provides"),
-                                getString2(jsonService,"Replaces"),
-                                getString2(jsonService,"Repository"),
-                                getString2(jsonService,"Section"),
-                                getString2(jsonService,"Sha1"),
-                                getString2(jsonService,"Sha256"),
-                                getString2(jsonService,"Size"),
-                                getString2(jsonService,"Tag"),
-                                getString2(jsonService,"Version")
+                                getString2(jsonService,"architecture"),
+                                getString2(jsonService,"description"),
+                                getString2(jsonService,"essential"),
+                                getString2(jsonService,"filename"),
+                                getString2(jsonService,"installedsize"),
+                                getString2(jsonService,"longdescription"),
+                                getString2(jsonService,"maintainer"),
+                                getString2(jsonService,"md5sum"),
+                                getString2(jsonService,"name"),
+                                getString2(jsonService,"oldversion"),
+                                getString2(jsonService,"packageName"),
+                                getString2(jsonService,"predepends"),
+                                getString2(jsonService,"priority"),
+                                getString2(jsonService,"provides"),
+                                getString2(jsonService,"replaces"),
+                                getString2(jsonService,"repository"),
+                                getString2(jsonService,"section"),
+                                getString2(jsonService,"sha1"),
+                                getString2(jsonService,"sha256"),
+                                getString2(jsonService,"size"),
+                                getString2(jsonService,"tag"),
+                                getString2(jsonService,"version")
                         )
                 );
 

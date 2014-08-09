@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="fr.doodz.openmv.app.LoginActivity"
+    tools:context="fr.doodz.openmv.app.Activity.LoginActivity"
     android:orientation="vertical"
     android:background="#98b7cf">
 
@@ -48,8 +48,17 @@
         />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"></LinearLayout>
+        android:layout_gravity="center_horizontal">
+
+        </LinearLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:id="@+id/apt_button" />
 </LinearLayout>

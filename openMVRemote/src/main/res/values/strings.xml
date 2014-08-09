@@ -13,4 +13,6 @@
     <string name="Kernel">kernel</string>
     <string name="title_activity_services">ServicesActivity</string>
     <string name="UpTime">UpTime</string>
+    <string name="title_activity_update">UpdateActivity</string>
+
 </resources>

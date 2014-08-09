@@ -1,4 +1,4 @@
-package fr.doodz.openmv.app;
+package fr.doodz.openmv.app.Activity;
 
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;

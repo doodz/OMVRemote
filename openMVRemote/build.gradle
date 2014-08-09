@@ -29,6 +29,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0-rc3'
     // You must install or update the Support Repository through the SDK manager to use this dependency.
+    // You must install or update the Support Repository through the SDK manager to use this dependency.
     compile 'com.fasterxml.jackson.core:jackson-core:2.4.0-rc3'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0-rc3'
     compile 'com.android.support:appcompat-v7:19.1.0'
@@ -36,6 +37,7 @@ dependencies {
     // You must install or update the Support Repository through the SDK manager to use this dependency.
     compile 'com.android.support:support-v4:19.1.0'
 }
+
 
 
 

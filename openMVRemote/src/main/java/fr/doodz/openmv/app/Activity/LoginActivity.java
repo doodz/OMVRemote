@@ -1,4 +1,4 @@
-package fr.doodz.openmv.app;
+package fr.doodz.openmv.app.Activity;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -9,11 +9,14 @@ import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 
 import fr.doodz.openmv.UI.business.presentation.activity.ConfigurationManager;
+import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.app.controllers.HomeController;
 
 
@@ -44,6 +47,15 @@ public class LoginActivity extends ActionBarActivity {
 
         final TextView upTime = (TextView)findViewById(R.id.Main_UpTime);
         final ListView services =  (ListView)findViewById(R.id.Main_listView);
+        final Button apt =  (Button)findViewById(R.id.apt_button);
+
+        apt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextActivity;
+                nextActivity = new Intent(v.getContext(), UpdateActivity.class);
+                v.getContext().startActivity(nextActivity);
+            }
+        });
 
         mHomeController.getServicesStatus(services);
         mHomeController.getUpTime(upTime);

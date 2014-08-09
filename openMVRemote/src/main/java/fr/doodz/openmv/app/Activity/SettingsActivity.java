@@ -1,4 +1,4 @@
-package fr.doodz.openmv.app;
+package fr.doodz.openmv.app.Activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -24,6 +24,7 @@ import android.view.Display;
 import java.util.List;
 
 import fr.doodz.openmv.UI.business.presentation.activity.ConfigurationManager;
+import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.app.controllers.SettingsController;
 
 /**

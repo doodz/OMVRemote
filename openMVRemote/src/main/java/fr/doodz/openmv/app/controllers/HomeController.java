@@ -2,36 +2,15 @@ package fr.doodz.openmv.app.controllers;
 
 import android.app.Activity;
 import android.os.Handler;
-import android.widget.GridView;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.net.wifi.WifiManager.WifiLock;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Looper;
-import android.os.Message;
-import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +24,7 @@ import fr.doodz.openmv.api.object.business.IDiagnosticManager;
 import fr.doodz.openmv.api.object.business.IInfoManager;
 import fr.doodz.openmv.api.object.business.ISystemManager;
 import fr.doodz.openmv.app.Adapters.ServiceAdapter;
-import fr.doodz.openmv.app.HostSettingsActivity;
+import fr.doodz.openmv.app.Activity.HostSettingsActivity;
 import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 import fr.doodz.openmv.utils.ClientFactory;
@@ -102,7 +81,7 @@ public class HomeController extends AbstractController  implements INotifiableCo
 
             }
         };
-        this.mSystemManager.shutdown(handler,mActivity.getApplicationContext());
+        this.mSystemManager.shutdown(handler, mActivity.getApplicationContext());
     }
 
     public void reboot(){
