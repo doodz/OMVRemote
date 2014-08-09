@@ -8,18 +8,23 @@ import android.os.Bundle;
 import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
-import fr.doodz.openmv.UI.business.ManagerFactory;
+import android.widget.ListView;
+import android.widget.TextView;
+
+
 import fr.doodz.openmv.UI.business.presentation.activity.ConfigurationManager;
 import fr.doodz.openmv.app.controllers.HomeController;
-import fr.doodz.openmv.utils.ClientFactory;
+
 
 
 public class LoginActivity extends ActionBarActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
+    private static final int MENU_SWITCH_OMV = 1;
+    private static final int MENU_SETTINGS = 2;
+    private static final int MENU_REBOOT = 3;
+    private static final int MENU_POWEROFF = 4;
     private HomeController mHomeController;
     private ConfigurationManager mConfigurationManager;
 
@@ -37,40 +42,22 @@ public class LoginActivity extends ActionBarActivity {
 
         mConfigurationManager = ConfigurationManager.getInstance(this);
 
-        final Button setings = (Button)findViewById(R.id.btn_settings);
-        setings.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, HostSettingsActivity.class));
-            }
-        });
+        final TextView upTime = (TextView)findViewById(R.id.Main_UpTime);
+        final ListView services =  (ListView)findViewById(R.id.Main_listView);
 
-        final Button connect = (Button)findViewById(R.id.btn_connect);
-        connect.setOnClickListener(new View.OnClickListener(){
-             public void onClick(View v){
-                mHomeController.ReconnectHost();
-             }
-             });
-
-        final Button info = (Button)findViewById(R.id.btn_info);
-        info.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                startActivity(new Intent(LoginActivity.this, InfoSystemActivity.class));
-            }
-        });
-
-        final Button status = (Button)findViewById(R.id.btn_Status);
-        status.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                startActivity(new Intent(LoginActivity.this, ServicesActivity.class));
-            }
-        });
+        mHomeController.getServicesStatus(services);
+        mHomeController.getUpTime(upTime);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login, menu);
+        //getMenuInflater().inflate(R.menu.login, menu);
+        menu.add(0, MENU_SWITCH_OMV, 0, "Switch OMV").setIcon(R.drawable.ic_switch_omv_dark);
+        menu.add(0, MENU_SETTINGS, 0, "Settings");
+        menu.add(0, MENU_REBOOT, 0, "Reboot");
+        menu.add(0, MENU_POWEROFF, 0, "PowerOff");
         return true;
     }
 
@@ -79,10 +66,22 @@ public class LoginActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case MENU_SWITCH_OMV:
+                mHomeController.openHostChanger();
+                return true;
+            case MENU_SETTINGS:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            case MENU_REBOOT:
+                mHomeController.reboot();
+                return true;
+            case MENU_POWEROFF:
+                mHomeController.shutdown();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

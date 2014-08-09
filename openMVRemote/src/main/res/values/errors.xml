@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="setting_no_hosts">No hosts defined. In order to add hosts, press "Menu" and choose "Add host".</string>
+    <string name="no_hosts">No OMV hosts defined, please do that first.</string>
+    <string name="pick_same">You\'ve picked the same host as the current.</string>
 </resources>

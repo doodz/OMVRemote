@@ -12,6 +12,7 @@ public class ManagerThread extends Thread {
 
     private final InfoManager mInfoManager;
     private final DiagnosticManager mDiagnosticManager;
+    private final SystemManager mSystemManager;
     private static ManagerThread sManagerThread;
     private Handler mHandler;
 
@@ -19,6 +20,7 @@ public class ManagerThread extends Thread {
         super("ManagerThread");
         mInfoManager = new InfoManager();
         mDiagnosticManager = new DiagnosticManager();
+        mSystemManager = new SystemManager();
     }
 
 
@@ -49,11 +51,18 @@ public class ManagerThread extends Thread {
         dm.setController(controller);
         return dm;
     }
+
+    public static SystemManager system(INotifiableController controller) {
+        final SystemManager dm = get().mSystemManager;
+        dm.setController(controller);
+        return dm;
+    }
     public void run() {
         Looper.prepare();
         mHandler = new Handler();
         mInfoManager.setHandler(mHandler);
         mDiagnosticManager.setHandler(mHandler);
+        mSystemManager.setHandler(mHandler);
         Looper.loop();
     }
 }

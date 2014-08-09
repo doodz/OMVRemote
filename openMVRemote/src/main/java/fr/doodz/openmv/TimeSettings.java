@@ -7,7 +7,7 @@ public class TimeSettings {
 
     public Date Date;
     public String Timezone;
-        public boolean Ntpenable;
+    public boolean Ntpenable;
     public String Ntptimeservers;
 
     public TimeSettings(String local, String iSO8601, String timezone, boolean ntpenable, String ntptimeservers){

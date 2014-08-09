@@ -130,7 +130,8 @@ public class InfoClient extends Client implements IInfoClient {
                 getString(jSonSystem,"Hostname"),
                 getString(jSonSystem,"Version"),
                 getString(jSonSystem,"Processor"),
-                getString(jSonSystem,"Kernel"));
+                getString(jSonSystem,"Kernel"),
+                getString(jSonSystem,"Uptime"));
     }
     /**
      * Returns a boolean GUI setting

@@ -1,10 +1,19 @@
 package fr.doodz.openmv.jsonrpc.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import fr.doodz.openmv.GeneralSettings;
 import fr.doodz.openmv.TimeSettings;
 import fr.doodz.openmv.api.object.Host;
+import fr.doodz.openmv.api.object.Output;
+import fr.doodz.openmv.api.object.Service;
+import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.api.object.WebGuiSetting;
 import fr.doodz.openmv.api.object.business.INotifiableManager;
 import fr.doodz.openmv.api.object.data.ISystemClient;
@@ -44,7 +53,7 @@ public class SystemClient extends Client implements ISystemClient {
                 getInt(result,"tsslport"),
                 getInt(result,"ttimeout"));
 
-                return setting;
+        return setting;
     }
 
     public void setSettings(INotifiableManager manager,WebGuiSetting setting){
@@ -56,7 +65,7 @@ public class SystemClient extends Client implements ISystemClient {
     public TimeSettings getTimeSettings(INotifiableManager manager){
         JsonNode result = mConnection.getJson(manager, "getTimeSettings", "System",null);
         TimeSettings time = new TimeSettings(getString2(result, "Local"),getString2(result,"ISO8601"),getString2(result, "Timezone"),
-        getBool(result,"forcesslonly"),getString2(result, "Ntptimeservers"));
+                getBool(result,"forcesslonly"),getString2(result, "Ntptimeservers"));
 
         return time;
     }
@@ -83,4 +92,80 @@ public class SystemClient extends Client implements ISystemClient {
                 .p("hostname", settings.Hostname));
 
     }
+
+    public ArrayList<Upgraded> getUpgraded(INotifiableManager manager) {
+
+        final ArrayList<Upgraded> upgradeds = new ArrayList<Upgraded>();
+
+        JsonNode result = mConnection.getJson(manager, "getUpgraded", "Apt",null);
+        final JsonNode jsonMovies = result.get("data");
+        if (jsonMovies != null) {
+            for (Iterator<JsonNode> i = jsonMovies.elements(); i.hasNext(); ) {
+                JsonNode jsonService = (JsonNode)i.next();
+                upgradeds.add( new Upgraded(
+                                getString2(jsonService,"Architecture"),
+                                getString2(jsonService,"Description"),
+                                getString2(jsonService,"Essential"),
+                                getString2(jsonService,"Filename"),
+                                getString2(jsonService,"Installedsize"),
+                                getString2(jsonService,"Longdescription"),
+                                getString2(jsonService,"Maintainer"),
+                                getString2(jsonService,"Md5sum"),
+                                getString2(jsonService,"Name"),
+                                getString2(jsonService,"Oldversion"),
+                                getString2(jsonService,"PackageName"),
+                                getString2(jsonService,"Predepends"),
+                                getString2(jsonService,"Priority"),
+                                getString2(jsonService,"Provides"),
+                                getString2(jsonService,"Replaces"),
+                                getString2(jsonService,"Repository"),
+                                getString2(jsonService,"Section"),
+                                getString2(jsonService,"Sha1"),
+                                getString2(jsonService,"Sha256"),
+                                getString2(jsonService,"Size"),
+                                getString2(jsonService,"Tag"),
+                                getString2(jsonService,"Version")
+                        )
+                );
+
+            }
+        }
+        return upgradeds;
+    }
+
+    public String upgrade(INotifiableManager manager,ArrayList<Upgraded> upgrades)
+    {
+
+        ArrayNode arr = arr();
+        for(final Upgraded u :upgrades)
+        {
+            arr.add(u.Name);
+        }
+
+        JsonNode result = mConnection.getJson(manager, "upgrade", "Apt",obj().p("packages",arr));
+        return getString2(result,"response");
+    }
+
+    public Output getOutput(INotifiableManager manager,String fileName,int pos){
+
+        JsonNode result = mConnection.getJson(manager, "getOutput", "Exec",obj().p("filename",fileName).p("pos",pos));
+        final JsonNode jsonRep = result.get("response");
+        Output output = null;
+        if (jsonRep != null) {
+            output = new Output(getString2(jsonRep,"Filename"),getInt(jsonRep,"Pos"),getString2(jsonRep,"Output"),getBool(jsonRep,"Running"));
+        }
+
+        return output;
+    }
+
+    public void reboot(INotifiableManager manager)
+    {
+        JsonNode result = mConnection.getJson(manager, "reboot", "System",null);
+    }
+
+    public void shutdown(INotifiableManager manager)
+    {
+        JsonNode result = mConnection.getJson(manager, "shutdown", "System",null);
+    }
 }
+

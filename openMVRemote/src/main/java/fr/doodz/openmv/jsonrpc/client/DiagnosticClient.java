@@ -47,7 +47,8 @@ public class DiagnosticClient extends Client implements IDiagnosticClient {
                 getString(jSonSystemInfo,"Hostname"),
                 getString(jSonSystemInfo,"Version"),
                 getString(jSonSystemInfo,"Processor"),
-                getString(jSonSystemInfo,"Kernel"));
+                getString(jSonSystemInfo,"Kernel"),
+                getString(jSonSystemInfo,"Uptime"));
     }
 
     public ArrayList<Service> getServicesStatus(INotifiableManager manager) {

@@ -3,4 +3,6 @@
     <string name="dialog_delete_host">Are you sure you want to delete the OMV host "%s"?</string>
     <string name="dialog_ok">Yes</string>
     <string name="dialog_ko">No</string>
+    <string name="dialog_pick">Pick your OMV!</string>
+    <string name="dialog_change_host">Changed host to %s.</string>
 </resources>

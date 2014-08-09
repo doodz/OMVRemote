@@ -3,6 +3,7 @@ package fr.doodz.openmv.jsonrpc;
 import fr.doodz.openmv.api.object.Host;
 import fr.doodz.openmv.jsonrpc.client.DiagnosticClient;
 import fr.doodz.openmv.jsonrpc.client.InfoClient;
+import fr.doodz.openmv.jsonrpc.client.SystemClient;
 
 /**
  * Created by doods on 18/05/14.
@@ -17,7 +18,7 @@ public class JsonRpc {
 
 
     public final DiagnosticClient Diagnostic;
-
+    public final SystemClient System;
 
 
     /**
@@ -36,6 +37,7 @@ public class JsonRpc {
         connection.setTimeout(timeout);
         info = new InfoClient(connection);
         Diagnostic = new DiagnosticClient(connection);
+        System = new SystemClient(connection);
     }
 
     /**
