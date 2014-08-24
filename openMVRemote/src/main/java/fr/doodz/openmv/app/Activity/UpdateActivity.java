@@ -48,7 +48,11 @@ public class UpdateActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            this.mUpdateController.showSettingDialog();
             return true;
+        }
+        else if (id == R.id.item_check){
+            this.mUpdateController.update();
         }
         return super.onOptionsItemSelected(item);
     }

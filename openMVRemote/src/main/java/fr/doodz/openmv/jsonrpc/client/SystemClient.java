@@ -13,6 +13,7 @@ import fr.doodz.openmv.TimeSettings;
 import fr.doodz.openmv.api.object.Host;
 import fr.doodz.openmv.api.object.Output;
 import fr.doodz.openmv.api.object.Service;
+import fr.doodz.openmv.api.object.UpdatesSettings;
 import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.api.object.WebGuiSetting;
 import fr.doodz.openmv.api.object.business.INotifiableManager;
@@ -132,6 +133,13 @@ public class SystemClient extends Client implements ISystemClient {
         return upgradeds;
     }
 
+    public String update(INotifiableManager manager)
+    {
+
+        JsonNode result = mConnection.getJson(manager, "update", "Apt",null);
+        return getString2(result,"response");
+
+    }
     public String upgrade(INotifiableManager manager,ArrayList<Upgraded> upgrades)
     {
 
@@ -144,6 +152,22 @@ public class SystemClient extends Client implements ISystemClient {
         JsonNode result = mConnection.getJson(manager, "upgrade", "Apt",obj().p("packages",arr));
         return getString2(result,"response");
     }
+
+    public UpdatesSettings getUpdatesSettings(INotifiableManager manager){
+
+        JsonNode result = mConnection.getJson(manager, "getSettings", "Apt",null);
+
+        UpdatesSettings updatesSettings = new UpdatesSettings(getBool(result,"partner"),getBool(result,"proposed"));
+
+        return updatesSettings;
+    }
+
+    public void setUpdatesSettings(INotifiableManager manager,UpdatesSettings updatesSettings){
+        JsonNode result = mConnection.getJson(manager, "setSettings", "Apt",obj()
+                .p("partner",updatesSettings.Partner).p("proposed",updatesSettings.Proposed));
+
+    }
+
 
     public Output getOutput(INotifiableManager manager,String fileName,int pos){
 

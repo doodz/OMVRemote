@@ -1,7 +1,9 @@
 package fr.doodz.openmv.app.controllers;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -9,19 +11,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import fr.doodz.openmv.UI.business.ManagerFactory;
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
 import fr.doodz.openmv.api.object.Output;
+import fr.doodz.openmv.api.object.UpdatesSettings;
 import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.api.object.business.DataResponse;
 import fr.doodz.openmv.api.object.business.ISystemManager;
-import fr.doodz.openmv.app.Adapters.ServiceAdapter;
 import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
+import fr.doodz.openmv.app.Fragments.SettingsUpdateDialogFragment;
+import fr.doodz.openmv.app.Interfaces.INoticeDialogListener;
 import fr.doodz.openmv.app.R;
 
 /**
@@ -38,6 +39,19 @@ public class UpdateController extends AbstractController  implements INotifiable
         super.onCreate(activity, handler);
         mSystemManager = ManagerFactory.getSystemManager(this);
         this.activity = activity;
+        this.getUpdatesSettings();
+    }
+
+    public void  update()
+    {
+        DataResponse<String> handler = new DataResponse<String>() {
+            public void run() {
+                String var = value;
+                getOutput(var,0);
+            }
+        };
+        this.mSystemManager.update(handler, mActivity.getApplicationContext());
+
     }
 
     public void getUpgraded(final ListView listView)
@@ -59,6 +73,7 @@ public class UpdateController extends AbstractController  implements INotifiable
         this.mSystemManager.getUpgraded(handler, mActivity.getApplicationContext());
     }
 
+
     private void upgrade(ArrayList<Upgraded> upgrades){
         DataResponse<String> handler = new DataResponse<String>() {
             public void run() {
@@ -68,6 +83,27 @@ public class UpdateController extends AbstractController  implements INotifiable
         };
 
         this.mSystemManager.upgrade(handler, mActivity.getApplicationContext(), upgrades);
+    }
+
+
+    private void getUpdatesSettings()
+    {
+        DataResponse<UpdatesSettings> handler = new DataResponse<UpdatesSettings>() {
+            public void run() {
+                mUpdatesSettings = value;
+                if(value != null ) {
+                    if(mUpdatesSettings != null)
+                    {
+                        mSelections = new boolean[2];
+                        mSelections[0] = mUpdatesSettings.Proposed;
+                        mSelections[1] = mUpdatesSettings.Partner;
+                        //buildSettingDialog();
+                    }
+                }
+            }
+        };
+
+        this.mSystemManager.getUpdatesSettings(handler, mActivity.getApplicationContext());
     }
 
     private void getOutput(String fileName, int pos){
@@ -96,6 +132,55 @@ public class UpdateController extends AbstractController  implements INotifiable
         if (mActionMode != null)
             mActionMode.setTitle(String.valueOf(adapter.getSelectedCount()) + " selected");
     }
+
+
+    private UpdatesSettings mUpdatesSettings;
+    private  boolean[]  mSelections;
+
+
+    public void showSettingDialog() {
+        //this.getUpdatesSettings();
+        this.buildSettingDialog();;
+    }
+    private void buildSettingDialog()
+    {
+        // Create an instance of the dialog fragment and show it
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        // Set the dialog title
+        builder.setTitle(R.string.dialog_install_from)
+                // Specify the list array, the items to be selected by default (null for none),
+                // and the listener through which to receive callbacks when items are selected
+                .setMultiChoiceItems(R.array.System_Update_Manager, mSelections,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which,
+                                                boolean isChecked) {
+                                    mSelections[which] = isChecked;
+                            }
+                        }
+                )
+                        // Set the action buttons
+                .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        mUpdatesSettings.Proposed = mSelections[0];
+                        mUpdatesSettings.Partner =  mSelections[1];
+
+                        DataResponse<String> handler = new DataResponse<String>() {
+                            public void run() {
+                                String var = value;
+                                getOutput(var,0);
+                            }
+                        };
+                        mSystemManager.setUpdatesSettings(handler,mActivity.getApplicationContext(),mUpdatesSettings);
+                        resetDialogShowing();
+                    }
+                });
+
+        showDialog(builder);
+    }
+
+
 
     private class ActionModeCallback implements ActionMode.Callback {
 
@@ -146,5 +231,7 @@ public class UpdateController extends AbstractController  implements INotifiable
             adapter.removeSelection();
             mActionMode = null;
         }
+
+
     }
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import fr.doodz.openmv.GeneralSettings;
 import fr.doodz.openmv.TimeSettings;
 import fr.doodz.openmv.api.object.Output;
+import fr.doodz.openmv.api.object.UpdatesSettings;
 import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.api.object.WebGuiSetting;
 import fr.doodz.openmv.api.object.business.DataResponse;
@@ -71,6 +72,24 @@ public class SystemManager  extends AbstractManager implements ISystemManager, I
             }
         });
     }
+
+    public void setUpdatesSettings(final DataResponse<String> response,final Context context,final UpdatesSettings settings){
+        mHandler.post(new Command<String>(response, this) {
+            @Override
+            public void doRun() throws Exception {
+                System(context).setUpdatesSettings(SystemManager.this, settings);
+            }
+        });
+    }
+    public void getUpdatesSettings(final DataResponse<UpdatesSettings> response,final Context context){
+        mHandler.post(new Command<UpdatesSettings>(response, this) {
+            @Override
+            public void doRun() throws Exception {
+                response.value = System(context).getUpdatesSettings(SystemManager.this);
+            }
+        });
+    }
+
     public void getUpgraded(final DataResponse<ArrayList<Upgraded>> response,final Context context){
         mHandler.post(new Command<ArrayList<Upgraded>>(response, this) {
             @Override
@@ -88,6 +107,17 @@ public class SystemManager  extends AbstractManager implements ISystemManager, I
             }
         });
     }
+
+    public void update(final DataResponse<String> response,final Context context){
+        mHandler.post(new Command<String>(response, this) {
+            @Override
+            public void doRun() throws Exception {
+                response.value = System(context).update(SystemManager.this);
+            }
+        });
+
+    }
+
     public void getOutput(final DataResponse<Output> response,final Context context,final String fileName,final int pos){
         mHandler.post(new Command<Output>(response, this) {
             @Override

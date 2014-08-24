@@ -5,4 +5,9 @@
     <string name="dialog_ko">No</string>
     <string name="dialog_pick">Pick your OMV!</string>
     <string name="dialog_change_host">Changed host to %s.</string>
+    <string name="dialog_install_from">Install updates from</string>
+    <string-array name="System_Update_Manager">
+        <item>Pre-released updates.</item>
+        <item>Community-maintained updates.</item>
+    </string-array>
 </resources>

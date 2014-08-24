@@ -272,6 +272,11 @@ public abstract class AbstractController {
         });
     }
 
+    protected void resetDialogShowing()
+    {
+        this.mDialogShowing = false;
+    }
+
     protected void showDialog(int id){
         mActivity.showDialog(id);
     }
