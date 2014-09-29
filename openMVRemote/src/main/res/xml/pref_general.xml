@@ -8,7 +8,7 @@
             <intent
                 android:action="android.intent.action.MAIN"
                 android:targetPackage="fr.doodz.openmv.app"
-                android:targetClass="fr.doodz.openmv.app.HostSettingsActivity"
+                android:targetClass="fr.doodz.openmv.app.Activity.HostSettingsActivity"
                 android:data="" />
         </PreferenceScreen>
         <!-- CheckBoxPreference

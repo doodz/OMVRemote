@@ -51,6 +51,9 @@ public class DiagnosticClient extends Client implements IDiagnosticClient {
                 getString(jSonSystemInfo,"Uptime"));
     }
 
+
+
+
     public ArrayList<Service> getServicesStatus(INotifiableManager manager) {
 
         final ArrayList<Service> services = new ArrayList<Service>();

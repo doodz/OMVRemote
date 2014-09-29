@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 
 import fr.doodz.openmv.UI.business.presentation.activity.ConfigurationManager;
+import fr.doodz.openmv.api.object.Service;
 import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.app.controllers.HomeController;
 
@@ -53,6 +54,16 @@ public class LoginActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent nextActivity;
                 nextActivity = new Intent(v.getContext(), UpdateActivity.class);
+                v.getContext().startActivity(nextActivity);
+            }
+        });
+
+        final Button srv =  (Button)findViewById(R.id.Services_button);
+
+        srv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextActivity;
+                nextActivity = new Intent(v.getContext(), ServicesActivity.class);
                 v.getContext().startActivity(nextActivity);
             }
         });

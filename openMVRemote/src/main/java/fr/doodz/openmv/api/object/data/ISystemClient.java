@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import fr.doodz.openmv.GeneralSettings;
 import fr.doodz.openmv.TimeSettings;
 import fr.doodz.openmv.api.object.Output;
+import fr.doodz.openmv.api.object.Service;
 import fr.doodz.openmv.api.object.UpdatesSettings;
 import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.api.object.WebGuiSetting;
@@ -31,4 +32,5 @@ public interface ISystemClient {
     Output getOutput(INotifiableManager manager,String fileName,int pos);
     void reboot(INotifiableManager manager);
     void shutdown(INotifiableManager manager);
+    ArrayList<Service> getServicesStatus(INotifiableManager manager);
 }

@@ -190,5 +190,26 @@ public class SystemClient extends Client implements ISystemClient {
     {
         JsonNode result = mConnection.getJson(manager, "shutdown", "System",null);
     }
+
+    public ArrayList<Service> getServicesStatus(INotifiableManager manager) {
+
+        final ArrayList<Service> services = new ArrayList<Service>();
+        JsonNode result = mConnection.getJson(manager, "get", "Zeroconf", null);
+
+
+        if (result != null) {
+            for (Iterator<JsonNode> i = result.elements(); i.hasNext(); ) {
+                JsonNode jsonService = (JsonNode)i.next();
+                services.add( new Service(
+                        getString2(jsonService,"name"),
+                        getString2(jsonService,"title"),
+                        getBool(jsonService,"enable"),
+                        getBool(jsonService,"running")
+                ));
+
+            }
+        }
+        return services;
+    }
 }
 
