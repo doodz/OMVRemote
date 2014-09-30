@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.net.*;
@@ -363,7 +364,8 @@ public class Connection {
         try {
             final JsonNode response = query(method,service, parameters, manager);
             final JsonNode result = response.get(RESULT_FIELD);
-            if (result == null) {
+
+            if (result.isNull()) {
                 if (response.get(ERROR_FIELD) == null) {
                     throw new Exception("Weird JSON response, could not parse error.");
                 }else if(!response.get(ERROR_FIELD).get("message").textValue().equals("Invalid params.")){
