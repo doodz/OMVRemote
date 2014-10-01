@@ -9,6 +9,7 @@ public interface IManager {
 
     /**
      * Sets the current controller object. Must be set on each activity's onResume().
+     *
      * @param controller Controller object
      */
     public void setController(INotifiableController controller);

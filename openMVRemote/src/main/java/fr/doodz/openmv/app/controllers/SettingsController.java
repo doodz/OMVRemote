@@ -17,8 +17,8 @@ import java.util.Hashtable;
 
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
 import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.app.Activity.SettingsActivity;
+import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.utils.HostFactory;
 
 /**
@@ -26,11 +26,11 @@ import fr.doodz.openmv.utils.HostFactory;
  */
 public class SettingsController extends AbstractController implements INotifiableController, IController, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String TAG = "SettingsController";
     public static final int MENU_ADD_HOST = 1;
     public static final int MENU_ADD_HOST_WIZARD = 3;
-    private PreferenceActivity mPreferenceActivity;
+    private static final String TAG = "SettingsController";
     private final Hashtable<String, String> mSummaries = new Hashtable<String, String>();
+    private PreferenceActivity mPreferenceActivity;
 
     public SettingsController(PreferenceActivity activity, Handler handler) {
         mPreferenceActivity = activity;
@@ -52,6 +52,7 @@ public class SettingsController extends AbstractController implements INotifiabl
     /**
      * Used in SettingsActivity in order to update the %value% placeholder in
      * the summaries.
+     *
      * @param activity Reference to activity
      */
     public void registerOnSharedPreferenceChangeListener(PreferenceActivity activity) {
@@ -87,7 +88,8 @@ public class SettingsController extends AbstractController implements INotifiabl
 
     /**
      * Creates the preference screen that contains all the listed hosts.
-     * @param root Root node
+     *
+     * @param root     Root node
      * @param activity Reference to activity
      * @return
      */

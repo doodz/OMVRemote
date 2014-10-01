@@ -14,10 +14,8 @@ public class ServiceSSH {
     public boolean TcpForwarding;
 
 
-
-
     public ServiceSSH(boolean compression, boolean enable, String extraoptions, boolean passwordauthentication,
-                      boolean permitrootlogin, int port, boolean tcpforwarding){
+                      boolean permitrootlogin, int port, boolean tcpforwarding) {
         this.Compression = compression;
         this.Enable = enable;
         this.ExtraOptions = extraoptions;

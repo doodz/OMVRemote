@@ -32,6 +32,7 @@ public class AbstractManager implements INotifiableManager {
 
     /**
      * Sets the handler used in the looping thread
+     *
      * @param handler
      */
     public void setHandler(Handler handler) {
@@ -40,6 +41,7 @@ public class AbstractManager implements INotifiableManager {
 
     /**
      * Returns the InfoClient class
+     *
      * @param response Response object
      * @return
      * @throws WifiStateException
@@ -56,13 +58,14 @@ public class AbstractManager implements INotifiableManager {
     protected ISystemClient System(Context context) throws WifiStateException {
         return ClientFactory.getSystemClient(this, context);
     }
+
     public void retryAll() {
         Log.d(TAG, "Posting retries to the queue");
         mHandler.post(new Runnable() {
             public void run() {
                 Log.d(TAG, "runnable started, posting retries");
-                while(failedRequests.size() > 0) {
-                    if(mHandler.post(failedRequests.get(0)))
+                while (failedRequests.size() > 0) {
+                    if (mHandler.post(failedRequests.get(0)))
                         Log.d(TAG, "Runnable posted");
                     else
                         Log.d(TAG, "Runnable coudln't be posted");
@@ -96,13 +99,14 @@ public class AbstractManager implements INotifiableManager {
 
     /**
      * Calls the UI thread's callback code.
+     *
      * @param response Response object
      */
     public void onFinish(DataResponse<?> response) {
         if (mController != null) {
             //Log.i(TAG, "*** posting onFinish through controller");
             mController.runOnUI(response);
-        }else{
+        } else {
             Log.w(TAG, "*** ignoring onFinish, controller is null.");
             //mHandler.post(response);
         }

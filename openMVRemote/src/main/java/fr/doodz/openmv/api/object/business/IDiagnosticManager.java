@@ -14,6 +14,8 @@ import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 public interface IDiagnosticManager extends IManager {
 
     public InfoSystem getSystemInfo(final Context context);
+
     public ArrayList<Service> getServicesStatus(final Context context);
+
     public ArrayList<SysLog> getLogsList(final Context context);
 }

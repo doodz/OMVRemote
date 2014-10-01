@@ -10,7 +10,7 @@ public class Output {
     public String Output;
     public Boolean Running;
 
-    public Output (String filename,int pos,String output,Boolean running){
+    public Output(String filename, int pos, String output, Boolean running) {
 
         this.Filename = filename;
         this.Pos = pos;

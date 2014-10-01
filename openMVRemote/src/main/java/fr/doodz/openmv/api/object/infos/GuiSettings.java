@@ -5,27 +5,6 @@ package fr.doodz.openmv.api.object.infos;
  */
 public class GuiSettings {
 
-    public static class Services {
-        public static final int EVENTSERVER_ENABLED = 1;
-        public static final int EVENTSERVER_ENABLED_ALL = 2;
-        public static final int EVENTSERVER_PORT = 3;
-
-        public static final int EVENT_SERVER_INITIAL_DELAY = 795;
-        public static final int EVENT_SERVER_CONTINUOUS_DELAY = 796;
-
-        private static final String NAME_PREFIX = "services.";
-
-    }
-
-    public static class MusicLibrary {
-
-        public static final int LIBARY_ENABLED = 418;
-        public static final int SHOW_COMPLATION_ARTISTS = 13414;
-
-        private static final String NAME_PREFIX = "musiclibrary.";
-
-    }
-
     public static String getName(int name) {
         switch (name) {
             case MusicLibrary.LIBARY_ENABLED:
@@ -86,5 +65,26 @@ public class GuiSettings {
                 return 0;
         }
         return -1;
+    }
+
+    public static class Services {
+        public static final int EVENTSERVER_ENABLED = 1;
+        public static final int EVENTSERVER_ENABLED_ALL = 2;
+        public static final int EVENTSERVER_PORT = 3;
+
+        public static final int EVENT_SERVER_INITIAL_DELAY = 795;
+        public static final int EVENT_SERVER_CONTINUOUS_DELAY = 796;
+
+        private static final String NAME_PREFIX = "services.";
+
+    }
+
+    public static class MusicLibrary {
+
+        public static final int LIBARY_ENABLED = 418;
+        public static final int SHOW_COMPLATION_ARTISTS = 13414;
+
+        private static final String NAME_PREFIX = "musiclibrary.";
+
     }
 }

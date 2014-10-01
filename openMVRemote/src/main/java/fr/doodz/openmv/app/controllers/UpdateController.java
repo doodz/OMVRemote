@@ -2,7 +2,6 @@ package fr.doodz.openmv.app.controllers;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.util.SparseBooleanArray;
@@ -12,7 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import java.util.ArrayList;
+
 import fr.doodz.openmv.UI.business.ManagerFactory;
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
 import fr.doodz.openmv.api.object.Output;
@@ -21,19 +22,19 @@ import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.api.object.business.DataResponse;
 import fr.doodz.openmv.api.object.business.ISystemManager;
 import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
-import fr.doodz.openmv.app.Fragments.SettingsUpdateDialogFragment;
-import fr.doodz.openmv.app.Interfaces.INoticeDialogListener;
 import fr.doodz.openmv.app.R;
 
 /**
  * Created by doods on 09/08/14.
  */
-public class UpdateController extends AbstractController  implements INotifiableController {
+public class UpdateController extends AbstractController implements INotifiableController {
 
     private ISystemManager mSystemManager;
     private UpgradeAdapter adapter;
     private Activity activity;
     private ActionMode mActionMode;
+    private UpdatesSettings mUpdatesSettings;
+    private boolean[] mSelections;
 
     public UpdateController(Activity activity, Handler handler) {
         super.onCreate(activity, handler);
@@ -42,24 +43,22 @@ public class UpdateController extends AbstractController  implements INotifiable
         this.getUpdatesSettings();
     }
 
-    public void  update()
-    {
+    public void update() {
         DataResponse<String> handler = new DataResponse<String>() {
             public void run() {
                 String var = value;
-                getOutput(var,0);
+                getOutput(var, 0);
             }
         };
         this.mSystemManager.update(handler, mActivity.getApplicationContext());
 
     }
 
-    public void getUpgraded(final ListView listView)
-    {
+    public void getUpgraded(final ListView listView) {
         DataResponse<ArrayList<Upgraded>> handler = new DataResponse<ArrayList<Upgraded>>() {
             public void run() {
                 ArrayList<Upgraded> var = value;
-                adapter = new UpgradeAdapter(mActivity,var);
+                adapter = new UpgradeAdapter(mActivity, var);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent,
@@ -73,27 +72,23 @@ public class UpdateController extends AbstractController  implements INotifiable
         this.mSystemManager.getUpgraded(handler, mActivity.getApplicationContext());
     }
 
-
-    private void upgrade(ArrayList<Upgraded> upgrades){
+    private void upgrade(ArrayList<Upgraded> upgrades) {
         DataResponse<String> handler = new DataResponse<String>() {
             public void run() {
                 String var = value;
-                getOutput(var,0);
+                getOutput(var, 0);
             }
         };
 
         this.mSystemManager.upgrade(handler, mActivity.getApplicationContext(), upgrades);
     }
 
-
-    private void getUpdatesSettings()
-    {
+    private void getUpdatesSettings() {
         DataResponse<UpdatesSettings> handler = new DataResponse<UpdatesSettings>() {
             public void run() {
                 mUpdatesSettings = value;
-                if(value != null ) {
-                    if(mUpdatesSettings != null)
-                    {
+                if (value != null) {
+                    if (mUpdatesSettings != null) {
                         mSelections = new boolean[2];
                         mSelections[0] = mUpdatesSettings.Proposed;
                         mSelections[1] = mUpdatesSettings.Partner;
@@ -106,18 +101,18 @@ public class UpdateController extends AbstractController  implements INotifiable
         this.mSystemManager.getUpdatesSettings(handler, mActivity.getApplicationContext());
     }
 
-    private void getOutput(String fileName, int pos){
+    private void getOutput(String fileName, int pos) {
 
         DataResponse<Output> handler = new DataResponse<Output>() {
             public void run() {
                 Output var = value;
-                if(value != null && value.Running) {
+                if (value != null && value.Running) {
                     getOutput(value.Filename, value.Pos);
                 }
             }
         };
 
-        this.mSystemManager.getOutput(handler, mActivity.getApplicationContext(), fileName,pos);
+        this.mSystemManager.getOutput(handler, mActivity.getApplicationContext(), fileName, pos);
     }
 
     private void onListItemSelect(int position) {
@@ -133,17 +128,13 @@ public class UpdateController extends AbstractController  implements INotifiable
             mActionMode.setTitle(String.valueOf(adapter.getSelectedCount()) + " selected");
     }
 
-
-    private UpdatesSettings mUpdatesSettings;
-    private  boolean[]  mSelections;
-
-
     public void showSettingDialog() {
         //this.getUpdatesSettings();
-        this.buildSettingDialog();;
+        this.buildSettingDialog();
+        ;
     }
-    private void buildSettingDialog()
-    {
+
+    private void buildSettingDialog() {
         // Create an instance of the dialog fragment and show it
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         // Set the dialog title
@@ -155,7 +146,7 @@ public class UpdateController extends AbstractController  implements INotifiable
                             @Override
                             public void onClick(DialogInterface dialog, int which,
                                                 boolean isChecked) {
-                                    mSelections[which] = isChecked;
+                                mSelections[which] = isChecked;
                             }
                         }
                 )
@@ -164,22 +155,21 @@ public class UpdateController extends AbstractController  implements INotifiable
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         mUpdatesSettings.Proposed = mSelections[0];
-                        mUpdatesSettings.Partner =  mSelections[1];
+                        mUpdatesSettings.Partner = mSelections[1];
 
                         DataResponse<String> handler = new DataResponse<String>() {
                             public void run() {
                                 String var = value;
-                                getOutput(var,0);
+                                getOutput(var, 0);
                             }
                         };
-                        mSystemManager.setUpdatesSettings(handler,mActivity.getApplicationContext(),mUpdatesSettings);
+                        mSystemManager.setUpdatesSettings(handler, mActivity.getApplicationContext(), mUpdatesSettings);
                         resetDialogShowing();
                     }
                 });
 
         showDialog(builder);
     }
-
 
 
     private class ActionModeCallback implements ActionMode.Callback {
@@ -207,7 +197,7 @@ public class UpdateController extends AbstractController  implements INotifiable
                     for (int i = (selected.size() - 1); i >= 0; i--) {
                         if (selected.valueAt(i)) {
 
-                            Upgraded selectedItem = (Upgraded)adapter.getItem(selected.keyAt(i));
+                            Upgraded selectedItem = (Upgraded) adapter.getItem(selected.keyAt(i));
                             upgrades.add(selectedItem);
                             adapter.remove(selectedItem);
 

@@ -6,17 +6,15 @@ package fr.doodz.openmv.api.object.types;
 public enum Sortdir {
 
     ASC("ASC"),
-    DESC("DESC")
+    DESC("DESC");
+    private final String text;
 
-    ;
     /**
      * @param text
      */
     private Sortdir(final String text) {
         this.text = text;
     }
-
-    private final String text;
 
     /* (non-Javadoc)
      * @see java.lang.Enum#toString()

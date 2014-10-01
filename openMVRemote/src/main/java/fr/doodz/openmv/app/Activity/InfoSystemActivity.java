@@ -1,14 +1,13 @@
 package fr.doodz.openmv.app.Activity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import fr.doodz.openmv.app.R;
-import fr.doodz.openmv.app.controllers.HomeController;
 import fr.doodz.openmv.app.controllers.InfoSystemController;
 import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 
@@ -25,13 +24,13 @@ public class InfoSystemActivity extends ActionBarActivity {
         InfoSystem system = mInfoSystemController.getInfoSystem();
 
         //todo : move in controller
-        final TextView hostname = (TextView)findViewById(R.id.Hostname);
+        final TextView hostname = (TextView) findViewById(R.id.Hostname);
         hostname.setText(system.Hostname);
-        final TextView version = (TextView)findViewById(R.id.Version);
+        final TextView version = (TextView) findViewById(R.id.Version);
         version.setText(system.Version);
-        final TextView processor = (TextView)findViewById(R.id.Processor);
+        final TextView processor = (TextView) findViewById(R.id.Processor);
         processor.setText(system.Processor);
-        final TextView kernel = (TextView)findViewById(R.id.Kernel);
+        final TextView kernel = (TextView) findViewById(R.id.Kernel);
         kernel.setText(system.Kernel);
     }
 

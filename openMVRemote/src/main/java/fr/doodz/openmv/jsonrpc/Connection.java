@@ -1,5 +1,17 @@
 package fr.doodz.openmv.jsonrpc;
 
+import android.util.Log;
+
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import org.apache.http.HttpException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,63 +23,46 @@ import java.net.PasswordAuthentication;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import org.apache.http.HttpException;
 
-import fr.doodz.openmv.utils.Base64;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
 import fr.doodz.openmv.api.object.Host;
+import fr.doodz.openmv.api.object.business.INotifiableManager;
 import fr.doodz.openmv.httpapi.NoSettingsException;
 import fr.doodz.openmv.jsonrpc.client.Client;
-
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.NullNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import java.net.*;
-import java.io.*;
-import java.util.*;
-import java.text.*;
-
-import android.util.Log;
+import fr.doodz.openmv.utils.Base64;
 
 /**
  * Created by doods on 18/05/14.
  */
 public class Connection {
 
+    public static final String RESULT_FIELD = "response";
+    public static final String ERROR_FIELD = "error";
     private static final String TAG = "Connection-JsonRpc";
-
     private static final String OMV_JSONRPC_BOOTSTRAP = "/rpc.php";
     private static final int SOCKET_CONNECTION_TIMEOUT = 5000;
-
+    ;
     /**
      * Singleton class instance
      */
     private static Connection sConnection;
-
     /**
      * Complete URL without any attached command parameters, for instance:
      * <code>http://192.168.0.10:8080</code>
      */
-    private String mUrlSuffix;;
-
+    private String mUrlSuffix;
     /**
      * Socket read timeout (connection timeout is default)
      */
     private int mSocketReadTimeout = 0;
-
     /**
      * Holds the base64 encoded user/pass for http authentication
      */
     private String authEncoded = null;
+    private CookieManager cm;
 
     /**
      * Use getInstance() for public class instantiation
+     *
      * @param host OMV host
      * @param port Port
      */
@@ -79,6 +74,7 @@ public class Connection {
      * Returns the singleton instance of this connection. Note that host and
      * port settings are only looked at the first time. Use {@link setHost()}
      * if you want to update these parameters.
+     *
      * @param host OMV host
      * @param port HTTP API / JSON-RPC port (it's the same)
      * @return Connection instance
@@ -95,6 +91,7 @@ public class Connection {
 
     /**
      * Updates host info of the connection instance
+     *
      * @param host
      */
     public void setHost(Host host) {
@@ -108,6 +105,7 @@ public class Connection {
 
     /**
      * Updates host and port parameters of the connection instance.
+     *
      * @param host Host or IP address of the host
      * @param port HTTP port
      */
@@ -126,6 +124,7 @@ public class Connection {
 
     /**
      * Sets authentication info
+     *
      * @param user Username
      * @param pass Password
      */
@@ -133,7 +132,7 @@ public class Connection {
         if (user != null && pass != null) {
             String auth = user + ":" + pass;
             authEncoded = Base64.encodeBytes(auth.getBytes()).toString();
-            login(user,pass);
+            login(user, pass);
         } else {
             authEncoded = null;
         }
@@ -141,6 +140,7 @@ public class Connection {
 
     /**
      * Sets socket read timeout (connection timeout has constant value)
+     *
      * @param timeout Read timeout in milliseconds.
      */
     public void setTimeout(int timeout) {
@@ -173,6 +173,7 @@ public class Connection {
 
     /**
      * Returns the full URL of an HTTP API request
+     *
      * @param command    Name of the command to execute
      * @param parameters Parameters, separated by ";".
      * @return Absolute URL to HTTP API
@@ -225,10 +226,9 @@ public class Connection {
 
         return uc;
     }
-    private CookieManager cm;
-    private void login(String user, String pass)
-    {
-        if(cm == null) cm = new CookieManager();
+
+    private void login(String user, String pass) {
+        if (cm == null) cm = new CookieManager();
         URLConnection uc = null;
         try {
             final ObjectMapper mapper = Client.MAPPER;
@@ -246,8 +246,8 @@ public class Connection {
             uc.setDoOutput(true);
 
             final ObjectNode data = Client.obj().p("method", "login");
-                data.put("service","Session");
-                data.put("params", Client.obj().p("username",user).p("password",pass));
+            data.put("service", "Session");
+            data.put("params", Client.obj().p("username", user).p("password", pass));
 
             final JsonFactory jsonFactory = new JsonFactory();
             final JsonGenerator jg = jsonFactory.createJsonGenerator(uc.getOutputStream(), JsonEncoding.UTF8);
@@ -268,8 +268,9 @@ public class Connection {
         } catch (IOException e) {
             int responseCode = -1;
             try {
-                responseCode = ((HttpURLConnection)uc).getResponseCode();
-            } catch (IOException e1) { } // do nothing, getResponse code failed so treat as default i/o exception.
+                responseCode = ((HttpURLConnection) uc).getResponseCode();
+            } catch (IOException e1) {
+            } // do nothing, getResponse code failed so treat as default i/o exception.
             if (uc != null && responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
                 //manager.onError(new HttpException(Integer.toString(HttpURLConnection.HTTP_UNAUTHORIZED)));
             } else {
@@ -283,12 +284,13 @@ public class Connection {
 
     /**
      * Executes a query.
+     *
      * @param command    Name of the command to execute
      * @param parameters Parameters
      * @param manager    Reference back to business layer
      * @return Parsed JSON object, empty object on error.
      */
-    public JsonNode query(String command,String service, JsonNode parameters, INotifiableManager manager) {
+    public JsonNode query(String command, String service, JsonNode parameters, INotifiableManager manager) {
         URLConnection uc = null;
         try {
             final ObjectMapper mapper = Client.MAPPER;
@@ -300,11 +302,10 @@ public class Connection {
             final URL url = new URL(mUrlSuffix + OMV_JSONRPC_BOOTSTRAP);
             uc = url.openConnection();
 
-            if(cm != null) cm.setCookies(uc);
+            if (cm != null) cm.setCookies(uc);
 
             uc.setConnectTimeout(SOCKET_CONNECTION_TIMEOUT);
             uc.setReadTimeout(mSocketReadTimeout);
-
 
 
             if (authEncoded != null) {
@@ -315,11 +316,10 @@ public class Connection {
 
             final ObjectNode data = Client.obj()
                     .p("method", command);
-            if(service != null){
-                data.put("service",service);
+            if (service != null) {
+                data.put("service", service);
             }
             data.put("params", parameters);
-
 
 
             final JsonFactory jsonFactory = new JsonFactory();
@@ -340,8 +340,9 @@ public class Connection {
         } catch (IOException e) {
             int responseCode = -1;
             try {
-                responseCode = ((HttpURLConnection)uc).getResponseCode();
-            } catch (IOException e1) { } // do nothing, getResponse code failed so treat as default i/o exception.
+                responseCode = ((HttpURLConnection) uc).getResponseCode();
+            } catch (IOException e1) {
+            } // do nothing, getResponse code failed so treat as default i/o exception.
             if (uc != null && responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
                 manager.onError(new HttpException(Integer.toString(HttpURLConnection.HTTP_UNAUTHORIZED)));
             } else {
@@ -355,22 +356,23 @@ public class Connection {
 
     /**
      * Executes a JSON-RPC command and returns the result as JSON object.
-     * @param manager     Upper layer reference for error posting
-     * @param method      Name of the method to run
-     * @param parameters  Parameters of the method
+     *
+     * @param manager    Upper layer reference for error posting
+     * @param method     Name of the method to run
+     * @param parameters Parameters of the method
      * @return Result
      */
-    public JsonNode getJson(INotifiableManager manager, String method,String service, JsonNode parameters) {
+    public JsonNode getJson(INotifiableManager manager, String method, String service, JsonNode parameters) {
         try {
-            final JsonNode response = query(method,service, parameters, manager);
+            final JsonNode response = query(method, service, parameters, manager);
             final JsonNode result = response.get(RESULT_FIELD);
 
             if (result.isNull()) {
                 if (response.get(ERROR_FIELD) == null) {
                     throw new Exception("Weird JSON response, could not parse error.");
-                }else if(!response.get(ERROR_FIELD).get("message").textValue().equals("Invalid params.")){
+                } else if (!response.get(ERROR_FIELD).get("message").textValue().equals("Invalid params.")) {
                     throw new Exception(response.get(ERROR_FIELD).get("message").textValue());
-                }else{
+                } else {
                     Log.d(TAG, "Request returned Invalid Params.");
                 }
             } else {
@@ -384,7 +386,7 @@ public class Connection {
 
     public JsonNode getJson(INotifiableManager manager, String method, JsonNode parameters, String resultField) {
         try {
-            final JsonNode response = getJson(manager, method,null, parameters);
+            final JsonNode response = getJson(manager, method, null, parameters);
             final JsonNode result = response.get(resultField);
             if (result == null) {
                 throw new Exception("Could not find field \"" + resultField + "\" as return value.");
@@ -400,16 +402,18 @@ public class Connection {
     /**
      * Executes a JSON-RPC command without parameters and returns the result as
      * JSON object.
-     * @param manager     Upper layer reference for error posting
-     * @param method      Name of the method to run
+     *
+     * @param manager Upper layer reference for error posting
+     * @param method  Name of the method to run
      * @return Result
      */
     public JsonNode getJson(INotifiableManager manager, String method) {
-        return query(method, null,null, manager).get(RESULT_FIELD);
+        return query(method, null, null, manager).get(RESULT_FIELD);
     }
 
     /**
      * Executes an JSON-RPC method and returns the result from a field as string.
+     *
      * @param manager     Upper layer reference for error posting
      * @param method      Name of the method to run
      * @param parameters  Parameters of the method, separated by ";"
@@ -417,13 +421,12 @@ public class Connection {
      * @return Result
      */
     public String getString(INotifiableManager manager, String method, ObjectNode parameters, String returnField) {
-        final JsonNode result = (JsonNode)query(method,null, parameters, manager).get(RESULT_FIELD);
-        if(returnField == null)
+        final JsonNode result = (JsonNode) query(method, null, parameters, manager).get(RESULT_FIELD);
+        if (returnField == null)
             return result == null ? "" : result.textValue();
         else
             return result == null ? "" : result.get(returnField).textValue();
     }
-
 
     public String getString(INotifiableManager manager, String method, ObjectNode parameters) {
         return getString(manager, method, parameters, null);
@@ -431,6 +434,7 @@ public class Connection {
 
     /**
      * Executes an JSON-RPC method and returns the result from a field as integer.
+     *
      * @param manager     Upper layer reference for error posting
      * @param method      Name of the method to run
      * @param parameters  Parameters of the method, separated by ";"
@@ -448,6 +452,7 @@ public class Connection {
     /**
      * Executes an JSON-RPC method without parameter and returns the result
      * from a field as integer.
+     *
      * @param manager     Upper layer reference for error posting
      * @param method      Name of the method to run
      * @param returnField Name of the field to return
@@ -459,6 +464,7 @@ public class Connection {
 
     /**
      * Executes an JSON-RPC method and returns the result from a field as boolean.
+     *
      * @param manager     Upper layer reference for error posting
      * @param method      Name of the method to run
      * @param parameters  Parameters of the method, separated by ";"
@@ -472,6 +478,7 @@ public class Connection {
     /**
      * Executes an JSON-RPC method without parameters and returns the result
      * from a field as boolean.
+     *
      * @param manager     Upper layer reference for error posting
      * @param method      Name of the method to run
      * @param returnField Name of the field to return
@@ -483,6 +490,7 @@ public class Connection {
 
     /**
      * HTTP Authenticator.
+     *
      * @author Team XBMC
      */
     public class HttpAuthenticator extends Authenticator {
@@ -515,7 +523,4 @@ public class Connection {
             mRetryCount = 0;
         }
     }
-
-    public static final String RESULT_FIELD = "response";
-    public static final String ERROR_FIELD = "error";
 }

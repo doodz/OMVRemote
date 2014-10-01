@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/item_upgrade"
         android:icon="@android:drawable/ic_menu_upload"
         android:showAsAction="ifRoom|withText"
         android:title="Upgrade"
-        android:titleCondensed="Upgrade">
-    </item>
+        android:titleCondensed="Upgrade"></item>
     <item
         android:id="@+id/item_select_all"
         android:title="Select All"
-        android:titleCondensed="Select All">
-</item>
+        android:titleCondensed="Select All"></item>
 </menu>

@@ -6,13 +6,15 @@ package fr.doodz.openmv.api.object.business;
 public class DataResponse<T> implements Runnable, Cloneable {
     public T value;
     public int cacheType;
-    public void run () {
+
+    public void run() {
         // do nothing if not overloaded
     }
 
     /**
      * Executed before downloading large files. Overload and return false to
      * skip downloading, for instance when a list with covers is scrolling.
+     *
      * @return
      */
     public boolean postCache() {

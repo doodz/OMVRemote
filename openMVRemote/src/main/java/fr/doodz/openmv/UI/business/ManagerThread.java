@@ -10,10 +10,10 @@ import fr.doodz.openmv.UI.business.presentation.INotifiableController;
  */
 public class ManagerThread extends Thread {
 
+    private static ManagerThread sManagerThread;
     private final InfoManager mInfoManager;
     private final DiagnosticManager mDiagnosticManager;
     private final SystemManager mSystemManager;
-    private static ManagerThread sManagerThread;
     private Handler mHandler;
 
     private ManagerThread() {
@@ -46,7 +46,7 @@ public class ManagerThread extends Thread {
         return im;
     }
 
-    public static DiagnosticManager  diagnostic(INotifiableController controller) {
+    public static DiagnosticManager diagnostic(INotifiableController controller) {
         final DiagnosticManager dm = get().mDiagnosticManager;
         dm.setController(controller);
         return dm;
@@ -57,6 +57,7 @@ public class ManagerThread extends Thread {
         dm.setController(controller);
         return dm;
     }
+
     public void run() {
         Looper.prepare();
         mHandler = new Handler();

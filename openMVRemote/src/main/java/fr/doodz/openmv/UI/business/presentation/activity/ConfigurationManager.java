@@ -90,7 +90,7 @@ public class ConfigurationManager implements SharedPreferences.OnSharedPreferenc
     public void onActivityResume(Activity activity) {
         switch (mKeyguardState) {
             case INT_KEYGUARD_STATUS_REMOTE_ONLY:
-                if(activity.getClass().equals(RemoteActivity.class))
+                if (activity.getClass().equals(RemoteActivity.class))
                     disableKeyguard(activity);
                 else
                     enableKeyguard();
@@ -108,7 +108,7 @@ public class ConfigurationManager implements SharedPreferences.OnSharedPreferenc
     }
 
     public void onActivityPause() {
-        if (mKeyguardLock != null){
+        if (mKeyguardLock != null) {
             mKeyguardLock.reenableKeyguard();
             mKeyguardLock = null;
         }

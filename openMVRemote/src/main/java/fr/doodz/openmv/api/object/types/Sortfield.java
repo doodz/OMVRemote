@@ -4,19 +4,17 @@ package fr.doodz.openmv.api.object.types;
  * Created by doods on 31/07/14.
  */
 public enum Sortfield {
-
+    Name("name"),
     Message("message"),
-    Rownum("rownum")
+    Rownum("rownum");
+    private final String text;
 
-    ;
     /**
      * @param text
      */
     private Sortfield(final String text) {
         this.text = text;
     }
-
-    private final String text;
 
     /* (non-Javadoc)
      * @see java.lang.Enum#toString()

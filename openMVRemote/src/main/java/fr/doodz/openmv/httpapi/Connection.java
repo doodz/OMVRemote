@@ -2,6 +2,8 @@ package fr.doodz.openmv.httpapi;
 
 import android.util.Log;
 
+import org.apache.http.HttpException;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,15 +20,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.utils.Base64;
 import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.utils.Base64;
 import fr.doodz.openmv.utils.ClientFactory;
-
-
-import org.apache.http.HttpException;
 /**
  * Created by doods on 18/05/14.
  */
+
 /**
  * Singleton class. Will be instantiated only once
  *
@@ -34,28 +34,27 @@ import org.apache.http.HttpException;
  */
 public class Connection {
 
+    public static final String LINE_SEP = "<li>";
+    public static final String VALUE_SEP = ";";
+    public static final String PAIR_SEP = ":";
     private static final String TAG = "Connection";
-    private static final String XBMC_HTTP_BOOTSTRAP =  "/xbmcCmds/xbmcHttp";
-    private static final String XBMC_MICROHTTPD_THUMB_BOOTSTRAP =  "/thumb/";
-    private static final String XBMC_MICROHTTPD_VFS_BOOTSTRAP =  "/vfs/";
+    private static final String XBMC_HTTP_BOOTSTRAP = "/xbmcCmds/xbmcHttp";
+    private static final String XBMC_MICROHTTPD_THUMB_BOOTSTRAP = "/thumb/";
+    private static final String XBMC_MICROHTTPD_VFS_BOOTSTRAP = "/vfs/";
     private static final int SOCKET_CONNECTION_TIMEOUT = 5000;
-
     /**
      * Singleton class instance
      */
     private static Connection sConnection;
-
     /**
      * Complete URL without any attached command parameters, for instance:
      * <code>http://192.168.0.10:8080</code>
      */
     private String mUrlSuffix;
-
     /**
      * Socket read timeout (connection timeout is default)
      */
     private int mSocketReadTimeout = 0;
-
     /**
      * Holds the base64 encoded user/pass for http authentication
      */
@@ -63,6 +62,7 @@ public class Connection {
 
     /**
      * Use getInstance() for public class instantiation
+     *
      * @param host XBMC host
      * @param port HTTP API port
      */
@@ -74,6 +74,7 @@ public class Connection {
      * Returns the singleton instance of this connection. Note that host and
      * port settings are only looked at the first time. Use {@link setHost()}
      * if you want to update these parameters.
+     *
      * @param host XBMC host
      * @param port HTTP API port
      * @return Connection instance
@@ -89,7 +90,78 @@ public class Connection {
     }
 
     /**
+     * Removes the trailing "</field>" string from the value
+     *
+     * @param value
+     * @return Trimmed value
+     */
+    public static String trim(String value) {
+        return new String(value.replace("</record>", "").replace("<record>", "").replace("</field>", "").toCharArray());
+    }
+
+    /**
+     * Removes the trailing "</field>" string from the value and tries to
+     * parse an integer from it. On error, returns -1.
+     *
+     * @param value
+     * @return Parsed integer from field value
+     */
+    public static int trimInt(String value) {
+        String trimmed = trim(value);
+        if (trimmed.length() > 0) {
+            try {
+                return Integer.parseInt(trimmed.replace(",", ""));
+            } catch (NumberFormatException e) {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * Removes the trailing "</field>" string from the value and tries to
+     * parse a double from it. On error, returns -1.0.
+     *
+     * @param value
+     * @return Parsed double from field value
+     */
+    public static double trimDouble(String value) {
+        String trimmed = trim(value);
+        if (trimmed.length() > 0) {
+            try {
+                return Double.parseDouble(trimmed);
+            } catch (NumberFormatException e) {
+                return -1.0;
+            }
+        } else {
+            return -1.0;
+        }
+    }
+
+    /**
+     * Removes the trailing "</field>" string from the value and tries to
+     * parse a boolean from it.
+     *
+     * @param value
+     * @return Parsed boolean from field value
+     */
+    public static boolean trimBoolean(String value) {
+        String trimmed = trim(value);
+        if (trimmed.length() > 0) {
+            if (trimmed.startsWith("0") || trimmed.toLowerCase().startsWith("false")) {
+                return false;
+            }
+            if (trimmed.startsWith("1") || trimmed.toLowerCase().startsWith("true")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Updates host info of the connection instance
+     *
      * @param host
      */
     public void setHost(Host host) {
@@ -103,6 +175,7 @@ public class Connection {
 
     /**
      * Updates host and port parameters of the connection instance.
+     *
      * @param host Host or IP address of the host
      * @param port Port the HTTP API is listening to
      */
@@ -121,6 +194,7 @@ public class Connection {
 
     /**
      * Sets authentication info
+     *
      * @param user HTTP API username
      * @param pass HTTP API password
      */
@@ -135,6 +209,7 @@ public class Connection {
 
     /**
      * Sets socket read timeout (connection timeout has constant value)
+     *
      * @param timeout Read timeout in milliseconds.
      */
     public void setTimeout(int timeout) {
@@ -145,6 +220,7 @@ public class Connection {
 
     /**
      * Returns the full URL of an HTTP API request
+     *
      * @param command    Name of the command to execute
      * @param parameters Parameters, separated by ";".
      * @return Absolute URL to HTTP API
@@ -163,6 +239,7 @@ public class Connection {
 
     /**
      * Returns an input stream pointing to a HTTP API command.
+     *
      * @param command    Name of the command to execute
      * @param parameters Parameters, separated by ";".
      * @param manager    Reference back to business layer
@@ -190,6 +267,7 @@ public class Connection {
 
     /**
      * Returns an input stream pointing to a HTTP API command.
+     *
      * @param command    Name of the command to execute
      * @param parameters Parameters, separated by ";".
      * @param manager    Reference back to business layer
@@ -224,6 +302,7 @@ public class Connection {
 
     /**
      * Executes a query.
+     *
      * @param command    Name of the command to execute
      * @param parameters Parameters, separated by ";".
      * @param manager    Reference back to business layer
@@ -247,7 +326,7 @@ public class Connection {
             final StringBuilder response = new StringBuilder();
             String line;
 
-            while((line = in.readLine()) != null) {
+            while ((line = in.readLine()) != null) {
                 response.append(line);
             }
             in.close();
@@ -258,9 +337,10 @@ public class Connection {
             int responseCode = -1;
             try {
                 if (uc != null) {
-                    responseCode = ((HttpURLConnection)uc).getResponseCode();
+                    responseCode = ((HttpURLConnection) uc).getResponseCode();
                 }
-            } catch (IOException e1) { } // do nothing, getResponse code failed so treat as default i/o exception.
+            } catch (IOException e1) {
+            } // do nothing, getResponse code failed so treat as default i/o exception.
             if (uc != null && responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
                 manager.onError(new HttpException(Integer.toString(HttpURLConnection.HTTP_UNAUTHORIZED)));
             } else {
@@ -274,8 +354,9 @@ public class Connection {
 
     /**
      * Executes an HTTP API method and returns the result as string.
-     * @param method      Name of the method to run
-     * @param parameters  Parameters of the method, separated by ";"
+     *
+     * @param method     Name of the method to run
+     * @param parameters Parameters of the method, separated by ";"
      * @return Result
      */
     public String getString(INotifiableManager manager, String method, String parameters) {
@@ -284,7 +365,8 @@ public class Connection {
 
     /**
      * Executes an HTTP API method and returns the result as string.
-     * @param method      Name of the method to run
+     *
+     * @param method Name of the method to run
      * @return Result
      */
     public String getString(INotifiableManager manager, String method) {
@@ -293,8 +375,9 @@ public class Connection {
 
     /**
      * Executes an HTTP API method and returns the result as integer.
-     * @param method      Name of the method to run
-     * @param parameters  Parameters of the method, separated by ";"
+     *
+     * @param method     Name of the method to run
+     * @param parameters Parameters of the method, separated by ";"
      * @return Result
      */
     public int getInt(INotifiableManager manager, String method, String parameters) {
@@ -308,7 +391,8 @@ public class Connection {
     /**
      * Executes an HTTP API method without parameter and returns the result as
      * integer.
-     * @param method      Name of the method to run
+     *
+     * @param method Name of the method to run
      * @return Result
      */
     public int getInt(INotifiableManager manager, String method) {
@@ -318,8 +402,9 @@ public class Connection {
     /**
      * Executes an HTTP API method and makes sure the result is OK (or something
      * like that)
-     * @param method      Name of the method to run
-     * @param parameters  Parameters of the method, separated by ";"
+     *
+     * @param method     Name of the method to run
+     * @param parameters Parameters of the method, separated by ";"
      * @throws WrongDataFormatException If not "OK"
      */
     public boolean assertBoolean(INotifiableManager manager, String method, String parameters) throws WrongDataFormatException {
@@ -336,7 +421,8 @@ public class Connection {
     /**
      * Executes an HTTP API method and makes sure the result is OK (or something
      * like that)
-     * @param method      Name of the method to run
+     *
+     * @param method Name of the method to run
      * @throws WrongDataFormatException If not "OK"
      */
     public boolean assertBoolean(INotifiableManager manager, String method) throws WrongDataFormatException {
@@ -345,8 +431,9 @@ public class Connection {
 
     /**
      * Executes an HTTP API method and returns the result as boolean.
-     * @param method      Name of the method to run
-     * @param parameters  Parameters of the method, separated by ";"
+     *
+     * @param method     Name of the method to run
+     * @param parameters Parameters of the method, separated by ";"
      * @return Result
      */
     public boolean getBoolean(INotifiableManager manager, String method, String parameters) {
@@ -359,8 +446,9 @@ public class Connection {
 
     /**
      * Executes an HTTP API method and returns the result as boolean.
-     * @param method      Name of the method to run
-     * @param parameters  Parameters of the method, separated by ";"
+     *
+     * @param method     Name of the method to run
+     * @param parameters Parameters of the method, separated by ";"
      * @return Result
      */
     public boolean getBoolean(INotifiableManager manager, String method) {
@@ -369,8 +457,9 @@ public class Connection {
 
     /**
      * Executes an HTTP API method and returns the result in a list of strings.
-     * @param method      Name of the method to run
-     * @param parameters  Parameters of the method, separated by ";"
+     *
+     * @param method     Name of the method to run
+     * @param parameters Parameters of the method, separated by ";"
      */
     public ArrayList<String> getArray(INotifiableManager manager, String method, String parameters) {
         final String[] rows = query(method, parameters, manager).split(LINE_SEP);
@@ -386,8 +475,9 @@ public class Connection {
     /**
      * Executes an HTTP API method and returns the result as a list of
      * key => value pairs
-     * @param method      Name of the method to run
-     * @param parameters  Parameters of the method, separated by ";"
+     *
+     * @param method     Name of the method to run
+     * @param parameters Parameters of the method, separated by ";"
      * @return
      */
     public HashMap<String, String> getPairs(INotifiableManager manager, String method, String parameters) {
@@ -407,7 +497,8 @@ public class Connection {
     /**
      * Executes an HTTP API method without parameter and returns the result as
      * a list of key => value pairs
-     * @param method      Name of the method to run
+     *
+     * @param method Name of the method to run
      * @return
      */
     public HashMap<String, String> getPairs(INotifiableManager manager, String method) {
@@ -455,74 +546,4 @@ public class Connection {
             return null;
         }
     }
-
-    /**
-     * Removes the trailing "</field>" string from the value
-     * @param value
-     * @return Trimmed value
-     */
-    public static String trim(String value) {
-        return new String(value.replace("</record>", "").replace("<record>", "").replace("</field>", "").toCharArray());
-    }
-
-    /**
-     * Removes the trailing "</field>" string from the value and tries to
-     * parse an integer from it. On error, returns -1.
-     * @param value
-     * @return Parsed integer from field value
-     */
-    public static int trimInt(String value) {
-        String trimmed = trim(value);
-        if (trimmed.length() > 0) {
-            try {
-                return Integer.parseInt(trimmed.replace(",", ""));
-            } catch (NumberFormatException e) {
-                return -1;
-            }
-        } else {
-            return -1;
-        }
-    }
-
-    /**
-     * Removes the trailing "</field>" string from the value and tries to
-     * parse a double from it. On error, returns -1.0.
-     * @param value
-     * @return Parsed double from field value
-     */
-    public static double trimDouble(String value) {
-        String trimmed = trim(value);
-        if (trimmed.length() > 0) {
-            try {
-                return Double.parseDouble(trimmed);
-            } catch (NumberFormatException e) {
-                return -1.0;
-            }
-        } else {
-            return -1.0;
-        }
-    }
-
-    /**
-     * Removes the trailing "</field>" string from the value and tries to
-     * parse a boolean from it.
-     * @param value
-     * @return Parsed boolean from field value
-     */
-    public static boolean trimBoolean(String value) {
-        String trimmed = trim(value);
-        if (trimmed.length() > 0) {
-            if (trimmed.startsWith("0") || trimmed.toLowerCase().startsWith("false")) {
-                return false;
-            }
-            if (trimmed.startsWith("1") || trimmed.toLowerCase().startsWith("true")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static final String LINE_SEP = "<li>";
-    public static final String VALUE_SEP = ";";
-    public static final String PAIR_SEP = ":";
 }

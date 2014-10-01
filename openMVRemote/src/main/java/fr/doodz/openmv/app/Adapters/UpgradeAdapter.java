@@ -7,13 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RadioButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fr.doodz.openmv.api.object.Service;
+import fr.doodz.openmv.api.object.IInstallObject;
 import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.app.R;
 
@@ -21,11 +19,12 @@ import fr.doodz.openmv.app.R;
  * Created by doods on 09/08/14.
  */
 public class UpgradeAdapter extends BaseAdapter {
-    private ArrayList<Upgraded> listData;
+    private ArrayList<? extends IInstallObject> listData;
 
     private LayoutInflater layoutInflater;
+    private SparseBooleanArray mSelectedItemsIds;
 
-    public UpgradeAdapter(Context context, ArrayList<Upgraded> listData) {
+    public UpgradeAdapter(Context context, ArrayList<? extends IInstallObject> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
         mSelectedItemsIds = new SparseBooleanArray();
@@ -61,27 +60,18 @@ public class UpgradeAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Upgraded upgraded = listData.get(position);
-        holder.name.setText(upgraded.Name);
-        holder.description.setText(upgraded.Description);
-        holder.maintainer.setText(upgraded.Maintainer);
-        holder.repository.setText(upgraded.Repository);
-        holder.size.setText(upgraded.Size);
+        IInstallObject upgraded = listData.get(position);
+        holder.name.setText(upgraded.getName());
+        holder.description.setText(upgraded.getDescription());
+        holder.maintainer.setText(upgraded.getMaintainer());
+        holder.repository.setText(upgraded.getRepository());
+        holder.size.setText(upgraded.getSize());
         convertView.setBackgroundColor(mSelectedItemsIds.get(position) ?
                 convertView.getContext().getResources().getColor(R.color.color_omv)
                 : Color.TRANSPARENT);
         return convertView;
     }
 
-    static class ViewHolder {
-        TextView name;
-        TextView description;
-        TextView maintainer;
-        TextView repository;
-        TextView size;
-    }
-
-    private SparseBooleanArray mSelectedItemsIds;
     public int getSelectedCount() {
         return mSelectedItemsIds.size();
     }
@@ -89,6 +79,7 @@ public class UpgradeAdapter extends BaseAdapter {
     public void toggleSelection(int position) {
         selectView(position, !mSelectedItemsIds.get(position));
     }
+
     public void selectView(int position, boolean value) {
         if (value)
             mSelectedItemsIds.put(position, value);
@@ -102,9 +93,9 @@ public class UpgradeAdapter extends BaseAdapter {
         return mSelectedItemsIds;
     }
 
-    public void selectAll(){
+    public void selectAll() {
         mSelectedItemsIds = new SparseBooleanArray();
-        for(int i = 0;i < listData.size();i++ )
+        for (int i = 0; i < listData.size(); i++)
             mSelectedItemsIds.put(i, true);
         notifyDataSetChanged();
     }
@@ -118,6 +109,14 @@ public class UpgradeAdapter extends BaseAdapter {
         // super.remove(object);
         listData.remove(object);
         notifyDataSetChanged();
+    }
+
+    static class ViewHolder {
+        TextView name;
+        TextView description;
+        TextView maintainer;
+        TextView repository;
+        TextView size;
     }
 }
 

@@ -8,7 +8,7 @@ public class UpdatesSettings {
     public boolean Partner;
     public boolean Proposed;
 
-    public UpdatesSettings(boolean partner,boolean proposed){
+    public UpdatesSettings(boolean partner, boolean proposed) {
 
         this.Partner = partner;
         this.Proposed = proposed;

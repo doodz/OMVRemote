@@ -15,11 +15,12 @@ public class InfoManager extends AbstractManager implements IInfoManager, INotif
 
     /**
      * Returns any system info variable, see {@link fr.doodz.openmv.api.object.infos}
+     *
      * @param response Response object
-     * @param field Field to return
+     * @param field    Field to return
      */
     public void getSystemInfo(final DataResponse<String> response, final int field, final Context context) {
-        mHandler.post(new Command<String>(response, this){
+        mHandler.post(new Command<String>(response, this) {
             @Override
             public void doRun() throws Exception {
                 response.value = info(context).getSystemInfo(InfoManager.this, field);
@@ -28,7 +29,7 @@ public class InfoManager extends AbstractManager implements IInfoManager, INotif
         });
     }
 
-    public InfoSystem getSystemInfo(final Context context){
+    public InfoSystem getSystemInfo(final Context context) {
 
         try {
             return info(context).getFullSystemInfo(InfoManager.this);

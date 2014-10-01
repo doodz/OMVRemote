@@ -9,6 +9,7 @@ import fr.doodz.openmv.api.object.business.INotifiableManager;
 public interface IServicesClient extends IClient {
 
     ServiceSSH getSSH(INotifiableManager manager);
-    void setSSH(INotifiableManager manager,ServiceSSH service);
+
+    void setSSH(INotifiableManager manager, ServiceSSH service);
 
 }

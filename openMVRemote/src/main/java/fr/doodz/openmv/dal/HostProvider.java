@@ -1,8 +1,6 @@
 package fr.doodz.openmv.dal;
 
 
-import java.util.HashMap;
-
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -18,91 +16,22 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
 import android.util.Log;
+
+import java.util.HashMap;
+
 /**
  * Created by doods on 17/05/14.
  */
 public class HostProvider extends ContentProvider {
-    private static final String TAG = "HostProvider";
-
     public static final String AUTHORITY = "fr.doodz.openmv.dal.provider";
-
+    private static final String TAG = "HostProvider";
     private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "omv_hosts.db";
     private static final String HOSTS_TABLE_NAME = "hosts";
-
-    private static HashMap<String, String> sHostsProjectionMap;
-
     private static final int HOSTS = 1;
     private static final int HOST_ID = 2;
-
     private static final UriMatcher sUriMatcher;
-
-    /**
-     * This class helps open, create, and upgrade the database file.
-     */
-    private static class DatabaseHelper extends SQLiteOpenHelper {
-
-        DatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + HOSTS_TABLE_NAME + " ("
-                    + Hosts._ID + " INTEGER PRIMARY KEY,"
-                    + Hosts.NAME + " TEXT,"
-                    + Hosts.ADDR + " TEXT,"
-                    + Hosts.PORT + " INTEGER,"
-                    + Hosts.USER + " TEXT,"
-                    + Hosts.PASS + " TEXT,"
-                    + Hosts.ESPORT + " INTEGER,"
-                    + Hosts.TIMEOUT + " INTEGER,"
-                    + Hosts.WIFI_ONLY + " INTEGER,"
-                    + Hosts.ACCESS_POINT + " TEXT,"
-                    + Hosts.MAC_ADDR + " TEXT,"
-                    + Hosts.WOL_PORT + " INTEGER,"
-                    + Hosts.WOL_WAIT + " INTEGER"
-                    + ");");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            String altertable;
-            switch (oldVersion) {
-                case 2:
-                    Log.d(TAG, "Upgrading database from version 2 to 3");
-                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.WIFI_ONLY
-                            + " INTEGER DEFAULT 0;";
-                    db.execSQL(altertable);
-                    Log.d(TAG, "executed: " + altertable);
-                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.ACCESS_POINT
-                            + " TEXT;";
-                    db.execSQL(altertable);
-                    Log.d(TAG, "executed: " + altertable);
-                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.MAC_ADDR
-                            + " TEXT;";
-                    db.execSQL(altertable);
-                    Log.d(TAG, "executed: " + altertable);
-                case 3:
-                    Log.d(TAG, "Upgrading database from version 3 to 4");
-                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.WOL_PORT
-                            + " INTEGER;";
-                    db.execSQL(altertable);
-                    Log.d(TAG, "executed: " + altertable);
-                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.WOL_WAIT
-                            + " INTEGER;";
-                    db.execSQL(altertable);
-                    Log.d(TAG, "executed: " + altertable);
-                    break;
-                default:
-                    Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
-                    db.execSQL("DROP TABLE IF EXISTS " + HOSTS_TABLE_NAME);
-                    onCreate(db);
-
-            }
-        }
-    }
-
+    private static HashMap<String, String> sHostsProjectionMap;
     private DatabaseHelper mOpenHelper;
 
     @Override
@@ -294,130 +223,182 @@ public class HostProvider extends ContentProvider {
     }
 
     /**
+     * This class helps open, create, and upgrade the database file.
+     */
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+
+        DatabaseHelper(Context context) {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE " + HOSTS_TABLE_NAME + " ("
+                    + Hosts._ID + " INTEGER PRIMARY KEY,"
+                    + Hosts.NAME + " TEXT,"
+                    + Hosts.ADDR + " TEXT,"
+                    + Hosts.PORT + " INTEGER,"
+                    + Hosts.USER + " TEXT,"
+                    + Hosts.PASS + " TEXT,"
+                    + Hosts.ESPORT + " INTEGER,"
+                    + Hosts.TIMEOUT + " INTEGER,"
+                    + Hosts.WIFI_ONLY + " INTEGER,"
+                    + Hosts.ACCESS_POINT + " TEXT,"
+                    + Hosts.MAC_ADDR + " TEXT,"
+                    + Hosts.WOL_PORT + " INTEGER,"
+                    + Hosts.WOL_WAIT + " INTEGER"
+                    + ");");
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            String altertable;
+            switch (oldVersion) {
+                case 2:
+                    Log.d(TAG, "Upgrading database from version 2 to 3");
+                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.WIFI_ONLY
+                            + " INTEGER DEFAULT 0;";
+                    db.execSQL(altertable);
+                    Log.d(TAG, "executed: " + altertable);
+                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.ACCESS_POINT
+                            + " TEXT;";
+                    db.execSQL(altertable);
+                    Log.d(TAG, "executed: " + altertable);
+                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.MAC_ADDR
+                            + " TEXT;";
+                    db.execSQL(altertable);
+                    Log.d(TAG, "executed: " + altertable);
+                case 3:
+                    Log.d(TAG, "Upgrading database from version 3 to 4");
+                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.WOL_PORT
+                            + " INTEGER;";
+                    db.execSQL(altertable);
+                    Log.d(TAG, "executed: " + altertable);
+                    altertable = "ALTER TABLE " + HOSTS_TABLE_NAME + " ADD COLUMN " + Hosts.WOL_WAIT
+                            + " INTEGER;";
+                    db.execSQL(altertable);
+                    Log.d(TAG, "executed: " + altertable);
+                    break;
+                default:
+                    Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
+                    db.execSQL("DROP TABLE IF EXISTS " + HOSTS_TABLE_NAME);
+                    onCreate(db);
+
+            }
+        }
+    }
+
+    /**
      * Notes table
      */
     public static final class Hosts implements BaseColumns {
 
-        // This class cannot be instantiated
-        private Hosts() {
-        }
-
         /**
          * The name of the host (as in label/title)
-         * <P>
+         * <p/>
          * Type: TEXT
          * </P>
          */
         public static final String NAME = "name";
-
         /**
          * The address or IP of the host
-         * <P>
+         * <p/>
          * Type: TEXT
          * </P>
          */
         public static final String ADDR = "address";
-
         /**
          * The note itself
-         * <P>
+         * <p/>
          * Type: INTEGER
          * </P>
          */
         public static final String PORT = "http_port";
-
         /**
          * The user name if HTTP Auth is used
-         * <P>
+         * <p/>
          * Type: TEXT
          * </P>
          */
         public static final String USER = "user";
-
         /**
          * The password if HTTP Auth is used
-         * <P>
+         * <p/>
          * Type: TEXT
          * </P>
          */
         public static final String PASS = "pass";
-
         /**
          * The event server port
-         * <P>
+         * <p/>
          * Type: INTEGER
          * </P>
          */
         public static final String ESPORT = "esport";
-
         /**
          * The socket read timeout in milliseconds
-         * <P>
+         * <p/>
          * Type: INTEGER
          * </P>
          */
         public static final String TIMEOUT = "timeout";
-
         /**
          * If this connection is for wireless lan only
-         * <P>
+         * <p/>
          * Type: BOOLEAN
          * </P>
          */
         public static final String WIFI_ONLY = "wifi_only";
-
         /**
          * If WIFI_ONLY is set this may or may not include an access point name
-         * <P>
+         * <p/>
          * Type: TEXT
          * </P>
          */
         public static final String ACCESS_POINT = "access_point";
-
         /**
          * The MAC address of this host
-         * <P>
+         * <p/>
          * Type: TEXT
          * </P>
          */
         public static final String MAC_ADDR = "mac_addr";
-
         /**
          * The time in seconds to wait after sending WOL paket
-         * <P>
+         * <p/>
          * Type: INTEGER
          * </P>
          */
         public static final String WOL_WAIT = "wol_wait";
-
         /**
          * The port the WOL packet should be send to
-         * <P>
+         * <p/>
          * Type: INTEGER
          * </P>
          */
         public static final String WOL_PORT = "wol_port";
-
-        /**
-         * The content:// style URL for this table
-         */
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + HOSTS_TABLE_NAME);
-
         /**
          * The MIME type of {@link #CONTENT_URI} providing a directory of notes.
          */
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.OMV.host";
-
         /**
          * The MIME type of a {@link #CONTENT_URI} sub-directory of a single
          * note.
          */
         public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.OMV.host";
-
         /**
          * The default sort order for this table
          */
-        public static final String DEFAULT_SORT_ORDER = NAME + " ASC";
+        public static final String DEFAULT_SORT_ORDER = NAME + " ASC";        /**
+         * The content:// style URL for this table
+         */
+        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + HOSTS_TABLE_NAME);
+        // This class cannot be instantiated
+        private Hosts() {
+        }
+
+
+
 
     }
 }

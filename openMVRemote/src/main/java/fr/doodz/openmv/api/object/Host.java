@@ -1,22 +1,39 @@
 package fr.doodz.openmv.api.object;
 
-import java.io.Serializable;
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
+import java.io.Serializable;
+
 /**
  * Created by doods on 17/05/14.
  */
 public class Host implements Serializable {
 
-    private static final String TAG = "Host";
-
     public static final int DEFAULT_HTTP_PORT = 80;
+    /**
+     * HTTP API Port
+     */
+    public int port = DEFAULT_HTTP_PORT;
     public static final int DEFAULT_TIMEOUT = 5000;
+    /**
+     * TCP socket read timeout in milliseconds
+     */
+    public int timeout = DEFAULT_TIMEOUT;
     public static final int DEFAULT_WOL_WAIT = 40;
+    /**
+     * The time to wait after sending WOL
+     */
+    public int wol_wait = DEFAULT_WOL_WAIT;
     public static final int DEFAULT_WOL_PORT = 9;
-
+    /**
+     * The port to send the WOL to
+     */
+    public int wol_port = DEFAULT_WOL_PORT;
+    private static final String TAG = "Host";
+    private static final long serialVersionUID = 7886482294339161092L;
     /**
      * Database ID
      */
@@ -30,10 +47,6 @@ public class Host implements Serializable {
      */
     public String addr;
     /**
-     * HTTP API Port
-     */
-    public int port = DEFAULT_HTTP_PORT;
-    /**
      * User name of in case of HTTP authentication
      */
     public String user;
@@ -41,10 +54,6 @@ public class Host implements Serializable {
      * Password of in case of HTTP authentication
      */
     public String pass;
-    /**
-     * TCP socket read timeout in milliseconds
-     */
-    public int timeout = DEFAULT_TIMEOUT;
     /**
      * If this host is only available through wifi
      */
@@ -57,14 +66,6 @@ public class Host implements Serializable {
      * The MAC address of this host
      */
     public String mac_addr;
-    /**
-     * The time to wait after sending WOL
-     */
-    public int wol_wait = DEFAULT_WOL_WAIT;
-    /**
-     * The port to send the WOL to
-     */
-    public int wol_port = DEFAULT_WOL_PORT;
 
     /**
      * Something readable
@@ -97,6 +98,4 @@ public class Host implements Serializable {
             return "";
         }
     }
-
-    private static final long serialVersionUID = 7886482294339161092L;
 }

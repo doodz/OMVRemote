@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"></LinearLayout>
 
     <TextView
+        android:id="@+id/Apt_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Name"
-        android:id="@+id/Apt_Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/Apt_Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="description"
-        android:id="@+id/Apt_Description" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
     <TableLayout
@@ -33,70 +33,73 @@
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/Size"
-                />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=" : "
-                />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
             <TextView
+                android:id="@+id/Apt_Size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Size"
-                android:id="@+id/Apt_Size" />
-            </TableRow>
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/Maintainer"
-                />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=" : "
-                />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
             <TextView
+                android:id="@+id/Apt_Maintainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="maintainer"
-                android:id="@+id/Apt_Maintainer" />
-            </TableRow>
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/Repository"
-                />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=" : "
-                />
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
             <TextView
+                android:id="@+id/Apt_Repository"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Repository"
-                android:id="@+id/Apt_Repository" />
-            </TableRow>
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
     </TableLayout>
 </LinearLayout>

@@ -13,10 +13,13 @@ import fr.doodz.openmv.api.object.types.Sortfield;
 /**
  * Created by doods on 27/07/14.
  */
-public interface IDiagnosticClient  extends IClient {
+public interface IDiagnosticClient extends IClient {
 
     ArrayList<Service> getServicesStatus(INotifiableManager manager);
-    ArrayList<SysLog> getLogsList(INotifiableManager manager,LogType logType,Sortdir sortdir,Sortfield sortfield,int start);
+
+    ArrayList<SysLog> getLogsList(INotifiableManager manager, LogType logType, Sortdir sortdir, Sortfield sortfield, int start);
+
     DoagnosticSetings getSettings(INotifiableManager manager);
-    void setSettings(INotifiableManager manager,DoagnosticSetings setings);
+
+    void setSettings(INotifiableManager manager, DoagnosticSetings setings);
 }

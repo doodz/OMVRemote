@@ -14,16 +14,16 @@ public class WebGuiSetting {
     public int Sslport;
     public int Timeout;
 
-    public WebGuiSetting(boolean dnssdenable, String dnssdname,boolean enablessl,boolean forcesslonly,int port,String sslcertificateref,int sslport,int timeout){
+    public WebGuiSetting(boolean dnssdenable, String dnssdname, boolean enablessl, boolean forcesslonly, int port, String sslcertificateref, int sslport, int timeout) {
 
-        this.Dnssdenable =dnssdenable;
+        this.Dnssdenable = dnssdenable;
         this.Dnssdname = dnssdname;
-        this.Enablessl =enablessl;
+        this.Enablessl = enablessl;
         this.Forcesslonly = forcesslonly;
         this.Port = port;
-        this.Sslcertificateref =sslcertificateref;
-        this.Sslport =sslport;
-        this.Timeout =timeout;
+        this.Sslcertificateref = sslcertificateref;
+        this.Sslport = sslport;
+        this.Timeout = timeout;
     }
 
 }

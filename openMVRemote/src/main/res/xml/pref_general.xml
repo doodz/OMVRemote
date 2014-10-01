@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:key="XBMCRemotePrefsFile">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="XBMCRemotePrefsFile">
     <PreferenceCategory android:title="General">
         <PreferenceScreen
             android:key="setting_instances"
-            android:title="Manage OMV Hosts"
-            android:summary="Add, edit and remove the OMV instances in your LAN.">
+            android:summary="Add, edit and remove the OMV instances in your LAN."
+            android:title="Manage OMV Hosts">
             <intent
                 android:action="android.intent.action.MAIN"
-                android:targetPackage="fr.doodz.openmv.app"
+                android:data=""
                 android:targetClass="fr.doodz.openmv.app.Activity.HostSettingsActivity"
-                android:data="" />
+                android:targetPackage="fr.doodz.openmv.app" />
         </PreferenceScreen>
         <!-- CheckBoxPreference
             android:disableDependentsState="true"
@@ -18,99 +19,109 @@
             android:summary="Use Zeroconf to discover the IP and Ports of XBMC."
             android:enabled="false" /-->
         <CheckBoxPreference
+            android:defaultValue="true"
             android:key="setting_vibrate_on_touch"
-            android:title="Vibrate on Touch"
-            android:summary="Makes the remote control vibrate on touch." android:defaultValue="true"/>
+            android:summary="Makes the remote control vibrate on touch."
+            android:title="Vibrate on Touch" />
     </PreferenceCategory>
-    <PreferenceCategory  android:title="Startup">
+    <PreferenceCategory android:title="Startup">
         <CheckBoxPreference
             android:key="setting_startup_onboot"
-            android:title="Start on boot"
-            android:summary="Start xbmcremote on boot"/>
+            android:summary="Start xbmcremote on boot"
+            android:title="Start on boot" />
     </PreferenceCategory>
 
-    <PreferenceCategory  android:title="On-Screen Notifications">
+    <PreferenceCategory android:title="On-Screen Notifications">
         <CheckBoxPreference
+            android:enabled="true"
             android:key="setting_show_notification"
-            android:title="Statusbar notifications"
             android:summary="Show now playing notifications in the status bar."
-            android:enabled="true" />
+            android:title="Statusbar notifications" />
         <CheckBoxPreference
+            android:defaultValue="false"
             android:key="setting_show_sms"
-            android:title="Show incoming SMS"
-            android:summary="Shows incoming SMS with contact name and picture on your TV."
-            android:selectable="true" android:defaultValue="false"/>
-        <CheckBoxPreference
-            android:key="setting_show_call"
-            android:title="Show incoming calls"
-            android:summary="Pauses playback and shows incoming calls with contact name and picture on your TV."
             android:selectable="true"
-            android:enabled="true" android:defaultValue="false"/>
+            android:summary="Shows incoming SMS with contact name and picture on your TV."
+            android:title="Show incoming SMS" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="setting_show_call"
+            android:selectable="true"
+            android:summary="Pauses playback and shows incoming calls with contact name and picture on your TV."
+            android:title="Show incoming calls" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Home Screen Items">
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
             android:key="setting_show_home_music"
-            android:title="Show Music"
             android:summary="Show the &quot;Listen to Music&quot; item"
-            android:enabled="true" android:defaultValue="true" />
+            android:title="Show Music" />
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
             android:key="setting_show_home_movies"
-            android:title="Show Movies"
             android:summary="Show the &quot;Watch your Movies&quot; item"
-            android:enabled="true" android:defaultValue="true" />
+            android:title="Show Movies" />
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
             android:key="setting_show_home_tv"
-            android:title="Show TV Shows"
             android:summary="Show the &quot;Watch your TV Shows&quot; item"
-            android:enabled="true" android:defaultValue="true" />
+            android:title="Show TV Shows" />
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
             android:key="setting_show_home_pictures"
-            android:title="Show Pictures"
             android:summary="Show the &quot;Browse your Pictures&quot; item"
-            android:enabled="true" android:defaultValue="true" />
+            android:title="Show Pictures" />
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
             android:key="setting_show_home_powerdown"
-            android:title="Show Power Down"
             android:summary="Display the Power Down Button"
-            android:enabled="true" android:defaultValue="false" />
+            android:title="Show Power Down" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Screen Behaviour">
 
     </PreferenceCategory>
     <PreferenceCategory android:title="Miscellaneous options">
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
             android:key="setting_remember_last_tab"
-            android:title="Remember selected tab"
+            android:selectable="true"
             android:summary="Remember the last selected tab when navigate away from the screen."
-            android:selectable="true"
-            android:enabled="true" android:defaultValue="false" />
+            android:title="Remember selected tab" />
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
             android:key="setting_confirm_play_on_xbmc"
-            android:title="Confirm Play on XBMC"
-            android:summary="Show a confirmation screen when playing media URLs on XBMC."
             android:selectable="true"
-            android:enabled="true" android:defaultValue="true" />
+            android:summary="Show a confirmation screen when playing media URLs on XBMC."
+            android:title="Confirm Play on XBMC" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Remote Keypress">
         <CheckBoxPreference
-            android:key="setting_send_repeats"
-            android:title="Explicitly Send Repeats"
-            android:summary="Explicitly send repeating key presses to host."
+            android:defaultValue="false"
             android:enabled="true"
-            android:defaultValue="false" />
+            android:key="setting_send_repeats"
+            android:summary="Explicitly send repeating key presses to host."
+            android:title="Explicitly Send Repeats" />
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="setting_send_repeats"
             android:key="setting_send_single_click"
-            android:title="Send Single Keypress"
             android:summary="Send only a single keypress to host."
-            android:dependency="setting_send_repeats"
-            android:defaultValue="false" />
+            android:title="Send Single Keypress" />
         <EditTextPreference
-            android:key="setting_repeat_rate"
-            android:title="Keypress Repeat Rate"
-            android:summary="In milliseconds, specify often repeats should be sent."
-            android:dialogTitle="Repeat Rate (MS)"
-            android:numeric="integer"
+            android:defaultValue="250"
             android:dependency="setting_send_repeats"
-            android:defaultValue="250" />
+            android:dialogTitle="Repeat Rate (MS)"
+            android:key="setting_repeat_rate"
+            android:numeric="integer"
+            android:summary="In milliseconds, specify often repeats should be sent."
+            android:title="Keypress Repeat Rate" />
     </PreferenceCategory>
 </PreferenceScreen>

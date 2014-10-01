@@ -8,7 +8,7 @@ public class GeneralSettings {
     public String Domainname;
     public String Hostname;
 
-    public GeneralSettings(String domainname,String hostname){
+    public GeneralSettings(String domainname, String hostname) {
 
         this.Domainname = domainname;
         this.Hostname = hostname;

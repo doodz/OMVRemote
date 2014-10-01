@@ -11,10 +11,11 @@ import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 /**
  * Created by doods on 25/07/14.
  */
-public class InfoSystemController  extends AbstractController  implements INotifiableController {
+public class InfoSystemController extends AbstractController implements INotifiableController {
 
     private IInfoManager mInfoManager;
     private Activity mActivity;
+
     public InfoSystemController(Activity activity, Handler handler) {
         super.onCreate(activity, handler);
         mInfoManager = ManagerFactory.getInfoManager(this);
@@ -24,8 +25,7 @@ public class InfoSystemController  extends AbstractController  implements INotif
     }
 
 
-    public InfoSystem getInfoSystem()
-    {
+    public InfoSystem getInfoSystem() {
         return mInfoManager.getSystemInfo(mActivity);
     }
 }

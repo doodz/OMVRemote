@@ -8,6 +8,7 @@ import android.app.DialogFragment;
 public interface INoticeDialogListener {
 
 
-        void onDialogPositiveClick(DialogFragment dialog);
-        void onDialogNegativeClick(DialogFragment dialog);
+    void onDialogPositiveClick(DialogFragment dialog);
+
+    void onDialogNegativeClick(DialogFragment dialog);
 }

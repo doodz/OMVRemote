@@ -1,9 +1,10 @@
 package fr.doodz.openmv.UI.business.presentation.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import fr.doodz.openmv.app.R;
 
 public class RemoteActivity extends ActionBarActivity {

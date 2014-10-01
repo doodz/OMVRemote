@@ -1,15 +1,5 @@
 package fr.doodz.openmv.utils;
 
-import fr.doodz.openmv.dal.HostProvider;
-import fr.doodz.openmv.dal.HostProvider.Hosts;
-import fr.doodz.openmv.api.object.Host;
-
-import java.text.Format;
-import java.util.ArrayList;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,6 +8,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.util.ArrayList;
+
+import fr.doodz.openmv.api.object.Host;
+import fr.doodz.openmv.dal.HostProvider;
+import fr.doodz.openmv.dal.HostProvider.Hosts;
+
 /**
  * Created by doods on 17/05/14.
  */
@@ -25,18 +26,18 @@ import android.util.Log;
 public class HostFactory {
 
     /**
-    * The currently used host
-    */
-    public static Host host = null;
-
-    /**
      * The setting that remembers which host has been used last
      */
     public static final String SETTING_HOST_ID = "setting_host_id";
     public static final String TAG = "HostFactory";
+    /**
+     * The currently used host
+     */
+    public static Host host = null;
 
     /**
      * Returns all hosts
+     *
      * @param activity Reference to activity
      * @return List of all hosts
      */
@@ -72,7 +73,7 @@ public class HostFactory {
                     host.timeout = cur.getInt(timeoutCol);
                     host.access_point = cur.getString(accessPointCol);
                     host.mac_addr = cur.getString(macAddrCol);
-                    host.wifi_only = cur.getInt(wifiOnlyCol)==1;
+                    host.wifi_only = cur.getInt(wifiOnlyCol) == 1;
                     host.wol_port = cur.getInt(wolPortCol);
                     host.wol_wait = cur.getInt(wolWaitCol);
                     hosts.add(host);
@@ -106,8 +107,7 @@ public class HostFactory {
             host.wol_wait = json.getInt("wol_wait");
             host.wol_port = json.getInt("wol_port");
             return host;
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             Log.e(TAG, "Error in parseJson", e);
             return null;
         }
@@ -115,8 +115,9 @@ public class HostFactory {
 
     /**
      * Adds a host to the database.
+     *
      * @param context Reference to context
-     * @param host Host to add
+     * @param host    Host to add
      */
     public static void addHost(Context context, Host host) {
         ContentValues values = new ContentValues();
@@ -126,7 +127,7 @@ public class HostFactory {
         values.put(HostProvider.Hosts.USER, host.user);
         values.put(HostProvider.Hosts.PASS, host.pass);
         values.put(HostProvider.Hosts.TIMEOUT, host.timeout);
-        values.put(HostProvider.Hosts.WIFI_ONLY, host.wifi_only?1:0);
+        values.put(HostProvider.Hosts.WIFI_ONLY, host.wifi_only ? 1 : 0);
         values.put(HostProvider.Hosts.MAC_ADDR, host.mac_addr);
         values.put(HostProvider.Hosts.ACCESS_POINT, host.access_point);
         values.put(HostProvider.Hosts.WOL_PORT, host.wol_port);
@@ -136,8 +137,9 @@ public class HostFactory {
 
     /**
      * Updates a host
+     *
      * @param context Reference to context
-     * @param host Host to update
+     * @param host    Host to update
      */
     public static void updateHost(Context context, Host host) {
         ContentValues values = new ContentValues();
@@ -147,20 +149,21 @@ public class HostFactory {
         values.put(HostProvider.Hosts.USER, host.user);
         values.put(HostProvider.Hosts.PASS, host.pass);
         values.put(HostProvider.Hosts.TIMEOUT, host.timeout);
-        values.put(HostProvider.Hosts.WIFI_ONLY, host.wifi_only?1:0);
+        values.put(HostProvider.Hosts.WIFI_ONLY, host.wifi_only ? 1 : 0);
         values.put(HostProvider.Hosts.MAC_ADDR, host.mac_addr);
         values.put(HostProvider.Hosts.ACCESS_POINT, host.access_point);
         values.put(HostProvider.Hosts.WOL_PORT, host.wol_port);
         values.put(HostProvider.Hosts.WOL_WAIT, host.wol_wait);
         context.getContentResolver().update(HostProvider.Hosts.CONTENT_URI, values,
-                String.format("%s = %s",HostProvider.Hosts._ID,host.id), null);
+                String.format("%s = %s", HostProvider.Hosts._ID, host.id), null);
 
     }
 
     /**
      * Deletes a host.
+     *
      * @param activity Reference to activity
-     * @param host Host to delete
+     * @param host     Host to delete
      * @return
      */
     public static void deleteHost(Context context, Host host) {
@@ -170,6 +173,7 @@ public class HostFactory {
 
     /**
      * Saves the host to the preference file.
+     *
      * @param context
      * @param addr
      */
@@ -189,6 +193,7 @@ public class HostFactory {
      * Reads the preferences and returns the currently set host. If there is no
      * preference set, return the first host. If there is no host set, return
      * null.
+     *
      * @param activity Reference to current activity
      * @return Current host
      */
@@ -204,8 +209,9 @@ public class HostFactory {
 
     /**
      * Returns a host based on its database ID.
+     *
      * @param activity Reference to activity
-     * @param id Host database ID
+     * @param id       Host database ID
      * @return
      */
     private static Host getHost(Context context, int id) {
@@ -221,7 +227,7 @@ public class HostFactory {
                 host.user = cur.getString(cur.getColumnIndex(HostProvider.Hosts.USER));
                 host.pass = cur.getString(cur.getColumnIndex(HostProvider.Hosts.PASS));
                 host.timeout = cur.getInt(cur.getColumnIndex(HostProvider.Hosts.TIMEOUT));
-                host.wifi_only = cur.getInt(cur.getColumnIndex(HostProvider.Hosts.WIFI_ONLY))==1;
+                host.wifi_only = cur.getInt(cur.getColumnIndex(HostProvider.Hosts.WIFI_ONLY)) == 1;
                 host.access_point = cur.getString(cur.getColumnIndex(HostProvider.Hosts.ACCESS_POINT));
                 host.mac_addr = cur.getString(cur.getColumnIndex(HostProvider.Hosts.MAC_ADDR));
                 host.wol_port = cur.getInt(cur.getColumnIndex(HostProvider.Hosts.WOL_PORT));
@@ -238,6 +244,7 @@ public class HostFactory {
      * Returns the first host found. This is useful if hosts are defined but
      * the settings have been erased and need to be reset to a host. If nothing
      * found, return null.
+     *
      * @param activity Reference to activity
      * @return First host found or null if hosts table empty.
      */

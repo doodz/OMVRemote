@@ -50,6 +50,7 @@ public abstract class MediaType {
 
     /**
      * Returns all media types.
+     *
      * @return
      */
     public static int[] getTypes() {

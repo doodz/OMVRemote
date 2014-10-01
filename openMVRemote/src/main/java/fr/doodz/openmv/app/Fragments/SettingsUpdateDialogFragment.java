@@ -16,9 +16,11 @@ import fr.doodz.openmv.app.R;
  *
  *
  */
-public class SettingsUpdateDialogFragment  extends DialogFragment {
+public class SettingsUpdateDialogFragment extends DialogFragment {
 
     ArrayList mSelectedItems;
+    INoticeDialogListener mListener;
+
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mSelectedItems = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -59,7 +61,6 @@ public class SettingsUpdateDialogFragment  extends DialogFragment {
         return builder.create();
     }
 
-    INoticeDialogListener mListener;
     // Override the Fragment.onAttach() method to instantiate the INoticeDialogListener
     @Override
     public void onAttach(Activity activity) {

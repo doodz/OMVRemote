@@ -1,25 +1,21 @@
 package fr.doodz.openmv.app.Activity;
 
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.os.Build;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import fr.doodz.openmv.UI.business.presentation.activity.ConfigurationManager;
-import fr.doodz.openmv.api.object.Service;
 import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.app.controllers.HomeController;
-
 
 
 public class LoginActivity extends ActionBarActivity {
@@ -42,13 +38,13 @@ public class LoginActivity extends ActionBarActivity {
             StrictMode.setThreadPolicy(policy);
         }
         mHomeController = new HomeController(this, new Handler());
-        mHomeController.setupVersionHandler(new Handler(),this.getApplicationContext());
+        mHomeController.setupVersionHandler(new Handler(), this.getApplicationContext());
 
         mConfigurationManager = ConfigurationManager.getInstance(this);
 
-        final TextView upTime = (TextView)findViewById(R.id.Main_UpTime);
-        final ListView services =  (ListView)findViewById(R.id.Main_listView);
-        final Button apt =  (Button)findViewById(R.id.apt_button);
+        final TextView upTime = (TextView) findViewById(R.id.Main_UpTime);
+        final ListView services = (ListView) findViewById(R.id.Main_listView);
+        final Button apt = (Button) findViewById(R.id.Button_apt);
 
         apt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -58,7 +54,7 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
-        final Button srv =  (Button)findViewById(R.id.Services_button);
+        final Button srv = (Button) findViewById(R.id.Button_Services);
 
         srv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -68,6 +64,15 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
+        final Button plugin = (Button) findViewById(R.id.Button_Plugin);
+
+        plugin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent nextActivity;
+                nextActivity = new Intent(v.getContext(), PluginsActivity.class);
+                v.getContext().startActivity(nextActivity);
+            }
+        });
         mHomeController.getServicesStatus(services);
         mHomeController.getUpTime(upTime);
     }

@@ -26,6 +26,7 @@ public class DiagnosticClient extends Client implements IDiagnosticClient {
 
     /**
      * Class constructor needs reference to HTTP client connection
+     *
      * @param connection
      */
     public DiagnosticClient(Connection connection) {
@@ -33,25 +34,24 @@ public class DiagnosticClient extends Client implements IDiagnosticClient {
     }
 
     /**
-    * Updates host info on the connection.
-    * @param host
-    */
+     * Updates host info on the connection.
+     *
+     * @param host
+     */
     public void setHost(Host host) {
         mConnection.setHost(host);
     }
 
 
     public InfoSystem getSystemInfo(INotifiableManager manager, int field) {
-        JsonNode jSonSystemInfo = mConnection.getJson(manager, "getInformation","System",null);
+        JsonNode jSonSystemInfo = mConnection.getJson(manager, "getInformation", "System", null);
         return new InfoSystem(
-                getString(jSonSystemInfo,"Hostname"),
-                getString(jSonSystemInfo,"Version"),
-                getString(jSonSystemInfo,"Processor"),
-                getString(jSonSystemInfo,"Kernel"),
-                getString(jSonSystemInfo,"Uptime"));
+                getString(jSonSystemInfo, "Hostname"),
+                getString(jSonSystemInfo, "Version"),
+                getString(jSonSystemInfo, "Processor"),
+                getString(jSonSystemInfo, "Kernel"),
+                getString(jSonSystemInfo, "Uptime"));
     }
-
-
 
 
     public ArrayList<Service> getServicesStatus(INotifiableManager manager) {
@@ -62,12 +62,12 @@ public class DiagnosticClient extends Client implements IDiagnosticClient {
         final JsonNode jsonMovies = result.get("data");
         if (jsonMovies != null) {
             for (Iterator<JsonNode> i = jsonMovies.elements(); i.hasNext(); ) {
-                JsonNode jsonService = (JsonNode)i.next();
-                services.add( new Service(
-                    getString2(jsonService,"name"),
-                    getString2(jsonService,"title"),
-                    getBool(jsonService,"enabled"),
-                    getBool(jsonService,"running")
+                JsonNode jsonService = (JsonNode) i.next();
+                services.add(new Service(
+                        getString2(jsonService, "name"),
+                        getString2(jsonService, "title"),
+                        getBool(jsonService, "enabled"),
+                        getBool(jsonService, "running")
                 ));
 
             }
@@ -75,23 +75,23 @@ public class DiagnosticClient extends Client implements IDiagnosticClient {
         return services;
     }
 
-    public ArrayList<SysLog> getLogsList(INotifiableManager manager,LogType logType,Sortdir sortdir,Sortfield sortfield,int start){
+    public ArrayList<SysLog> getLogsList(INotifiableManager manager, LogType logType, Sortdir sortdir, Sortfield sortfield, int start) {
 
         final ArrayList<SysLog> sysLogs = new ArrayList<SysLog>();
         //id: "syslog", limit: 50, sortdir: "DESC", sortfield: "rownum",start: 0
         JsonNode result = mConnection.getJson(manager, "getList", "LogFile", obj().p("id", logType.toString()).p("limit", DiagnosticClient.Limitlogs)
-        .p("sortdir", sortdir.toString()).p("sortfield", sortfield.toString()).p("start", start));
+                .p("sortdir", sortdir.toString()).p("sortfield", sortfield.toString()).p("start", start));
 
         final JsonNode jsonSysLog = result.get("data");
         if (jsonSysLog != null) {
             for (Iterator<JsonNode> i = jsonSysLog.elements(); i.hasNext(); ) {
-                JsonNode jsonService = (JsonNode)i.next();
-                sysLogs.add( new SysLog(
-                        getString2(jsonService,"date"),
-                        getString2(jsonService,"hostname"),
+                JsonNode jsonService = (JsonNode) i.next();
+                sysLogs.add(new SysLog(
+                        getString2(jsonService, "date"),
+                        getString2(jsonService, "hostname"),
                         getString2(jsonService, "message"),
                         getInt(jsonService, "rownum"),
-                        getInt(jsonService,"ts")
+                        getInt(jsonService, "ts")
                 ));
 
             }
@@ -100,30 +100,27 @@ public class DiagnosticClient extends Client implements IDiagnosticClient {
 
     }
 
-    public void clearLogFile(INotifiableManager manager,LogType logType)
-    {
+    public void clearLogFile(INotifiableManager manager, LogType logType) {
         JsonNode result = mConnection.getJson(manager, "clear", "LogFile", obj().p("id", logType.toString()));
     }
 
-    public DoagnosticSetings getSettings(INotifiableManager manager)
-    {
+    public DoagnosticSetings getSettings(INotifiableManager manager) {
         DoagnosticSetings settings = null;
         JsonNode result = mConnection.getJson(manager, "getSettings", "Syslog", null);
         final JsonNode jsonSettings = result.get("data");
         if (jsonSettings != null) {
             settings = new DoagnosticSetings(
-                    getBool(jsonSettings,"enable"),
-                    getString2(jsonSettings,"host"),
-                    getInt(jsonSettings,"port"),
-                    getString2(jsonSettings,"protocol")
+                    getBool(jsonSettings, "enable"),
+                    getString2(jsonSettings, "host"),
+                    getInt(jsonSettings, "port"),
+                    getString2(jsonSettings, "protocol")
 
             );
         }
         return settings;
     }
 
-    public void setSettings(INotifiableManager manager,DoagnosticSetings setings)
-    {
+    public void setSettings(INotifiableManager manager, DoagnosticSetings setings) {
         JsonNode result = mConnection.getJson(manager, "setSettings", "Syslog", obj().p("enable", setings.Enamble).p("host", setings.Host)
                 .p("port", setings.Port).p("protocol", setings.Port));
     }

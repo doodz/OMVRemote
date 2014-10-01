@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.doodz.openmv.app" >
+    package="fr.doodz.openmv.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,10 +9,10 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,12 +21,10 @@
         </activity>
         <activity
             android:name=".Activity.HostSettingsActivity"
-            android:label="@string/title_activity_host_settings" >
-        </activity>
+            android:label="@string/title_activity_host_settings"></activity>
         <activity
             android:name=".Activity.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
+            android:label="@string/title_activity_settings"></activity>
 
         <provider
             android:name="fr.doodz.openmv.dal.HostProvider"
@@ -34,24 +32,22 @@
 
         <activity
             android:name="fr.doodz.openmv.UI.business.presentation.activity.RemoteActivity"
-            android:label="@string/title_activity_remote" >
-        </activity>
+            android:label="@string/title_activity_remote"></activity>
         <activity
             android:name="fr.doodz.openmv.UI.business.presentation.activity.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
+            android:label="@string/title_activity_settings"></activity>
         <activity
             android:name=".Activity.InfoSystemActivity"
-            android:label="@string/title_activity_info_system" >
-        </activity>
+            android:label="@string/title_activity_info_system"></activity>
         <activity
             android:name=".Activity.ServicesActivity"
-            android:label="@string/title_activity_services" >
-        </activity>
+            android:label="@string/title_activity_services"></activity>
         <activity
             android:name=".Activity.UpdateActivity"
-            android:label="@string/title_activity_update" >
-        </activity>
+            android:label="@string/title_activity_update"></activity>
+        <activity
+            android:name=".Activity.PluginsActivity"
+            android:label="@string/title_activity_plugins"></activity>
     </application>
 
 </manifest>

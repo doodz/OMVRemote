@@ -2,69 +2,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#98b7cf"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="fr.doodz.openmv.app.Activity.LoginActivity"
-    android:orientation="vertical"
-    android:background="#98b7cf">
-
-
+    tools:context="fr.doodz.openmv.app.Activity.LoginActivity">
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/UpTime"
-           />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text=" : "
-            />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <TextView
+            android:id="@+id/Main_UpTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/Main_UpTime" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
     <ListView
+        android:id="@+id/Main_listView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Main_listView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/torrent_card"
-        />
+        android:background="@drawable/torrent_card" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
         <Button
+            android:id="@+id/Button_apt"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update"
-            android:id="@+id/apt_button" />
+            android:text="Update" />
+
         <Button
+            android:id="@+id/Button_Plugin"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Services"
-            android:id="@+id/Services_button" />
-        </LinearLayout>
+            android:text="Plugins" />
+
+        <Button
+            android:id="@+id/Button_Services"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Services" />
+    </LinearLayout>
 
 
 </LinearLayout>

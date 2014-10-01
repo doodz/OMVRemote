@@ -11,7 +11,6 @@ import fr.doodz.openmv.api.object.business.ISystemManager;
 public class ManagerFactory {
 
 
-
     public static IInfoManager getInfoManager(INotifiableController controller) {
         return ManagerThread.info(controller);
     }

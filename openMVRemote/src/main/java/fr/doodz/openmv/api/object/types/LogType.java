@@ -14,16 +14,15 @@ public enum LogType {
     Rsync("rsync"),
     RsyncServer("rsyncd"),
     Smart("smartd"),
-    Syslog("syslog")
-    ;
+    Syslog("syslog");
+    private final String text;
+
     /**
      * @param text
      */
     private LogType(final String text) {
         this.text = text;
     }
-
-    private final String text;
 
     /* (non-Javadoc)
      * @see java.lang.Enum#toString()

@@ -4,9 +4,9 @@ import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import fr.doodz.openmv.httpapi.Connection;
-import fr.doodz.openmv.api.object.types.MediaType;
 import fr.doodz.openmv.api.object.infos.FileTypes;
+import fr.doodz.openmv.api.object.types.MediaType;
+import fr.doodz.openmv.httpapi.Connection;
 
 /**
  * Created by doods on 18/05/14.
@@ -21,6 +21,7 @@ public class FileLocation implements INamedResource {
 
     /**
      * Class constructor with already parsed data
+     *
      * @param name Display name
      * @param path Path incl filename
      */
@@ -41,12 +42,9 @@ public class FileLocation implements INamedResource {
         setMediaType();
     }
 
-    public String getShortName(){
-        return this.name;
-    }
-
     /**
      * Parses name and path from raw line.
+     *
      * @param line raw line, either path only or name and path, separated by Connection.VALUE_SEP.
      */
     public FileLocation(String line) {
@@ -137,6 +135,10 @@ public class FileLocation implements INamedResource {
             displayPath = path.replaceAll("\\\\", "/");
         }
         setMediaType();
+    }
+
+    public String getShortName() {
+        return this.name;
     }
 
     private void setMediaType() {

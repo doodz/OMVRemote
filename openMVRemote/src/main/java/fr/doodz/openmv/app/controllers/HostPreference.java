@@ -3,7 +3,6 @@ package fr.doodz.openmv.app.controllers;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Handler;
 import android.preference.DialogPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import fr.doodz.openmv.api.object.Host;
 import fr.doodz.openmv.app.R;
@@ -29,7 +27,7 @@ public class HostPreference extends DialogPreference {
     private Context mContext;
 
     private EditText mNameView, mHostView, mPortView, mUserView, mPassView,
-               mMacAddrView, mWolPortView;
+            mMacAddrView, mWolPortView;
     private CheckBox mWifiOnlyView;
 
     public HostPreference(Context context) {
@@ -61,7 +59,7 @@ public class HostPreference extends DialogPreference {
 
     @Override
     protected View onCreateView(final ViewGroup parent) {
-        final ViewGroup view = (ViewGroup)super.onCreateView(parent);
+        final ViewGroup view = (ViewGroup) super.onCreateView(parent);
         if (mHost != null) {
             ImageView btn = new ImageView(getContext());
             btn.setImageResource(R.drawable.abc_ic_clear_normal);
@@ -76,7 +74,7 @@ public class HostPreference extends DialogPreference {
                     builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             HostFactory.deleteHost(getContext(), mHost);
-                            ((PreferenceActivity)view.getContext()).getPreferenceScreen().removePreference(HostPreference.this);
+                            ((PreferenceActivity) view.getContext()).getPreferenceScreen().removePreference(HostPreference.this);
                         }
                     });
                     builder.setNegativeButton(R.string.dialog_ko, new DialogInterface.OnClickListener() {
@@ -94,15 +92,15 @@ public class HostPreference extends DialogPreference {
 
     @Override
     protected View onCreateDialogView() {
-        final ViewGroup parent = (ViewGroup)super.onCreateDialogView();
-        mNameView = (EditText)parent.findViewById(R.id.pref_name);
-        mHostView = (EditText)parent.findViewById(R.id.pref_host);
-        mPortView = (EditText)parent.findViewById(R.id.pref_port);
-        mUserView = (EditText)parent.findViewById(R.id.pref_user);
-        mPassView = (EditText)parent.findViewById(R.id.pref_pass);
-        mMacAddrView = (EditText)parent.findViewById(R.id.pref_mac_addr);
-        mWifiOnlyView = (CheckBox)parent.findViewById(R.id.pref_wifi_only);
-        mWolPortView = (EditText)parent.findViewById(R.id.pref_wol_port);
+        final ViewGroup parent = (ViewGroup) super.onCreateDialogView();
+        mNameView = (EditText) parent.findViewById(R.id.pref_name);
+        mHostView = (EditText) parent.findViewById(R.id.pref_host);
+        mPortView = (EditText) parent.findViewById(R.id.pref_port);
+        mUserView = (EditText) parent.findViewById(R.id.pref_user);
+        mPassView = (EditText) parent.findViewById(R.id.pref_pass);
+        mMacAddrView = (EditText) parent.findViewById(R.id.pref_mac_addr);
+        mWifiOnlyView = (CheckBox) parent.findViewById(R.id.pref_wifi_only);
+        mWolPortView = (EditText) parent.findViewById(R.id.pref_wol_port);
         return parent;
     }
 
@@ -146,10 +144,10 @@ public class HostPreference extends DialogPreference {
             host.wifi_only = mWifiOnlyView.isChecked();
             try {
                 host.wol_port = Integer.parseInt(mWolPortView.getText().toString());
-            }catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 host.wol_port = Host.DEFAULT_WOL_PORT;
             }
-                host.wol_wait = Host.DEFAULT_WOL_WAIT;
+            host.wol_wait = Host.DEFAULT_WOL_WAIT;
 
             if (mHost == null) {
                 HostFactory.addHost(getContext(), host);

@@ -23,6 +23,7 @@ public class JsonRpc {
 
     /**
      * Construct with all paramaters
+     *
      * @param host    Connection data of the host
      * @param timeout Read timeout
      */
@@ -42,6 +43,7 @@ public class JsonRpc {
 
     /**
      * Updates host info on all clients
+     *
      * @param host
      */
     public void setHost(Host host) {

@@ -9,7 +9,10 @@ import fr.doodz.openmv.api.object.business.INotifiableManager;
 
 public interface INotifiableController {
     public void onWrongConnectionState(int state, INotifiableManager manager, Command<?> source);
+
     public void onError(Exception e);
+
     public void onMessage(String message);
+
     public void runOnUI(Runnable action);
 }

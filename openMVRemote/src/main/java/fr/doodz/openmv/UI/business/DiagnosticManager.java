@@ -19,7 +19,7 @@ import fr.doodz.openmv.jsonrpc.client.InfoSystem;
  */
 public class DiagnosticManager extends AbstractManager implements IDiagnosticManager, INotifiableManager {
 
-    public InfoSystem getSystemInfo(final Context context){
+    public InfoSystem getSystemInfo(final Context context) {
 
         try {
             return info(context).getFullSystemInfo(DiagnosticManager.this);
@@ -29,7 +29,7 @@ public class DiagnosticManager extends AbstractManager implements IDiagnosticMan
         return null;
     }
 
-    public ArrayList<Service> getServicesStatus(final Context context){
+    public ArrayList<Service> getServicesStatus(final Context context) {
 
         try {
             return Diagnostic(context).getServicesStatus(DiagnosticManager.this);
@@ -39,10 +39,10 @@ public class DiagnosticManager extends AbstractManager implements IDiagnosticMan
         return null;
     }
 
-    public ArrayList<SysLog> getLogsList(final Context context){
+    public ArrayList<SysLog> getLogsList(final Context context) {
 
         try {
-            return Diagnostic(context).getLogsList(DiagnosticManager.this, LogType.Syslog,Sortdir.DESC, Sortfield.Rownum,0);
+            return Diagnostic(context).getLogsList(DiagnosticManager.this, LogType.Syslog, Sortdir.DESC, Sortfield.Rownum, 0);
         } catch (WifiStateException e) {
             e.printStackTrace();
         }

@@ -1,27 +1,10 @@
 package fr.doodz.openmv.app.Activity;
 
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.preference.RingtonePreference;
-import android.text.TextUtils;
 import android.view.Display;
-
-
-import java.util.List;
 
 import fr.doodz.openmv.UI.business.presentation.activity.ConfigurationManager;
 import fr.doodz.openmv.app.R;
@@ -32,7 +15,7 @@ import fr.doodz.openmv.app.controllers.SettingsController;
  * handset devices, settings are presented as a single list. On tablets,
  * settings are split by category, with category headers shown to the left of
  * the list of settings.
- * <p>
+ * <p/>
  * See <a href="http://developer.android.com/design/patterns/settings.html">
  * Android Design: Settings</a> for design guidelines and the <a
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
@@ -40,12 +23,11 @@ import fr.doodz.openmv.app.controllers.SettingsController;
  */
 public class SettingsActivity extends PreferenceActivity {
 
-    private ConfigurationManager mConfigurationManager;
-    private SettingsController mSettingsController;
-
     public final static String SUMMARY_VALUE_PLACEHOLDER = "%value%";
     public final static String JUMP_TO = "jump_to";
     public final static int JUMP_TO_INSTANCES = 1;
+    private ConfigurationManager mConfigurationManager;
+    private SettingsController mSettingsController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +43,7 @@ public class SettingsActivity extends PreferenceActivity {
         final int jumpTo = getIntent().getIntExtra(JUMP_TO, 0);
         switch (jumpTo) {
             case JUMP_TO_INSTANCES:
-                setPreferenceScreen((PreferenceScreen)getPreferenceScreen().findPreference("setting_instances"));
+                setPreferenceScreen((PreferenceScreen) getPreferenceScreen().findPreference("setting_instances"));
                 break;
             default:
         }

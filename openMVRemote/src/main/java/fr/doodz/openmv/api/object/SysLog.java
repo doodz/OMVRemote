@@ -12,7 +12,7 @@ public class SysLog {
     public int Ts;
 
 
-    public SysLog( String date,String hostname,String message,int rownum,int ts){
+    public SysLog(String date, String hostname, String message, int rownum, int ts) {
 
         this.Date = date;
         this.Hostname = hostname;

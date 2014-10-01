@@ -7,5 +7,6 @@ import android.app.Activity;
  */
 public interface IController {
     public void onActivityPause();
+
     public void onActivityResume(Activity activity);
 }

@@ -17,30 +17,30 @@ import fr.doodz.openmv.app.R;
 /**
  * Created by doods on 29/07/14.
  */
-public class ServiceAdapter  extends BaseAdapter {
-        private ArrayList<Service> listData;
+public class ServiceAdapter extends BaseAdapter {
+    private ArrayList<Service> listData;
 
-        private LayoutInflater layoutInflater;
+    private LayoutInflater layoutInflater;
 
-        public ServiceAdapter(Context context, ArrayList<Service> listData) {
-            this.listData = listData;
-            layoutInflater = LayoutInflater.from(context);
-        }
+    public ServiceAdapter(Context context, ArrayList<Service> listData) {
+        this.listData = listData;
+        layoutInflater = LayoutInflater.from(context);
+    }
 
-        @Override
-        public int getCount() {
-            return listData.size();
-        }
+    @Override
+    public int getCount() {
+        return listData.size();
+    }
 
-        @Override
-        public Object getItem(int position) {
-            return listData.get(position);
-        }
+    @Override
+    public Object getItem(int position) {
+        return listData.get(position);
+    }
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;

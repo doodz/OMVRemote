@@ -10,7 +10,7 @@ public class Service {
     public Boolean Enabled;
     public Boolean Running;
 
-    public Service(String name, String title, Boolean enabled, Boolean running){
+    public Service(String name, String title, Boolean enabled, Boolean running) {
         this.Name = name;
         this.Title = title;
         this.Enabled = enabled;

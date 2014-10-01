@@ -2,6 +2,7 @@ package fr.doodz.openmv.httpapi;
 
 import fr.doodz.openmv.api.object.Host;
 import fr.doodz.openmv.httpapi.client.InfoClient;
+
 /**
  * Created by doods on 18/05/14.
  */
@@ -19,6 +20,7 @@ public class HttpApi {
 
     /**
      * Construct with all paramaters
+     *
      * @param host    Connection data of the host
      * @param timeout Read timeout
      */
@@ -40,6 +42,7 @@ public class HttpApi {
 
     /**
      * Updates host info on all clients
+     *
      * @param host
      */
     public void setHost(Host host) {

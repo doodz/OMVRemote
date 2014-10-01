@@ -8,25 +8,26 @@ public class FileTypes {
     /**
      * Audio file extensions
      */
-    public final static String[] AUDIO = { "ac3", "flac", "m4a", "mp3", "mid", "ogg", "wav" };
+    public final static String[] AUDIO = {"ac3", "flac", "m4a", "mp3", "mid", "ogg", "wav"};
 
     /**
      * Playlist file extensions
      */
-    public final static String[] PLAYLIST = { "m3u", "pls" };
+    public final static String[] PLAYLIST = {"m3u", "pls"};
 
     /**
      * Video extensions
      */
-    public final static String[] VIDEO = { "avi", "flv", "mkv", "mov", "mp4", "mpg", "mpeg", "ts", "wmv", "vob" };
+    public final static String[] VIDEO = {"avi", "flv", "mkv", "mov", "mp4", "mpg", "mpeg", "ts", "wmv", "vob"};
 
     /**
      * Image extensions
      */
-    public final static String[] PICTURE = { "bmp", "gif", "jpeg", "jpg", "png", "tbn" };
+    public final static String[] PICTURE = {"bmp", "gif", "jpeg", "jpg", "png", "tbn"};
 
     /**
      * Returns true if extensions is of type audio.
+     *
      * @param extension Extension to check, without "."
      * @return true if audio extension, false otherwise.
      */
@@ -36,6 +37,7 @@ public class FileTypes {
 
     /**
      * Returns true if extensions is of type audio.
+     *
      * @param extension Extension to check, without "."
      * @return true if audio extension, false otherwise.
      */
@@ -45,6 +47,7 @@ public class FileTypes {
 
     /**
      * Returns true if extensions is of type video.
+     *
      * @param extension Extension to check, without "."
      * @return true if video extension, false otherwise.
      */
@@ -54,6 +57,7 @@ public class FileTypes {
 
     /**
      * Returns true if extensions is of type playlist.
+     *
      * @param extension Extension to check, without "."
      * @return true if playlist extension, false otherwise.
      */
@@ -63,6 +67,7 @@ public class FileTypes {
 
     /**
      * Returns true if extensions is of type picture.
+     *
      * @param extension Extension to check, without "."
      * @return true if picture extension, false otherwise.
      */
@@ -72,6 +77,7 @@ public class FileTypes {
 
     /**
      * Returns the file extension of a file name or path in lower case.
+     *
      * @param filenameOrPath File name or path
      * @return File extension without "."
      */

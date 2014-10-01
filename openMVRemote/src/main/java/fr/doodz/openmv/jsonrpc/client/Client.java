@@ -1,28 +1,25 @@
 package fr.doodz.openmv.jsonrpc.client;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.util.Iterator;
-import java.util.List;
-
-import fr.doodz.openmv.api.object.types.SortType;
-import fr.doodz.openmv.jsonrpc.Connection;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
-import android.util.Log;
+import android.graphics.BitmapFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.util.Iterator;
+
+import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.api.object.types.SortType;
+import fr.doodz.openmv.jsonrpc.Connection;
 
 /**
  * Created by doods on 18/05/14.
@@ -41,15 +38,153 @@ public abstract class Client {
 
     /**
      * Class constructor needs reference to HTTP client connection
+     *
      * @param connection
      */
     Client(Connection connection) {
         mConnection = connection;
     }
 
-    public int getActivePlayerId(INotifiableManager manager){
-        final JsonNode active = mConnection.getJson(manager, "Player.GetActivePlayers","", null).get(0);
-        if(active == null)
+    /**
+     * Returns an SQL String of given sort options of albums query
+     *
+     * @param sortBy    Sort field
+     * @param sortOrder Sort order
+     * @return SQL "ORDER BY" string
+     */
+    protected static ObjNode sort(ObjNode params, int sortBy, String sortOrder) {
+
+
+        final String order = sortOrder.equals(SortType.ORDER_DESC) ? "descending" : "ascending";
+        final String sortby;
+        switch (sortBy) {
+            default:
+            case SortType.ALBUM:
+                sortby = "label";
+                break;
+            case SortType.ARTIST:
+                sortby = "artist";
+                break;
+            case SortType.TRACK:
+                sortby = "track";
+                break;
+            case SortType.TITLE:
+                sortby = "sorttitle";
+                break;
+            case SortType.YEAR:
+                sortby = "year";
+                break;
+            case SortType.RATING:
+                sortby = "rating";
+                break;
+            case SortType.DATE_ADDED:
+                sortby = "dateadded";
+                break;
+        }
+
+        params.p(PARAM_SORT, obj().p("ignorearticle", true).p("method", sortby).p("order", order));
+        return params;
+    }
+
+    public final static ObjNode obj() {
+        return new ObjNode(FACTORY);
+    }
+
+    public final static ArrayNode arr() {
+        return MAPPER.createArrayNode();
+    }
+
+    public final static Boolean getBool(JsonNode obj, String key) {
+
+        if (obj.get(key) == null)
+            return false;
+
+        Boolean val;
+        try {
+            val = obj.get(key).asBoolean();
+        } catch (NumberFormatException e) {
+            val = false;
+        }
+
+        return val;
+    }
+
+    public final static String getString2(JsonNode obj, String key) {
+        if (obj.get(key) == null)
+            return "";
+        else if (obj.get(key).isArray()) {
+            String retval = "";
+            for (Iterator<JsonNode> i = obj.get(key).elements(); i.hasNext(); ) {
+                retval += i.next().textValue();
+                if (i.hasNext())
+                    retval += ", ";
+            }
+            return retval;
+        } else
+            return getString(obj, key, "");
+    }
+
+    public final static String getString(JsonNode obj, String key) {
+
+        JsonNode node;
+        String str = "";
+        Iterator<JsonNode> nodeIterator = obj.elements();
+        while (nodeIterator.hasNext()) {
+            node = nodeIterator.next();
+            if (node.get("name").asText().equals(key)) {
+                str = node.get("value").asText();
+                break;
+            }
+        }
+
+/*
+        if(obj.get(key) == null)
+            return "";
+        else if(obj.get(key).isArray()){
+            String retval = "";
+            for (Iterator<JsonNode> i = obj.get(key).elements(); i.hasNext();) {
+                retval += i.next().textValue();
+                if(i.hasNext())
+                    retval += ", ";
+            }
+            return retval;
+        }
+        else
+            return getString(obj, key, "");
+            */
+        return str;
+    }
+
+    ;
+
+    public final static String getString(JsonNode obj, String key, String ifNullResult) {
+        return obj.get(key) == null ? ifNullResult : obj.get(key).textValue();
+    }
+
+    public final static int getInt(JsonNode obj, String key) {
+        return obj.get(key) == null ? -1 : obj.get(key).intValue();
+    }
+
+    public final static double getDouble(JsonNode obj, String key) {
+
+        if (obj.get(key) == null)
+            return -1;
+
+        DecimalFormat twoDForm = new DecimalFormat("#.0");
+
+        double val = -1;
+        try {
+            val = Double.valueOf(twoDForm.format(obj.get(key).doubleValue()).replace(',', '.'));
+        } catch (NumberFormatException e) {
+            val = -1;
+        }
+
+        return val;
+    }
+
+    public int getActivePlayerId(INotifiableManager manager) {
+        final JsonNode active = mConnection.getJson(manager, "Player.GetActivePlayers", "", null).get(0);
+        if (active == null)
             return -1;
         else
             return getInt(active, "playerid");
@@ -57,17 +192,18 @@ public abstract class Client {
 
     /**
      * Downloads a cover.
-     *
+     * <p/>
      * First, only boundaries are downloaded in order to determine the sample
      * size. Setting sample size > 1 will do two things:
      * <ol><li>Only a fragment of the total size will be downloaded</li>
-     *     <li>Resizing will be smooth and not pixelated as before</li></ol>
+     * <li>Resizing will be smooth and not pixelated as before</li></ol>
      * The returned size is the next bigger (but smaller than the double) size
      * of the original image.
-     * @param manager Postback manager
-     * @param cover Cover object
-     * @param size Minmal size to pre-resize to.
-     * @param url URL to primary cover
+     *
+     * @param manager     Postback manager
+     * @param cover       Cover object
+     * @param size        Minmal size to pre-resize to.
+     * @param url         URL to primary cover
      * @param fallbackUrl URL to fallback cover
      * @return Bitmap
      */
@@ -140,12 +276,13 @@ public abstract class Client {
     /**
      * Doubles the size of a bitmap and re-reads it with samplesize 2. I've
      * found no other way to smoothely resize images with samplesize = 1.
+     *
      * @param source
      * @return
      */
     private Bitmap blowup(Bitmap source) {
         if (source != null) {
-            Bitmap big = Bitmap.createScaledBitmap(source, source.getWidth() * 2,  source.getHeight() * 2, true);
+            Bitmap big = Bitmap.createScaledBitmap(source, source.getWidth() * 2, source.getHeight() * 2, true);
             BitmapFactory.Options opts = new BitmapFactory.Options();
             opts.inSampleSize = 2;
 
@@ -158,163 +295,29 @@ public abstract class Client {
         return null;
     }
 
-    /**
-     * Returns an SQL String of given sort options of albums query
-     * @param sortBy    Sort field
-     * @param sortOrder Sort order
-     * @return SQL "ORDER BY" string
-     */
-    protected static ObjNode sort(ObjNode params, int sortBy, String sortOrder) {
-
-
-
-        final String order = sortOrder.equals(SortType.ORDER_DESC) ? "descending" : "ascending";
-        final String sortby;
-        switch (sortBy) {
-            default:
-            case SortType.ALBUM:
-                sortby = "label";
-                break;
-            case SortType.ARTIST:
-                sortby = "artist";
-                break;
-            case SortType.TRACK:
-                sortby = "track";
-                break;
-            case SortType.TITLE:
-                sortby = "sorttitle";
-                break;
-            case SortType.YEAR:
-                sortby = "year";
-                break;
-            case SortType.RATING:
-                sortby = "rating";
-                break;
-            case SortType.DATE_ADDED:
-                sortby = "dateadded";
-                break;
-        }
-
-        params.p(PARAM_SORT, obj().p("ignorearticle", true).p("method", sortby).p("order", order));
-        return params;
-    }
-
-    public final static ObjNode obj() {
-        return new ObjNode(FACTORY);
-    }
-
     public static class ObjNode extends ObjectNode {
         public ObjNode(JsonNodeFactory nc) {
             super(nc);
         }
+
         public ObjNode p(String fieldName, Object object) {
             super.put(fieldName, (JsonNode) object);
             return this;
         }
+
         public ObjNode p(String fieldName, String v) {
             super.put(fieldName, v);
             return this;
         }
+
         public ObjNode p(String fieldName, int v) {
             super.put(fieldName, v);
             return this;
         }
+
         public ObjNode p(String fieldName, boolean v) {
             super.put(fieldName, v);
             return this;
         }
-    };
-
-    public final static ArrayNode arr() {
-        return MAPPER.createArrayNode();
-    }
-
-    public final static Boolean getBool(JsonNode obj, String key) {
-
-        if(obj.get(key) == null)
-            return false;
-
-        Boolean val;
-        try{
-            val = obj.get(key).asBoolean();
-        }
-        catch(NumberFormatException e){
-            val = false;
-        }
-
-        return val;
-    }
-
-    public final static String getString2(JsonNode obj, String key) {
-        if(obj.get(key) == null)
-            return "";
-        else if(obj.get(key).isArray()){
-            String retval = "";
-            for (Iterator<JsonNode> i = obj.get(key).elements(); i.hasNext();) {
-                retval += i.next().textValue();
-                if(i.hasNext())
-                    retval += ", ";
-            }
-            return retval;
-        }
-        else
-            return getString(obj, key, "");
-    }
-
-    public final static String getString(JsonNode obj, String key) {
-
-        JsonNode node;
-        String str = "";
-        Iterator<JsonNode> nodeIterator = obj.elements();
-        while (nodeIterator.hasNext()) {
-            node = nodeIterator.next();
-            if(node.get("name").asText().equals(key)){
-                str = node.get("value").asText();
-               break;
-            }
-        }
-
-/*
-        if(obj.get(key) == null)
-            return "";
-        else if(obj.get(key).isArray()){
-            String retval = "";
-            for (Iterator<JsonNode> i = obj.get(key).elements(); i.hasNext();) {
-                retval += i.next().textValue();
-                if(i.hasNext())
-                    retval += ", ";
-            }
-            return retval;
-        }
-        else
-            return getString(obj, key, "");
-            */
-        return str;
-    }
-
-    public final static String getString(JsonNode obj, String key, String ifNullResult) {
-        return obj.get(key) == null ? ifNullResult : obj.get(key).textValue();
-    }
-
-    public final static int getInt(JsonNode obj, String key) {
-        return obj.get(key) == null ? -1 : obj.get(key).intValue();
-    }
-
-    public final static double getDouble(JsonNode obj, String key) {
-
-        if(obj.get(key) == null)
-            return -1;
-
-        DecimalFormat twoDForm = new DecimalFormat("#.0");
-
-        double val = -1;
-        try{
-            val = Double.valueOf(twoDForm.format(obj.get(key).doubleValue()).replace(',', '.'));
-        }
-        catch(NumberFormatException e){
-            val = -1;
-        }
-
-        return val;
     }
 }

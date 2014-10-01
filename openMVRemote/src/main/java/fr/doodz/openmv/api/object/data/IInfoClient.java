@@ -16,17 +16,19 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns the contents of a directory
-     * @param path    Path to the directory
-     * @param mask    Mask to filter
-     * @param offset  Offset (0 for none)
-     * @param limit   Limit (0 for none)
+     *
+     * @param path   Path to the directory
+     * @param mask   Mask to filter
+     * @param offset Offset (0 for none)
+     * @param limit  Limit (0 for none)
      * @return
      */
     public ArrayList<FileLocation> getDirectory(INotifiableManager manager, String path, DirectoryMask mask, int offset, int limit, int mediaType);
 
     /**
      * Returns all the contents of a directory
-     * @param path    Path to the directory
+     *
+     * @param path Path to the directory
      * @return
      */
     public ArrayList<FileLocation> getDirectory(INotifiableManager manager, String path, int mediaType);
@@ -34,6 +36,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns all defined shares of a media type
+     *
      * @param mediaType Media type
      * @return
      */
@@ -41,6 +44,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns URI of the currently playing's thumbnail.
+     *
      * @return
      * @throws MalformedURLException
      * @throws URISyntaxException
@@ -49,6 +53,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns any system info variable, see {@link fr.doodz.openmv.jsonrpc.client.InfoSystem}
+     *
      * @param field Field to return
      * @return
      */
@@ -56,6 +61,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns any system info variable, see {@link fr.doodz.openmv.jsonrpc.client.InfoSystem}
+     *
      * @param manager
      * @return
      */
@@ -64,6 +70,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns a boolean GUI setting
+     *
      * @param field
      * @return
      */
@@ -71,6 +78,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns an integer GUI setting
+     *
      * @param field
      * @return
      */
@@ -78,6 +86,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns a boolean GUI setting
+     *
      * @param field
      * @param value Value
      * @return
@@ -86,6 +95,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns an integer GUI setting
+     *
      * @param field
      * @param value Value
      * @return
@@ -94,6 +104,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns any music info variable see {@link org.xbmc.http.info.MusicInfo}
+     *
      * @param field Field to return
      * @return
      */
@@ -101,6 +112,7 @@ public interface IInfoClient extends IClient {
 
     /**
      * Returns any video info variable see {@link org.xbmc.http.info.VideoInfo}
+     *
      * @param field Field to return
      * @return
      */

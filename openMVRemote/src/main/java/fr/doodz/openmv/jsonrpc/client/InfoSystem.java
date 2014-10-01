@@ -11,14 +11,16 @@ public class InfoSystem {
     public String Processor;
     public String Kernel;
     public String Uptime;
+
     /**
      * Constructor
+     *
      * @param hostname
      * @param version
      * @param processor
      * @param kernel
      */
-    public InfoSystem(String hostname, String version, String processor, String kernel,String uptime){
+    public InfoSystem(String hostname, String version, String processor, String kernel, String uptime) {
         this.Hostname = hostname;
         this.Version = version;
         this.Processor = processor;

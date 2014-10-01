@@ -10,8 +10,7 @@ public class DoagnosticSetings {
     public int Port;
     public String Protocol;
 
-    public DoagnosticSetings(Boolean enable, String host,int port,String protocol)
-    {
+    public DoagnosticSetings(Boolean enable, String host, int port, String protocol) {
 
         this.Enamble = enable;
         this.Host = host;

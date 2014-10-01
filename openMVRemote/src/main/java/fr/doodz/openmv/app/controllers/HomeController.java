@@ -1,10 +1,10 @@
 package fr.doodz.openmv.app.controllers;
 
 import android.app.Activity;
-import android.os.Handler;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ListAdapter;
@@ -23,8 +23,8 @@ import fr.doodz.openmv.api.object.business.DataResponse;
 import fr.doodz.openmv.api.object.business.IDiagnosticManager;
 import fr.doodz.openmv.api.object.business.IInfoManager;
 import fr.doodz.openmv.api.object.business.ISystemManager;
-import fr.doodz.openmv.app.Adapters.ServiceAdapter;
 import fr.doodz.openmv.app.Activity.HostSettingsActivity;
+import fr.doodz.openmv.app.Adapters.ServiceAdapter;
 import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 import fr.doodz.openmv.utils.ClientFactory;
@@ -33,7 +33,7 @@ import fr.doodz.openmv.utils.HostFactory;
 /**
  * Created by doods on 18/05/14.
  */
-public class HomeController extends AbstractController  implements INotifiableController {
+public class HomeController extends AbstractController implements INotifiableController {
 
     private DataResponse<String> mUpdateVersionHandler;
     private IInfoManager mInfoManager;
@@ -51,8 +51,7 @@ public class HomeController extends AbstractController  implements INotifiableCo
 //		bcl.addObserver(this);
     }
 
-    public void ReconnectHost()
-    {
+    public void ReconnectHost() {
         final Host host = HostFactory.host;
         ClientFactory.resetClient(host);
         mInfoManager.getSystemInfo(mUpdateVersionHandler, 0, mActivity.getApplicationContext());
@@ -63,19 +62,19 @@ public class HomeController extends AbstractController  implements INotifiableCo
         mUpdateVersionHandler = new DataResponse<String>() {
             public void run() {
 
-                Toast toast = Toast.makeText(context,"Connected to : "+ value,  Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(context, "Connected to : " + value, Toast.LENGTH_LONG);
                 toast.show();
             }
         };
     }
 
-    public void getUpTime(TextView upTime){
+    public void getUpTime(TextView upTime) {
         InfoSystem info = this.getInfoSystem();
 
         upTime.setText(info.Uptime);
     }
 
-    public void shutdown(){
+    public void shutdown() {
         DataResponse<String> handler = new DataResponse<String>() {
             public void run() {
 
@@ -84,24 +83,23 @@ public class HomeController extends AbstractController  implements INotifiableCo
         this.mSystemManager.shutdown(handler, mActivity.getApplicationContext());
     }
 
-    public void reboot(){
+    public void reboot() {
         DataResponse<String> handler = new DataResponse<String>() {
             public void run() {
 
             }
         };
-        this.mSystemManager.reboot(handler,mActivity.getApplicationContext());
+        this.mSystemManager.reboot(handler, mActivity.getApplicationContext());
     }
 
-    public void  getServicesStatus(final ListView listView){
+    public void getServicesStatus(final ListView listView) {
         ArrayList<Service> var = mDiagnosticManager.getServicesStatus(mActivity);
 
-        final ListAdapter adpt = new ServiceAdapter(mActivity,var);
+        final ListAdapter adpt = new ServiceAdapter(mActivity, var);
         listView.setAdapter(adpt);
     }
 
-    public InfoSystem getInfoSystem()
-    {
+    public InfoSystem getInfoSystem() {
         return mInfoManager.getSystemInfo(mActivity);
     }
 
@@ -127,7 +125,7 @@ public class HomeController extends AbstractController  implements INotifiableCo
                 public void onClick(DialogInterface dialog, int which) {
                     final Host host = hostMap.get(which);
                     if (HostFactory.host != null && HostFactory.host.id == host.id) {
-                        Toast.makeText(mActivity.getApplicationContext(),activity.getResources().getString(R.string.pick_same), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity.getApplicationContext(), activity.getResources().getString(R.string.pick_same), Toast.LENGTH_SHORT).show();
                     } else {
                         Log.i(TAG, "Switching host to " + (host == null ? "<null>" : host.addr) + ".");
                         HostFactory.saveHost(mActivity.getApplicationContext(), host);
@@ -143,7 +141,7 @@ public class HomeController extends AbstractController  implements INotifiableCo
             dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
             dialog.show();
         } else {
-            Toast.makeText(mActivity.getApplicationContext(),activity.getResources().getString(R.string.no_hosts), Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity.getApplicationContext(), activity.getResources().getString(R.string.no_hosts), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(mActivity, HostSettingsActivity.class);
             mActivity.startActivity(intent);
         }

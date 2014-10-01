@@ -1,9 +1,5 @@
 package fr.doodz.openmv.utils;
 
-import java.util.List;
-
-import fr.doodz.openmv.api.object.Host;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -12,6 +8,10 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.util.Log;
+
+import java.util.List;
+
+import fr.doodz.openmv.api.object.Host;
 
 /**
  * Created by doods on 18/05/14.
@@ -38,23 +38,20 @@ public class WifiHelper {
     public static final int WIFI_STATE_CONNECTED = 5;
 
     public static final String WIFI_LOCK_TAG = "fr.doodz.openmv.wifi.lock";
-
-    private WifiManager.WifiLock mWifiLock = null;
-
+    private static WifiHelper mInstance = null;
     private final WifiManager mManager;
 
     private final ConnectivityManager mConnectivityManager;
-
-    private static WifiHelper mInstance = null;
+    private WifiManager.WifiLock mWifiLock = null;
 
     private WifiHelper(Context context) {
-        this.mManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-        this.mConnectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        this.mManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        this.mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         mInstance = this;
     }
 
     public static WifiHelper getInstance(Context context) {
-        if(mInstance == null) new WifiHelper(context);
+        if (mInstance == null) new WifiHelper(context);
         return mInstance;
     }
 
@@ -62,9 +59,9 @@ public class WifiHelper {
         Log.d(TAG, "trying to connect to AP:" + host.access_point);
         final List<WifiConfiguration> hosts = mManager.getConfiguredNetworks();
         int networkId = -1;
-        for(WifiConfiguration conf : hosts) {
+        for (WifiConfiguration conf : hosts) {
             Log.d(TAG, "trying host:" + conf.SSID);
-            if(conf.SSID.equalsIgnoreCase("\"" + host.access_point+ "\"")) {
+            if (conf.SSID.equalsIgnoreCase("\"" + host.access_point + "\"")) {
                 networkId = conf.networkId;
                 Log.d(TAG, "found hosts AP in Android with ID:" + networkId);
                 break;
@@ -78,11 +75,11 @@ public class WifiHelper {
     }
 
     public void aquireWifiLock() {
-        if(mWifiLock == null) {
+        if (mWifiLock == null) {
             Log.d(TAG, "creating new WifiLock");
-            mWifiLock = mManager.createWifiLock(WifiManager.WIFI_MODE_FULL,WIFI_LOCK_TAG);
+            mWifiLock = mManager.createWifiLock(WifiManager.WIFI_MODE_FULL, WIFI_LOCK_TAG);
         }
-        if(!mWifiLock.isHeld()) {
+        if (!mWifiLock.isHeld()) {
             Log.d(TAG, "aquiring WifiLock");
             mWifiLock.acquire();
         }
@@ -93,7 +90,7 @@ public class WifiHelper {
     }
 
     public void releaseWifiLock() {
-        if(mWifiLock != null && mWifiLock.isHeld()) {
+        if (mWifiLock != null && mWifiLock.isHeld()) {
             Log.d(TAG, "releasing WifiLock");
             mWifiLock.release();
         }
@@ -111,7 +108,7 @@ public class WifiHelper {
             case WifiManager.WIFI_STATE_ENABLING:
             case WifiManager.WIFI_STATE_ENABLED:
                 final WifiInfo info = mManager.getConnectionInfo();
-                if(info != null && info.getSSID() != null) {
+                if (info != null && info.getSSID() != null) {
                     Log.d(TAG, "WIFI_STATE_CONNECTED to " + info.getSSID());
                     final NetworkInfo mWifi = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                     if (mWifi.isConnected()) {

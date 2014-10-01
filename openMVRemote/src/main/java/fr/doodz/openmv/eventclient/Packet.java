@@ -1,105 +1,125 @@
 package fr.doodz.openmv.eventclient;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-import android.util.Log;
-
 /**
  * Created by doods on 18/05/14.
  */
 public abstract class Packet {
 
+    public final static byte ICON_NONE = 0x00;
+    public final static byte ICON_JPEG = 0x01;
+    public final static byte ICON_PNG = 0x02;
+    public final static byte ICON_GIF = 0x03;
+    protected final static byte PT_HELO = 0x01;
+    protected final static byte PT_BYE = 0x02;
+    protected final static byte PT_BUTTON = 0x03;
+    protected final static byte PT_MOUSE = 0x04;
+    protected final static byte PT_PING = 0x05;
+    protected final static byte PT_BROADCAST = 0x06;
+    protected final static byte PT_NOTIFICATION = 0x07;
+    protected final static byte PT_BLOB = 0x08;
+    protected final static byte PT_LOG = 0x09;
+    protected final static byte PT_ACTION = 0x0A;
+    protected final static byte PT_DEBUG = (byte) 0xFF;
     private final static String TAG = Packet.class.getSimpleName();
-
+    private final static short MAX_PACKET_SIZE = 1024;
+    private final static short HEADER_SIZE = 32;
+    private final static short MAX_PAYLOAD_SIZE = MAX_PACKET_SIZE - HEADER_SIZE;
+    private static int uid = (int) (Math.random() * Integer.MAX_VALUE);
     private byte[] sig;
     private byte[] payload = new byte[0];
     private byte minver;
     private byte majver;
-
     private short packettype;
-
-
-    private final static short MAX_PACKET_SIZE  = 1024;
-    private final static short HEADER_SIZE      = 32;
-    private final static short MAX_PAYLOAD_SIZE = MAX_PACKET_SIZE - HEADER_SIZE;
-
-    protected final static byte PT_HELO          = 0x01;
-    protected final static byte PT_BYE           = 0x02;
-    protected final static byte PT_BUTTON        = 0x03;
-    protected final static byte PT_MOUSE         = 0x04;
-    protected final static byte PT_PING          = 0x05;
-    protected final static byte PT_BROADCAST     = 0x06;
-    protected final static byte PT_NOTIFICATION  = 0x07;
-    protected final static byte PT_BLOB          = 0x08;
-    protected final static byte PT_LOG           = 0x09;
-    protected final static byte PT_ACTION        = 0x0A;
-    protected final static byte PT_DEBUG         = (byte)0xFF;
-
-    public final static byte ICON_NONE = 0x00;
-    public final static byte ICON_JPEG = 0x01;
-    public final static byte ICON_PNG  = 0x02;
-    public final static byte ICON_GIF  = 0x03;
-
-    private static int uid = (int)(Math.random()*Integer.MAX_VALUE);
 
     /**
      * This is an Abstract class and cannot be instanced. Please use one of the Packet implementation Classes
      * (PacketXXX).
-     *
+     * <p/>
      * Implements an XBMC Event Client Packet. Type is to be specified at creation time, Payload can be added
      * with the various appendPayload methods. Packet can be sent through UDP-Socket with method "send".
+     *
      * @param packettype Type of Packet (PT_XXX)
      */
-    protected Packet(short packettype)
-    {
-        sig = new byte[] {'X', 'B', 'M', 'C' };
+    protected Packet(short packettype) {
+        sig = new byte[]{'X', 'B', 'M', 'C'};
         minver = 0;
         majver = 2;
         this.packettype = packettype;
     }
 
     /**
+     * Helper Method to convert an integer to a Byte array
+     *
+     * @param value
+     * @return Byte-Array
+     */
+    private static final byte[] intToByteArray(int value) {
+        return new byte[]{
+                (byte) (value >>> 24),
+                (byte) (value >>> 16),
+                (byte) (value >>> 8),
+                (byte) value};
+    }
+
+    /**
+     * Helper Method to convert an short to a Byte array
+     *
+     * @param value
+     * @return Byte-Array
+     */
+    private static final byte[] shortToByteArray(short value) {
+        return new byte[]{
+                (byte) (value >>> 8),
+                (byte) value};
+    }
+
+    /**
      * Appends a String to the payload (terminated with 0x00)
+     *
      * @param payload Payload as String
      */
-    protected void appendPayload(String payload)
-    {
+    protected void appendPayload(String payload) {
         byte[] payloadarr = payload.getBytes();
         int oldpayloadsize = this.payload.length;
         byte[] oldpayload = this.payload;
-        this.payload = new byte[oldpayloadsize+payloadarr.length+1]; // Create new Array with more place (+1 for string terminator)
+        this.payload = new byte[oldpayloadsize + payloadarr.length + 1]; // Create new Array with more place (+1 for string terminator)
         System.arraycopy(oldpayload, 0, this.payload, 0, oldpayloadsize);
         System.arraycopy(payloadarr, 0, this.payload, oldpayloadsize, payloadarr.length);
     }
 
     /**
      * Appends a single Byte to the payload
+     *
      * @param payload Payload
      */
-    protected void appendPayload(byte payload)
-    {
-        appendPayload(new byte[] { payload });
+    protected void appendPayload(byte payload) {
+        appendPayload(new byte[]{payload});
     }
 
     /**
      * Appends a Byte-Array to the payload
+     *
      * @param payloadarr Payload
      */
-    protected void appendPayload(byte[] payloadarr)
-    {
+    protected void appendPayload(byte[] payloadarr) {
         int oldpayloadsize = this.payload.length;
         byte[] oldpayload = this.payload;
-        this.payload = new byte[oldpayloadsize+payloadarr.length];
+        this.payload = new byte[oldpayloadsize + payloadarr.length];
         System.arraycopy(oldpayload, 0, this.payload, 0, oldpayloadsize);
         System.arraycopy(payloadarr, 0, this.payload, oldpayloadsize, payloadarr.length);
     }
 
     /**
      * Appends an integer to the payload
+     *
      * @param i Payload
      */
     protected void appendPayload(int i) {
@@ -108,6 +128,7 @@ public abstract class Packet {
 
     /**
      * Appends a short to the payload
+     *
      * @param s Payload
      */
     protected void appendPayload(short s) {
@@ -116,22 +137,22 @@ public abstract class Packet {
 
     /**
      * Get Number of Packets which will be sent with current Payload...
+     *
      * @return Number of Packets
      */
-    public int getNumPackets()
-    {
-        return (int)((payload.length + (MAX_PAYLOAD_SIZE - 1)) / MAX_PAYLOAD_SIZE);
+    public int getNumPackets() {
+        return (int) ((payload.length + (MAX_PAYLOAD_SIZE - 1)) / MAX_PAYLOAD_SIZE);
     }
 
     /**
      * Get Header for a specific Packet in this sequence...
-     * @param seq Current sequence number
-     * @param maxseq Maximal sequence number
+     *
+     * @param seq            Current sequence number
+     * @param maxseq         Maximal sequence number
      * @param actpayloadsize Payloadsize of this packet
      * @return Byte-Array with Header information (currently 32-Byte long, see HEADER_SIZE)
      */
-    private byte[] getHeader(int seq, int maxseq, short actpayloadsize)
-    {
+    private byte[] getHeader(int seq, int maxseq, short actpayloadsize) {
         byte[] header = new byte[HEADER_SIZE];
         System.arraycopy(sig, 0, header, 0, 4);
         header[4] = majver;
@@ -154,39 +175,39 @@ public abstract class Packet {
 
     /**
      * Generates the whole UDP-Message with Header and Payload of a specific Packet in sequence
+     *
      * @param seq Current sequence number
      * @return Byte-Array with UDP-Message
      */
-    private byte[] getUDPMessage(int seq)
-    {
-        int maxseq = (int)((payload.length + (MAX_PAYLOAD_SIZE - 1)) / MAX_PAYLOAD_SIZE);
-        if(seq > maxseq)
+    private byte[] getUDPMessage(int seq) {
+        int maxseq = (int) ((payload.length + (MAX_PAYLOAD_SIZE - 1)) / MAX_PAYLOAD_SIZE);
+        if (seq > maxseq)
             return null;
 
         short actpayloadsize;
 
-        if(seq == maxseq)
-            actpayloadsize = (short)(payload.length%MAX_PAYLOAD_SIZE);
+        if (seq == maxseq)
+            actpayloadsize = (short) (payload.length % MAX_PAYLOAD_SIZE);
 
         else
-            actpayloadsize = (short)MAX_PAYLOAD_SIZE;
+            actpayloadsize = (short) MAX_PAYLOAD_SIZE;
 
-        byte[] pack = new byte[HEADER_SIZE+actpayloadsize];
+        byte[] pack = new byte[HEADER_SIZE + actpayloadsize];
 
         System.arraycopy(getHeader(seq, maxseq, actpayloadsize), 0, pack, 0, HEADER_SIZE);
-        System.arraycopy(payload, (seq-1)*MAX_PAYLOAD_SIZE, pack, HEADER_SIZE, actpayloadsize);
+        System.arraycopy(payload, (seq - 1) * MAX_PAYLOAD_SIZE, pack, HEADER_SIZE, actpayloadsize);
 
         return pack;
     }
 
     /**
      * Sends this packet to the EventServer
-     * @param adr Address of the EventServer
+     *
+     * @param adr  Address of the EventServer
      * @param port Port of the EventServer
      * @throws IOException
      */
-    public void send(final InetAddress adr, final int port)
-    {
+    public void send(final InetAddress adr, final int port) {
         new Thread() {
             @Override
             public void run() {
@@ -202,8 +223,7 @@ public abstract class Packet {
 
                 try {
                     // For each Packet in Sequence...
-                    for(int seq=1;seq<=maxseq;seq++)
-                    {
+                    for (int seq = 1; seq <= maxseq; seq++) {
                         // Get Message and send them...
                         byte[] pack = getUDPMessage(seq);
                         DatagramPacket p = new DatagramPacket(pack, pack.length);
@@ -220,30 +240,6 @@ public abstract class Packet {
                 }
             }
         }.start();
-    }
-
-    /**
-     * Helper Method to convert an integer to a Byte array
-     * @param value
-     * @return Byte-Array
-     */
-    private static final byte[] intToByteArray(int value) {
-        return new byte[] {
-                (byte)(value >>> 24),
-                (byte)(value >>> 16),
-                (byte)(value >>> 8),
-                (byte)value};
-    }
-
-    /**
-     * Helper Method to convert an short to a Byte array
-     * @param value
-     * @return Byte-Array
-     */
-    private static final byte[] shortToByteArray(short value) {
-        return new byte[] {
-                (byte)(value >>> 8),
-                (byte)value};
     }
 
 

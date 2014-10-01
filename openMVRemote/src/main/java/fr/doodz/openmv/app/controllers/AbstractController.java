@@ -37,10 +37,8 @@ public abstract class AbstractController {
 
     protected Activity mActivity;
     protected Handler mHandler;
-
-    private boolean mDialogShowing = false;
     protected boolean mPaused = true;
-
+    private boolean mDialogShowing = false;
     private Thread mWaitForWifi;
 
     public void onCreate(Activity activity, Handler handler) {
@@ -68,11 +66,12 @@ public abstract class AbstractController {
                                 final WifiHelper helper = WifiHelper.getInstance(mActivity);
                                 helper.enableWifi(true);
                                 int wait = 0;
-                                while(wait <= MAX_WAIT_FOR_WIFI * 1000 && helper.getWifiState() != WifiHelper.WIFI_STATE_ENABLED) {
+                                while (wait <= MAX_WAIT_FOR_WIFI * 1000 && helper.getWifiState() != WifiHelper.WIFI_STATE_ENABLED) {
                                     try {
                                         sleep(500);
                                         wait += 500;
-                                    } catch (InterruptedException e) {}
+                                    } catch (InterruptedException e) {
+                                    }
                                 }
                                 manager.retryAll();
                                 pd.cancel();
@@ -88,9 +87,9 @@ public abstract class AbstractController {
                 final Host host = HostFactory.host;
                 final WifiHelper helper = WifiHelper.getInstance(mActivity);
                 final String msg;
-                if(host != null && host.access_point != null && !host.access_point.equals("")) {
+                if (host != null && host.access_point != null && !host.access_point.equals("")) {
                     helper.connect(host);
-                    msg = "Connecting to " + host.access_point +  ". Please wait";
+                    msg = "Connecting to " + host.access_point + ". Please wait";
                 } else {
                     msg = "Waiting for Wifi to connect to your LAN.";
                 }
@@ -102,14 +101,15 @@ public abstract class AbstractController {
                     public void run() {
                         mDialogShowing = true;
                         pd.show();
-                        (new Thread( ) {
+                        (new Thread() {
                             public void run() {
                                 int wait = 0;
-                                while(wait <= MAX_WAIT_FOR_WIFI * 1000 && helper.getWifiState() != WifiHelper.WIFI_STATE_CONNECTED) {
+                                while (wait <= MAX_WAIT_FOR_WIFI * 1000 && helper.getWifiState() != WifiHelper.WIFI_STATE_CONNECTED) {
                                     try {
                                         sleep(500);
                                         wait += 500;
-                                    } catch (InterruptedException e) {}
+                                    } catch (InterruptedException e) {
+                                    }
                                 }
                                 pd.cancel();
                                 mDialogShowing = false;
@@ -117,9 +117,9 @@ public abstract class AbstractController {
                         }).start();
                         pd.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             public void onDismiss(DialogInterface dialog) {
-                                if(helper.getWifiState() != WifiHelper.WIFI_STATE_CONNECTED) {
+                                if (helper.getWifiState() != WifiHelper.WIFI_STATE_CONNECTED) {
                                     builder.setTitle("Wifi doesn't seem to connect");
-                                    builder.setMessage("You can open the Wifi settings or wait "+ MAX_WAIT_FOR_WIFI +" seconds");
+                                    builder.setMessage("You can open the Wifi settings or wait " + MAX_WAIT_FOR_WIFI + " seconds");
                                     builder.setNeutralButton("Wifi Settings", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,
                                                             int which) {
@@ -272,16 +272,15 @@ public abstract class AbstractController {
         });
     }
 
-    protected void resetDialogShowing()
-    {
+    protected void resetDialogShowing() {
         this.mDialogShowing = false;
     }
 
-    protected void showDialog(int id){
+    protected void showDialog(int id) {
         mActivity.showDialog(id);
     }
 
-    protected void dismissDialog(int id){
+    protected void dismissDialog(int id) {
         mActivity.dismissDialog(id);
     }
 

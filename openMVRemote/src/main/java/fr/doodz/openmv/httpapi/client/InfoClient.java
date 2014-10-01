@@ -4,14 +4,14 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import fr.doodz.openmv.api.object.data.IInfoClient;
-import fr.doodz.openmv.httpapi.Connection;
-import fr.doodz.openmv.api.object.Host;
 import fr.doodz.openmv.api.object.FileLocation;
+import fr.doodz.openmv.api.object.Host;
 import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.api.object.data.IInfoClient;
+import fr.doodz.openmv.api.object.infos.GuiSettings;
 import fr.doodz.openmv.api.object.types.DirectoryMask;
 import fr.doodz.openmv.api.object.types.MediaType;
-import fr.doodz.openmv.api.object.infos.GuiSettings;
+import fr.doodz.openmv.httpapi.Connection;
 import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 
 /**
@@ -23,6 +23,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Class constructor needs reference to HTTP client connection
+     *
      * @param connection
      */
     public InfoClient(Connection connection) {
@@ -32,6 +33,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Updates host info on the connection.
+     *
      * @param host
      */
     public void setHost(Host host) {
@@ -41,10 +43,10 @@ public class InfoClient implements IInfoClient {
     /**
      * Returns the contents of a directory
      *
-     * @param path Path to the directory
-     * @param mask Mask to filter
-     * @param offset Offset (0 for none)
-     * @param limit Limit (0 for none)
+     * @param path      Path to the directory
+     * @param mask      Mask to filter
+     * @param offset    Offset (0 for none)
+     * @param limit     Limit (0 for none)
      * @param mediaType MediaType
      * @return
      */
@@ -76,7 +78,8 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Returns all the contents of a directory
-     * @param path    Path to the directory
+     *
+     * @param path Path to the directory
      * @return
      */
     public ArrayList<FileLocation> getDirectory(INotifiableManager manager, String path, int mediaType) {
@@ -86,6 +89,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Returns all defined shares of a media type
+     *
      * @param mediaType Media type
      * @return
      */
@@ -117,6 +121,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Returns any system info variable, see {@link org.xbmc.api.info.SystemInfo}
+     *
      * @param field Field to return
      * @return
      */
@@ -124,13 +129,14 @@ public class InfoClient implements IInfoClient {
         return mConnection.getString(manager, "GetSystemInfo", String.valueOf(field));
     }
 
-    public InfoSystem getFullSystemInfo(INotifiableManager manager){
+    public InfoSystem getFullSystemInfo(INotifiableManager manager) {
         return null;
 
     }
 
     /**
      * Returns a boolean GUI setting
+     *
      * @param field
      * @return
      */
@@ -140,6 +146,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Returns an integer GUI setting
+     *
      * @param field
      * @return
      */
@@ -149,6 +156,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Returns a boolean GUI setting
+     *
      * @param field
      * @param value Value
      * @return
@@ -159,6 +167,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Returns an integer GUI setting
+     *
      * @param field
      * @param value Value
      * @return
@@ -169,6 +178,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Returns any music info variable see {@link org.xbmc.http.info.MusicInfo}
+     *
      * @param field Field to return
      * @return
      */
@@ -178,6 +188,7 @@ public class InfoClient implements IInfoClient {
 
     /**
      * Returns any video info variable see {@link org.xbmc.http.info.VideoInfo}
+     *
      * @param field Field to return
      * @return
      */
