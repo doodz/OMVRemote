@@ -7,6 +7,6 @@ public class NoNetworkException extends Exception {
     private static final long serialVersionUID = -300859290934884233L;
 
     public NoNetworkException() {
-        super("This application requires network access. Enable mobile network or Wi-Fi to download data.");
+        super("This application requires ic_network access. Enable mobile ic_network or Wi-Fi to download data.");
     }
 }

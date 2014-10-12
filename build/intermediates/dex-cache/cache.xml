@@ -2,28 +2,40 @@
 <pre-dex-items>
 
     <item
-        dex="/home/doods/AndroidStudioProjects/OMVRemote/openMVRemote/build/intermediates/pre-dexed/debug/classes-592b5dc621e4dc7472cb4ec114c5a01c5d995b35.jar"
-        jar="/home/doods/AndroidStudioProjects/OMVRemote/openMVRemote/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
-        jumboMode="false" revision="19.1.0" sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28" />
+        dex="C:\Users\doods\Android studioProjects\OMVRemote\openMVRemote\build\intermediates\pre-dexed\debug\classes-fb20646e3dde276d1a363401c11690d306d828c7.jar"
+        jar="C:\Users\doods\Android studioProjects\OMVRemote\openMVRemote\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\19.1.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af4cc326e6cd92f88db12298767e521743aedd36"/>
     <item
-        dex="/home/doods/AndroidStudioProjects/OMVRemote/openMVRemote/build/intermediates/pre-dexed/debug/jackson-annotations-2.4.0-rc3-47d94afd2dcc6c3e5c27bb33e845ab7cd41783b2.jar"
-        jar="/home/doods/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0-rc3/c07a5c1558347b147883b41925b50698217b0428/jackson-annotations-2.4.0-rc3.jar"
-        jumboMode="false" revision="19.1.0" sha1="c07a5c1558347b147883b41925b50698217b0428" />
+        dex="C:\Users\doods\Android studioProjects\OMVRemote\openMVRemote\build\intermediates\pre-dexed\debug\classes-a0b45259fe723b446b5e48496935d143ae01c780.jar"
+        jar="C:\Users\doods\Android studioProjects\OMVRemote\openMVRemote\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
     <item
-        dex="/home/doods/AndroidStudioProjects/OMVRemote/openMVRemote/build/intermediates/pre-dexed/debug/jackson-databind-2.4.0-rc3-90ed320924542a443a9145e4eb8297a1c3a1c3b1.jar"
-        jar="/home/doods/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.0-rc3/fdc0321d0cd44aed95823c424d24de1d4206476d/jackson-databind-2.4.0-rc3.jar"
-        jumboMode="false" revision="19.1.0" sha1="fdc0321d0cd44aed95823c424d24de1d4206476d" />
+        dex="C:\Users\doods\Android studioProjects\OMVRemote\openMVRemote\build\intermediates\pre-dexed\debug\jackson-core-2.4.0-rc3-49e1b4a8d34f7d3bc6b99a4459ae5763d009372f.jar"
+        jar="C:\Users\doods\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.4.0-rc3\43ab1ee85096a0c39ce2e821021e2fa40af18cdf\jackson-core-2.4.0-rc3.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="43ab1ee85096a0c39ce2e821021e2fa40af18cdf"/>
     <item
-        dex="/home/doods/AndroidStudioProjects/OMVRemote/openMVRemote/build/intermediates/pre-dexed/debug/support-v4-19.1.0-4c0ad6107cfb3f0fc9e8f4014d32f93c0dc657b5.jar"
-        jar="/home/doods/Bureau/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
-        jumboMode="false" revision="19.1.0" sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67" />
+        dex="C:\Users\doods\Android studioProjects\OMVRemote\openMVRemote\build\intermediates\pre-dexed\debug\jackson-annotations-2.4.0-rc3-96a37f87947d16478dcadc4df8f0ce73c885e5b1.jar"
+        jar="C:\Users\doods\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.4.0-rc3\c07a5c1558347b147883b41925b50698217b0428\jackson-annotations-2.4.0-rc3.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="c07a5c1558347b147883b41925b50698217b0428"/>
     <item
-        dex="/home/doods/AndroidStudioProjects/OMVRemote/openMVRemote/build/intermediates/pre-dexed/debug/classes-179ddc85803f1ab0a095c7ab8f8d9bd2d529bc4e.jar"
-        jar="/home/doods/AndroidStudioProjects/OMVRemote/openMVRemote/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/19.1.0/classes.jar"
-        jumboMode="false" revision="19.1.0" sha1="af4cc326e6cd92f88db12298767e521743aedd36" />
+        dex="C:\Users\doods\Android studioProjects\OMVRemote\openMVRemote\build\intermediates\pre-dexed\debug\jackson-databind-2.4.0-rc3-10c75dce098c7e1c9beff221a1dae250ce41f2b2.jar"
+        jar="C:\Users\doods\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.4.0-rc3\fdc0321d0cd44aed95823c424d24de1d4206476d\jackson-databind-2.4.0-rc3.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="fdc0321d0cd44aed95823c424d24de1d4206476d"/>
     <item
-        dex="/home/doods/AndroidStudioProjects/OMVRemote/openMVRemote/build/intermediates/pre-dexed/debug/jackson-core-2.4.0-rc3-656b7ade49b6b2e3c26bbbda8f8d920334467cf0.jar"
-        jar="/home/doods/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.0-rc3/43ab1ee85096a0c39ce2e821021e2fa40af18cdf/jackson-core-2.4.0-rc3.jar"
-        jumboMode="false" revision="19.1.0" sha1="43ab1ee85096a0c39ce2e821021e2fa40af18cdf" />
+        dex="C:\Users\doods\Android studioProjects\OMVRemote\openMVRemote\build\intermediates\pre-dexed\debug\support-v4-19.1.0-74452f0a1812c9fc8b2c0f50992954bdbc51b57e.jar"
+        jar="C:\Users\doods\AppData\Local\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
 
 </pre-dex-items>

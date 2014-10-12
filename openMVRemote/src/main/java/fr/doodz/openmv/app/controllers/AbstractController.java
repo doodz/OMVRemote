@@ -210,8 +210,8 @@ public abstract class AbstractController {
             });
         } catch (IOException e) {
             if (e.getMessage() != null && e.getMessage().startsWith("Network unreachable")) {
-                builder.setTitle("No network");
-                builder.setMessage("OMV Remote needs local network access. Please make sure that your wireless network is activated. You can click on the Settings button below to directly access your network settings.");
+                builder.setTitle("No ic_network");
+                builder.setMessage("OMV Remote needs local ic_network access. Please make sure that your wireless ic_network is activated. You can click on the Settings button below to directly access your ic_network settings.");
                 builder.setNeutralButton("Settings", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         mActivity.startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="#cccccc"
+    >
+
+    <ImageView
+        android:id="@+id/image_Service"
+        android:layout_width="60dp"
+        android:layout_height="42dp"
+        android:background="#ffcbcbcb"
+        android:scaleType="fitCenter"
+        />
+
+    <TextView
+        android:id="@+id/text_Service_Name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image_Service"
+        android:layout_alignTop="@+id/image_Service"
+        android:text="Service Name"
+        android:textSize="20sp"
+        android:textColor="#333333"
+        android:paddingLeft="5dp"
+        />
+
+    <Switch
+        android:id="@+id/switch_enable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_Service_Name"
+        android:layout_toRightOf="@+id/image_Service"
+        android:paddingLeft="5dp"
+        />
+
+    <RadioButton
+        android:id="@+id/radio_Service_Running"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_Service_Name"
+        android:layout_alignParentRight="true"
+        android:text="Running"
+        />
+</RelativeLayout>

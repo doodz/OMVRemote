@@ -11,7 +11,7 @@ public enum LogType {
     FTP("proftpd"),
     FTPTransfer("proftpd_xferlog"),
     Messages("messages"),
-    Rsync("rsync"),
+    Rsync("ic_rsync"),
     RsyncServer("rsyncd"),
     Smart("smartd"),
     Syslog("syslog");

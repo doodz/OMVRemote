@@ -190,7 +190,7 @@ public class HostFactory {
     }
 
     /**
-     * Reads the preferences and returns the currently set host. If there is no
+     * Reads the ic_preferences and returns the currently set host. If there is no
      * preference set, return the first host. If there is no host set, return
      * null.
      *
