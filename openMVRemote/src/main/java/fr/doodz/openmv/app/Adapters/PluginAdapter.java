@@ -1,33 +1,36 @@
 package fr.doodz.openmv.app.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import fr.doodz.openmv.api.object.IInstallObject;
+import fr.doodz.openmv.api.object.Service;
 import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.app.R;
 
 /**
- * Created by doods on 09/08/14.
+ * Created by doods on 12/10/2014.
  */
-public class UpgradeAdapter extends BaseAdapter {
+public class PluginAdapter extends BaseAdapter {
     private ArrayList<? extends IInstallObject> listData;
-
+    private Context mContext;
     private LayoutInflater layoutInflater;
     private SparseBooleanArray mSelectedItemsIds;
 
-    public UpgradeAdapter(Context context, ArrayList<? extends IInstallObject> listData) {
+    public PluginAdapter(Context context,ArrayList<? extends IInstallObject> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
-        mSelectedItemsIds = new SparseBooleanArray();
+        this.mContext = context;
     }
 
     @Override
@@ -48,30 +51,28 @@ public class UpgradeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_adapter_apt, null);
+            convertView = layoutInflater.inflate(R.layout.list_adapter_plugin, null);
             holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.Apt_Name);
-            holder.description = (TextView) convertView.findViewById(R.id.Apt_Description);
-            holder.maintainer = (TextView) convertView.findViewById(R.id.Apt_Maintainer);
-            holder.repository = (TextView) convertView.findViewById(R.id.Apt_Repository);
-            holder.size = (TextView) convertView.findViewById(R.id.Apt_Size);
-
+            holder.nameView = (TextView) convertView.findViewById(R.id.text_Plugin_Name);
+            holder.siseView = (TextView) convertView.findViewById(R.id.text_Plugin_Size);
+            holder.maintainerView = (TextView) convertView.findViewById(R.id.text_Plugin_Maintainer);
+            holder.repositoryView = (TextView) convertView.findViewById(R.id.text_Plugin_Repository);
+            holder.descriptionView = (TextView) convertView.findViewById(R.id.text_Plugin_Description);
+            holder.instaledView= (ImageView) convertView.findViewById(R.id.image_Plugin_Instaled);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        IInstallObject upgraded = listData.get(position);
-        holder.name.setText(upgraded.getName());
-        holder.description.setText(upgraded.getDescription());
-        holder.maintainer.setText(upgraded.getMaintainer());
-        holder.repository.setText(upgraded.getRepository());
-        holder.size.setText(""+upgraded.getSize());
-        convertView.setBackgroundColor(mSelectedItemsIds.get(position) ?
-                convertView.getContext().getResources().getColor(R.color.color_omv)
-                : Color.TRANSPARENT);
+        IInstallObject plugins = listData.get(position);
+        holder.nameView.setText(plugins.getName());
+        holder.siseView.setText(""+plugins.getSize());
+        holder.maintainerView.setText(plugins.getMaintainer());
+        holder.repositoryView.setText(plugins.getRepository());
+        holder.descriptionView.setText(plugins.getDescription());
+
+        holder.instaledView.setImageResource(this.getImage(plugins.getInstalled()));
         return convertView;
     }
-
     public int getSelectedCount() {
         return mSelectedItemsIds.size();
     }
@@ -110,13 +111,21 @@ public class UpgradeAdapter extends BaseAdapter {
         listData.remove(object);
         notifyDataSetChanged();
     }
-
     static class ViewHolder {
-        TextView name;
-        TextView description;
-        TextView maintainer;
-        TextView repository;
-        TextView size;
+        TextView nameView;
+        TextView siseView;
+        TextView maintainerView;
+        TextView  repositoryView;
+        TextView descriptionView;
+        ImageView instaledView;
+    }
+
+
+    private int getImage(boolean installed){
+
+        if(installed)
+        return this.mContext.getResources().getIdentifier("ic_yes" , "drawable", this.mContext.getPackageName());
+        else
+            return 0;
     }
 }
-

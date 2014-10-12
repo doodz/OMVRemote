@@ -11,6 +11,8 @@ import fr.doodz.openmv.api.object.Plugin;
 import fr.doodz.openmv.api.object.UpdatesSettings;
 import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.api.object.WebGuiSetting;
+import fr.doodz.openmv.api.object.types.Sortdir;
+import fr.doodz.openmv.api.object.types.Sortfield;
 
 /**
  * Created by doods on 09/08/14.
@@ -29,9 +31,9 @@ public interface ISystemManager {
 
     void setGeneralSettings(final DataResponse<String> response, final Context context, final GeneralSettings settings);
 
-    void getListPlugin(final DataResponse<ArrayList<Plugin>> response, final Context context);
+    void  getListPlugin(final DataResponse<ArrayList<Plugin>> response, final Context context, final Sortdir sortdir,final Sortfield sortfield,final int start);
 
-    void getUpgraded(final DataResponse<ArrayList<Upgraded>> response, final Context context);
+    void getUpgraded(final DataResponse<ArrayList<Upgraded>> response, final Context context, final Sortdir sortdir,final Sortfield sortfield,final int start);
 
     void upgrade(final DataResponse<String> response, final Context context, final ArrayList<Upgraded> upgrades);
 

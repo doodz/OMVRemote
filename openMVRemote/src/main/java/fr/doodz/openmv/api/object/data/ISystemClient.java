@@ -31,7 +31,7 @@ public interface ISystemClient {
 
     void setGeneralSettings(INotifiableManager manager, GeneralSettings settings);
 
-    ArrayList<Upgraded> getUpgraded(INotifiableManager manager);
+    ArrayList<Upgraded> getUpgraded(INotifiableManager manager,Sortdir sortdir, Sortfield sortfield, int start);
 
     String update(INotifiableManager manager);
 

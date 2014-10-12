@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 import fr.doodz.openmv.api.object.Upgraded;
+import fr.doodz.openmv.app.Adapters.PluginAdapter;
 import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
 import fr.doodz.openmv.app.R;
 
@@ -17,7 +18,7 @@ public class ActionModeController extends AbstractController {
 
     protected ActionMode mActionMode;
 
-    protected UpgradeAdapter adapter;
+    protected PluginAdapter adapter;
 
     protected class ActionModeCallback implements ActionMode.Callback {
 

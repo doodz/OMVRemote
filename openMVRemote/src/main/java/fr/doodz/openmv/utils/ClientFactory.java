@@ -14,6 +14,7 @@ import fr.doodz.openmv.api.object.business.INotifiableManager;
 import fr.doodz.openmv.api.object.data.IDiagnosticClient;
 import fr.doodz.openmv.api.object.data.IEventClient;
 import fr.doodz.openmv.api.object.data.IInfoClient;
+import fr.doodz.openmv.api.object.data.IOutputClient;
 import fr.doodz.openmv.api.object.data.ISystemClient;
 import fr.doodz.openmv.eventclient.EventClient;
 import fr.doodz.openmv.httpapi.HttpApi;
@@ -73,6 +74,19 @@ public abstract class ClientFactory {
         switch (sApiType) {
             case API_TYPE_JSONRPC:
                 return createJsonClient(manager).System;
+            case API_TYPE_UNSET:
+            case API_TYPE_HTTPIAPI:
+            default:
+                return null;//createHttpClient(manager).Diagnostic;
+        }
+    }
+
+    public static IOutputClient getOutputClient(INotifiableManager manager, Context context) throws WifiStateException {
+        assertWifiState(context);
+        probeQueryApiType(manager);
+        switch (sApiType) {
+            case API_TYPE_JSONRPC:
+                return createJsonClient(manager).Output;
             case API_TYPE_UNSET:
             case API_TYPE_HTTPIAPI:
             default:

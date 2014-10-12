@@ -3,6 +3,7 @@ package fr.doodz.openmv.jsonrpc;
 import fr.doodz.openmv.api.object.Host;
 import fr.doodz.openmv.jsonrpc.client.DiagnosticClient;
 import fr.doodz.openmv.jsonrpc.client.InfoClient;
+import fr.doodz.openmv.jsonrpc.client.OutputClient;
 import fr.doodz.openmv.jsonrpc.client.SystemClient;
 
 /**
@@ -19,7 +20,7 @@ public class JsonRpc {
 
     public final DiagnosticClient Diagnostic;
     public final SystemClient System;
-
+    public final OutputClient Output;
 
     /**
      * Construct with all paramaters
@@ -39,6 +40,7 @@ public class JsonRpc {
         info = new InfoClient(connection);
         Diagnostic = new DiagnosticClient(connection);
         System = new SystemClient(connection);
+        this.Output = new OutputClient(connection);
     }
 
     /**

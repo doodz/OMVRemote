@@ -12,7 +12,7 @@ public interface IInstallObject {
 
     public String getFilename();
 
-    public String getInstalledsize();
+    public int getInstalledsize();
 
     public String getLongdescription();
 
@@ -30,10 +30,10 @@ public interface IInstallObject {
 
     public String getSha256();
 
-    public String getSize();
+    public int getSize();
 
     public String getVersion();
 
     public String getRepository();
-
+    public Boolean getInstalled();
 }

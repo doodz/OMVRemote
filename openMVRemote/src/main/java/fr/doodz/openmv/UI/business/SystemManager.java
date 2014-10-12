@@ -95,13 +95,7 @@ public class SystemManager extends AbstractManager implements ISystemManager, IN
         });
     }
 
-    public void getListPlugin(final DataResponse<ArrayList<Plugin>> response, final Context context) {
-
-
-        final Sortdir sortdir = Sortdir.DESC;
-        final Sortfield sortfield = Sortfield.Name;
-        final int start = 0;
-
+    public void getListPlugin(final DataResponse<ArrayList<Plugin>> response, final Context context, final Sortdir sortdir,final Sortfield sortfield,final int start) {
         mHandler.post(new Command<ArrayList<Plugin>>(response, this) {
             @Override
             public void doRun() throws Exception {
@@ -110,11 +104,11 @@ public class SystemManager extends AbstractManager implements ISystemManager, IN
         });
     }
 
-    public void getUpgraded(final DataResponse<ArrayList<Upgraded>> response, final Context context) {
+    public void getUpgraded(final DataResponse<ArrayList<Upgraded>> response, final Context context, final Sortdir sortdir,final Sortfield sortfield,final int start) {
         mHandler.post(new Command<ArrayList<Upgraded>>(response, this) {
             @Override
             public void doRun() throws Exception {
-                response.value = System(context).getUpgraded(SystemManager.this);
+                response.value = System(context).getUpgraded(SystemManager.this,sortdir,sortfield,start);
             }
         });
     }

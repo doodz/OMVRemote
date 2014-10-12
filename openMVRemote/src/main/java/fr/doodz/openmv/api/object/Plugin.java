@@ -14,7 +14,7 @@ public class Plugin implements IInstallObject {
     public String Architecture;
     public String Description;
     public String Filename;
-    public String Installedsize;
+    public int Installedsize;
     public String Longdescription;
     public String Maintainer;
     public String Md5sum;
@@ -23,13 +23,13 @@ public class Plugin implements IInstallObject {
     public String Section;
     public String Sha1;
     public String Sha256;
-    public String Size;
+    public int Size;
     public String Version;
     String Repository = "";
 
-    public Plugin(String architecture, String description, Boolean _readOnly, String filename, String installedsize,
+    public Plugin(String architecture, String description, Boolean _readOnly, String filename, int installedsize,
                   String longdescription, String maintainer, String md5sum, String name, String depends,
-                  String homepage, String _package, String priority, Boolean installed, String section, String sha1, String sha256, String size, String version) {
+                  String homepage, String _package, String priority, Boolean installed, String section, String sha1, String sha256, int size, String version) {
 
 
         this.Architecture = architecture;
@@ -68,7 +68,7 @@ public class Plugin implements IInstallObject {
         return this.Filename;
     }
 
-    public String getInstalledsize() {
+    public int getInstalledsize() {
         return this.Installedsize;
     }
 
@@ -104,7 +104,7 @@ public class Plugin implements IInstallObject {
         return this.Sha256;
     }
 
-    public String getSize() {
+    public int getSize() {
         return this.Size;
     }
 
@@ -115,4 +115,6 @@ public class Plugin implements IInstallObject {
     public String getRepository() {
         return this.Repository;
     }
+
+    public Boolean getInstalled() {return this.Installed;}
 }

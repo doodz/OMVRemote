@@ -111,21 +111,23 @@ public class SystemClient extends Client implements ISystemClient {
                 JsonNode jsonPugin = i.next();
                 plugins.add(
                         new Plugin(getString2(jsonPugin, "architecture"), getString2(jsonPugin, "description"), getBool(jsonPugin, "_readOnly"), getString2(jsonPugin, "filename"),
-                                getString2(jsonPugin, "installedsize"), getString2(jsonPugin, "longdescription"), getString2(jsonPugin, "maintainer"), getString2(jsonPugin, "md5sum"),
+                                getInt(jsonPugin, "installedsize"), getString2(jsonPugin, "longdescription"), getString2(jsonPugin, "maintainer"), getString2(jsonPugin, "md5sum"),
                                 getString2(jsonPugin, "name"), getString2(jsonPugin, "depends"), getString2(jsonPugin, "homepage"), getString2(jsonPugin, "_package"),
                                 getString2(jsonPugin, " priority"), getBool(jsonPugin, "installed"), getString2(jsonPugin, " section"), getString2(jsonPugin, "sha1"),
-                                getString2(jsonPugin, "sha256"), getString2(jsonPugin, "size"), getString2(jsonPugin, "version"))
+                                getString2(jsonPugin, "sha256"), getInt(jsonPugin, "size"), getString2(jsonPugin, "version"))
                 );
             }
         }
         return plugins;
     }
 
-    public ArrayList<Upgraded> getUpgraded(INotifiableManager manager) {
+    public ArrayList<Upgraded> getUpgraded(INotifiableManager manager,Sortdir sortdir, Sortfield sortfield, int start) {
 
         final ArrayList<Upgraded> upgradeds = new ArrayList<Upgraded>();
 
-        JsonNode result = mConnection.getJson(manager, "getUpgraded", "Apt", null);
+        JsonNode result = mConnection.getJson(manager, "getUpgradedList", "Apt",
+                obj().p("limit", 25).p("sortdir", sortdir.toString()).p("sortfield", sortfield.toString()).p("start", start));
+        result = result.get("data");
         if (result != null) {
             for (Iterator<JsonNode> i = result.elements(); i.hasNext(); ) {
                 JsonNode jsonService = i.next();
@@ -134,7 +136,7 @@ public class SystemClient extends Client implements ISystemClient {
                                 getString2(jsonService, "description"),
                                 getString2(jsonService, "essential"),
                                 getString2(jsonService, "filename"),
-                                getString2(jsonService, "installedsize"),
+                                getInt(jsonService, "installedsize"),
                                 getString2(jsonService, "longdescription"),
                                 getString2(jsonService, "maintainer"),
                                 getString2(jsonService, "md5sum"),
@@ -149,7 +151,7 @@ public class SystemClient extends Client implements ISystemClient {
                                 getString2(jsonService, "section"),
                                 getString2(jsonService, "sha1"),
                                 getString2(jsonService, "sha256"),
-                                getString2(jsonService, "size"),
+                                getInt(jsonService, "size"),
                                 getString2(jsonService, "tag"),
                                 getString2(jsonService, "version")
                         )

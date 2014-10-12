@@ -12,6 +12,7 @@ import fr.doodz.openmv.api.object.business.DataResponse;
 import fr.doodz.openmv.api.object.business.INotifiableManager;
 import fr.doodz.openmv.api.object.data.IDiagnosticClient;
 import fr.doodz.openmv.api.object.data.IInfoClient;
+import fr.doodz.openmv.api.object.data.IOutputClient;
 import fr.doodz.openmv.api.object.data.ISystemClient;
 import fr.doodz.openmv.httpapi.WifiStateException;
 import fr.doodz.openmv.utils.ClientFactory;
@@ -59,6 +60,9 @@ public class AbstractManager implements INotifiableManager {
         return ClientFactory.getSystemClient(this, context);
     }
 
+    protected IOutputClient Output(Context context) throws WifiStateException {
+        return ClientFactory.getOutputClient(this, context);
+    }
     public void retryAll() {
         Log.d(TAG, "Posting retries to the queue");
         mHandler.post(new Runnable() {

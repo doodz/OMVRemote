@@ -39,7 +39,7 @@
     <ListView
         android:id="@+id/Main_listView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="399dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/torrent_card" />

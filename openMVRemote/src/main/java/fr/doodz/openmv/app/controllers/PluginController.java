@@ -13,6 +13,9 @@ import fr.doodz.openmv.UI.business.presentation.INotifiableController;
 import fr.doodz.openmv.api.object.Plugin;
 import fr.doodz.openmv.api.object.business.DataResponse;
 import fr.doodz.openmv.api.object.business.ISystemManager;
+import fr.doodz.openmv.api.object.types.Sortdir;
+import fr.doodz.openmv.api.object.types.Sortfield;
+import fr.doodz.openmv.app.Adapters.PluginAdapter;
 import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
 
 /**
@@ -23,6 +26,10 @@ public class PluginController extends ActionModeController implements INotifiabl
     private ISystemManager mSystemManager;
 
     private Activity activity;
+
+    private Sortdir sortdir = Sortdir.DESC;
+    private Sortfield sortfield = Sortfield.Name;
+    private int start = 0;
 
     public PluginController(Activity activity, Handler handler) {
         super.onCreate(activity, handler);
@@ -35,7 +42,7 @@ public class PluginController extends ActionModeController implements INotifiabl
         DataResponse<ArrayList<Plugin>> handler = new DataResponse<ArrayList<Plugin>>() {
             public void run() {
                 ArrayList<Plugin> var = value;
-                adapter = new UpgradeAdapter(mActivity, var);
+                adapter = new PluginAdapter(mActivity, var);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent,
@@ -46,7 +53,7 @@ public class PluginController extends ActionModeController implements INotifiabl
             }
         };
 
-        this.mSystemManager.getListPlugin(handler, mActivity.getApplicationContext());
+        this.mSystemManager.getListPlugin(handler, mActivity.getApplicationContext(),sortdir,sortfield,start);
     }
 
     //a mutualiser

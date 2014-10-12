@@ -14,6 +14,8 @@ public class ManagerThread extends Thread {
     private final InfoManager mInfoManager;
     private final DiagnosticManager mDiagnosticManager;
     private final SystemManager mSystemManager;
+    private final OutputManager mOutputManager;
+
     private Handler mHandler;
 
     private ManagerThread() {
@@ -21,6 +23,7 @@ public class ManagerThread extends Thread {
         mInfoManager = new InfoManager();
         mDiagnosticManager = new DiagnosticManager();
         mSystemManager = new SystemManager();
+        mOutputManager = new OutputManager();
     }
 
 
@@ -54,6 +57,12 @@ public class ManagerThread extends Thread {
 
     public static SystemManager system(INotifiableController controller) {
         final SystemManager dm = get().mSystemManager;
+        dm.setController(controller);
+        return dm;
+    }
+
+    public static OutputManager output(INotifiableController controller) {
+        final OutputManager dm = get().mOutputManager;
         dm.setController(controller);
         return dm;
     }

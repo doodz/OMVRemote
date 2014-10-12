@@ -21,6 +21,8 @@ import fr.doodz.openmv.api.object.UpdatesSettings;
 import fr.doodz.openmv.api.object.Upgraded;
 import fr.doodz.openmv.api.object.business.DataResponse;
 import fr.doodz.openmv.api.object.business.ISystemManager;
+import fr.doodz.openmv.api.object.types.Sortdir;
+import fr.doodz.openmv.api.object.types.Sortfield;
 import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
 import fr.doodz.openmv.app.R;
 
@@ -35,6 +37,10 @@ public class UpdateController extends AbstractController implements INotifiableC
     private ActionMode mActionMode;
     private UpdatesSettings mUpdatesSettings;
     private boolean[] mSelections;
+
+    private Sortdir sortdir = Sortdir.DESC;
+    private Sortfield sortfield = Sortfield.Name;
+    private int start = 0;
 
     public UpdateController(Activity activity, Handler handler) {
         super.onCreate(activity, handler);
@@ -69,7 +75,7 @@ public class UpdateController extends AbstractController implements INotifiableC
             }
         };
 
-        this.mSystemManager.getUpgraded(handler, mActivity.getApplicationContext());
+        this.mSystemManager.getUpgraded(handler, mActivity.getApplicationContext(),sortdir,sortfield,start);
     }
 
     private void upgrade(ArrayList<Upgraded> upgrades) {
