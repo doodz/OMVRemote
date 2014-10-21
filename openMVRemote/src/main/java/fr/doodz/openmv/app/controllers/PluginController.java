@@ -17,6 +17,7 @@ import fr.doodz.openmv.api.object.types.Sortdir;
 import fr.doodz.openmv.api.object.types.Sortfield;
 import fr.doodz.openmv.app.Adapters.PluginAdapter;
 import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
+import fr.doodz.openmv.app.services.OutputService;
 
 /**
  * Created by doods on 01/10/14.
@@ -30,11 +31,13 @@ public class PluginController extends ActionModeController implements INotifiabl
     private Sortdir sortdir = Sortdir.DESC;
     private Sortfield sortfield = Sortfield.Name;
     private int start = 0;
+    private OutputService outputService = null;
 
     public PluginController(Activity activity, Handler handler) {
         super.onCreate(activity, handler);
         mSystemManager = ManagerFactory.getSystemManager(this);
         this.activity = activity;
+        this.outputService = new OutputService(activity,handler);
         //this.getUpdatesSettings();
     }
 

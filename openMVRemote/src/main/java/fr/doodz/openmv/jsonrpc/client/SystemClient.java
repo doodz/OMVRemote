@@ -177,7 +177,8 @@ public class SystemClient extends Client implements ISystemClient {
         }
 
         JsonNode result = mConnection.getJson(manager, "upgrade", "Apt", obj().p("packages", arr));
-        return getString2(result, "response");
+        return result.asText();
+        //return getString2(result, "response");
     }
 
     public UpdatesSettings getUpdatesSettings(INotifiableManager manager) {

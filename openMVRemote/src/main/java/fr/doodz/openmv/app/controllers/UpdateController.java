@@ -25,6 +25,7 @@ import fr.doodz.openmv.api.object.types.Sortdir;
 import fr.doodz.openmv.api.object.types.Sortfield;
 import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
 import fr.doodz.openmv.app.R;
+import fr.doodz.openmv.app.services.OutputService;
 
 /**
  * Created by doods on 09/08/14.
@@ -37,7 +38,7 @@ public class UpdateController extends AbstractController implements INotifiableC
     private ActionMode mActionMode;
     private UpdatesSettings mUpdatesSettings;
     private boolean[] mSelections;
-
+    private OutputService outputService = null;
     private Sortdir sortdir = Sortdir.DESC;
     private Sortfield sortfield = Sortfield.Name;
     private int start = 0;
@@ -46,6 +47,7 @@ public class UpdateController extends AbstractController implements INotifiableC
         super.onCreate(activity, handler);
         mSystemManager = ManagerFactory.getSystemManager(this);
         this.activity = activity;
+        this.outputService = new OutputService(activity,handler);
         this.getUpdatesSettings();
     }
 
@@ -53,7 +55,7 @@ public class UpdateController extends AbstractController implements INotifiableC
         DataResponse<String> handler = new DataResponse<String>() {
             public void run() {
                 String var = value;
-                getOutput(var, 0);
+                UpdateController.this.outputService.getOutput(var);
             }
         };
         this.mSystemManager.update(handler, mActivity.getApplicationContext());
@@ -82,7 +84,7 @@ public class UpdateController extends AbstractController implements INotifiableC
         DataResponse<String> handler = new DataResponse<String>() {
             public void run() {
                 String var = value;
-                getOutput(var, 0);
+                UpdateController.this.outputService.getOutput(var);
             }
         };
 
@@ -106,7 +108,7 @@ public class UpdateController extends AbstractController implements INotifiableC
 
         this.mSystemManager.getUpdatesSettings(handler, mActivity.getApplicationContext());
     }
-
+/*
     private void getOutput(String fileName, int pos) {
 
         DataResponse<Output> handler = new DataResponse<Output>() {
@@ -120,7 +122,7 @@ public class UpdateController extends AbstractController implements INotifiableC
 
         this.mSystemManager.getOutput(handler, mActivity.getApplicationContext(), fileName, pos);
     }
-
+*/
     private void onListItemSelect(int position) {
         adapter.toggleSelection(position);
         boolean hasCheckedItems = adapter.getSelectedCount() > 0;
@@ -166,7 +168,7 @@ public class UpdateController extends AbstractController implements INotifiableC
                         DataResponse<String> handler = new DataResponse<String>() {
                             public void run() {
                                 String var = value;
-                                getOutput(var, 0);
+                                UpdateController.this.outputService.getOutput(var);
                             }
                         };
                         mSystemManager.setUpdatesSettings(handler, mActivity.getApplicationContext(), mUpdatesSettings);

@@ -38,11 +38,9 @@ public class OutputClient  extends Client implements IOutputClient {
     {
         JsonNode result = mConnection.getJson(manager, "getOutput", "Exec",
                 obj().p("filename", fileName).p("pos", pos));
-        result = result.get("data");
-        final JsonNode jsonRep = result.get("response");
         Output output = null;
-        if (jsonRep != null) {
-            output = new Output(getString2(jsonRep, "Filename"), getInt(jsonRep, "Pos"), getString2(jsonRep, "Output"), getBool(jsonRep, "Running"));
+        if (result != null) {
+            output = new Output(getString2(result, "filename"), getInt(result, "pos"), getString2(result, "output"), getBool(result, "running"));
         }
         return output;
     }

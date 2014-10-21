@@ -73,6 +73,7 @@ public class ManagerThread extends Thread {
         mInfoManager.setHandler(mHandler);
         mDiagnosticManager.setHandler(mHandler);
         mSystemManager.setHandler(mHandler);
+        mOutputManager.setHandler(mHandler);
         Looper.loop();
     }
 }
