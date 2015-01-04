@@ -2,9 +2,9 @@ package fr.doodz.openmv.UI.business;
 
 import android.content.Context;
 
-import fr.doodz.openmv.api.object.business.DataResponse;
-import fr.doodz.openmv.api.object.business.IInfoManager;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.api.api.business.DataResponse;
+import fr.doodz.openmv.api.api.business.IInfoManager;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
 import fr.doodz.openmv.httpapi.WifiStateException;
 import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 
@@ -14,7 +14,7 @@ import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 public class InfoManager extends AbstractManager implements IInfoManager, INotifiableManager {
 
     /**
-     * Returns any system info variable, see {@link fr.doodz.openmv.api.object.infos}
+     * Returns any system info variable, see {@link fr.doodz.openmv.api.api.infos}
      *
      * @param response Response object
      * @param field    Field to return

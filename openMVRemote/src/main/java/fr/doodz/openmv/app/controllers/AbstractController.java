@@ -17,8 +17,8 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
 import fr.doodz.openmv.UI.business.Command;
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
 import fr.doodz.openmv.app.Activity.HostSettingsActivity;
 import fr.doodz.openmv.app.Activity.SettingsActivity;
 import fr.doodz.openmv.httpapi.NoNetworkException;

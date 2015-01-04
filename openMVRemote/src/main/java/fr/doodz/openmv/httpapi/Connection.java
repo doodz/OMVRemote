@@ -19,8 +19,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
 import fr.doodz.openmv.utils.Base64;
 import fr.doodz.openmv.utils.ClientFactory;
 /**

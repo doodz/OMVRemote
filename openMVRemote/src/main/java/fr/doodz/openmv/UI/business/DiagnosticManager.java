@@ -4,13 +4,13 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import fr.doodz.openmv.api.object.Service;
-import fr.doodz.openmv.api.object.SysLog;
-import fr.doodz.openmv.api.object.business.IDiagnosticManager;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.types.LogType;
-import fr.doodz.openmv.api.object.types.Sortdir;
-import fr.doodz.openmv.api.object.types.Sortfield;
+import fr.doodz.openmv.api.api.object.Service;
+import fr.doodz.openmv.api.api.object.SysLog;
+import fr.doodz.openmv.api.api.business.IDiagnosticManager;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.types.LogType;
+import fr.doodz.openmv.api.api.types.Sortdir;
+import fr.doodz.openmv.api.api.types.Sortfield;
 import fr.doodz.openmv.httpapi.WifiStateException;
 import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 

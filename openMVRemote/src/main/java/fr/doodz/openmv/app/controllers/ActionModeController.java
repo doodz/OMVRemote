@@ -6,9 +6,8 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-import fr.doodz.openmv.api.object.Upgraded;
+import fr.doodz.openmv.api.api.object.Upgraded;
 import fr.doodz.openmv.app.Adapters.PluginAdapter;
-import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
 import fr.doodz.openmv.app.R;
 
 /**

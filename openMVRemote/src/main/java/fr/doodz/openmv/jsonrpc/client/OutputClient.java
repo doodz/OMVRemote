@@ -2,10 +2,10 @@ package fr.doodz.openmv.jsonrpc.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.Output;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.data.IOutputClient;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.object.Output;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.data.IOutputClient;
 import fr.doodz.openmv.jsonrpc.Connection;
 
 /**

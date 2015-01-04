@@ -17,12 +17,12 @@ import java.util.HashMap;
 
 import fr.doodz.openmv.UI.business.ManagerFactory;
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.Service;
-import fr.doodz.openmv.api.object.business.DataResponse;
-import fr.doodz.openmv.api.object.business.IDiagnosticManager;
-import fr.doodz.openmv.api.object.business.IInfoManager;
-import fr.doodz.openmv.api.object.business.ISystemManager;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.object.Service;
+import fr.doodz.openmv.api.api.business.DataResponse;
+import fr.doodz.openmv.api.api.business.IDiagnosticManager;
+import fr.doodz.openmv.api.api.business.IInfoManager;
+import fr.doodz.openmv.api.api.business.ISystemManager;
 import fr.doodz.openmv.app.Activity.HostSettingsActivity;
 import fr.doodz.openmv.app.Adapters.ServiceAdapter;
 import fr.doodz.openmv.app.R;

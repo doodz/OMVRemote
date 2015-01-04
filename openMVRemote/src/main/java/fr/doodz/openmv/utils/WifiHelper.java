@@ -11,7 +11,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import fr.doodz.openmv.api.object.Host;
+import fr.doodz.openmv.api.api.object.Host;
 
 /**
  * Created by doods on 18/05/14.

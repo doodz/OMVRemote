@@ -8,17 +8,17 @@ import java.util.Iterator;
 
 import fr.doodz.openmv.GeneralSettings;
 import fr.doodz.openmv.TimeSettings;
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.Output;
-import fr.doodz.openmv.api.object.Plugin;
-import fr.doodz.openmv.api.object.Service;
-import fr.doodz.openmv.api.object.UpdatesSettings;
-import fr.doodz.openmv.api.object.Upgraded;
-import fr.doodz.openmv.api.object.WebGuiSetting;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.data.ISystemClient;
-import fr.doodz.openmv.api.object.types.Sortdir;
-import fr.doodz.openmv.api.object.types.Sortfield;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.object.Output;
+import fr.doodz.openmv.api.api.object.Plugin;
+import fr.doodz.openmv.api.api.object.Service;
+import fr.doodz.openmv.api.api.object.UpdatesSettings;
+import fr.doodz.openmv.api.api.object.Upgraded;
+import fr.doodz.openmv.api.api.object.WebGuiSetting;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.data.ISystemClient;
+import fr.doodz.openmv.api.api.types.Sortdir;
+import fr.doodz.openmv.api.api.types.Sortfield;
 import fr.doodz.openmv.jsonrpc.Connection;
 
 /**

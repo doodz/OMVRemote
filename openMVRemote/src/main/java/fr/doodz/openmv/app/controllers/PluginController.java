@@ -10,13 +10,12 @@ import java.util.ArrayList;
 
 import fr.doodz.openmv.UI.business.ManagerFactory;
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
-import fr.doodz.openmv.api.object.Plugin;
-import fr.doodz.openmv.api.object.business.DataResponse;
-import fr.doodz.openmv.api.object.business.ISystemManager;
-import fr.doodz.openmv.api.object.types.Sortdir;
-import fr.doodz.openmv.api.object.types.Sortfield;
+import fr.doodz.openmv.api.api.object.Plugin;
+import fr.doodz.openmv.api.api.business.DataResponse;
+import fr.doodz.openmv.api.api.business.ISystemManager;
+import fr.doodz.openmv.api.api.types.Sortdir;
+import fr.doodz.openmv.api.api.types.Sortfield;
 import fr.doodz.openmv.app.Adapters.PluginAdapter;
-import fr.doodz.openmv.app.Adapters.UpgradeAdapter;
 import fr.doodz.openmv.app.services.OutputService;
 
 /**

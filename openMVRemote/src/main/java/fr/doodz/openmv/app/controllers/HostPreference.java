@@ -13,7 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import fr.doodz.openmv.api.object.Host;
+import fr.doodz.openmv.api.api.object.Host;
 import fr.doodz.openmv.app.R;
 import fr.doodz.openmv.utils.HostFactory;
 

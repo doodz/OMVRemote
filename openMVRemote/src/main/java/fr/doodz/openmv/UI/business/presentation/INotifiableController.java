@@ -1,7 +1,7 @@
 package fr.doodz.openmv.UI.business.presentation;
 
 import fr.doodz.openmv.UI.business.Command;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
 
 /**
  * Created by doods on 21/05/14.

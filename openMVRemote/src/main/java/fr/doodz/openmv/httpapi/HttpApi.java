@@ -1,6 +1,6 @@
 package fr.doodz.openmv.httpapi;
 
-import fr.doodz.openmv.api.object.Host;
+import fr.doodz.openmv.api.api.object.Host;
 import fr.doodz.openmv.httpapi.client.InfoClient;
 
 /**

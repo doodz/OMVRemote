@@ -7,9 +7,9 @@ import android.os.Handler;
 
 import fr.doodz.openmv.UI.business.ManagerFactory;
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
-import fr.doodz.openmv.api.object.Output;
-import fr.doodz.openmv.api.object.business.DataResponse;
-import fr.doodz.openmv.api.object.business.IOutputManager;
+import fr.doodz.openmv.api.api.object.Output;
+import fr.doodz.openmv.api.api.business.DataResponse;
+import fr.doodz.openmv.api.api.business.IOutputManager;
 import fr.doodz.openmv.app.controllers.AbstractController;
 
 /**

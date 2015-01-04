@@ -17,8 +17,8 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Iterator;
 
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.types.SortType;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.types.SortType;
 import fr.doodz.openmv.jsonrpc.Connection;
 
 /**

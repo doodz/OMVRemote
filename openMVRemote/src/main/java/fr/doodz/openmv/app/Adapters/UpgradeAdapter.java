@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fr.doodz.openmv.api.object.IInstallObject;
-import fr.doodz.openmv.api.object.Upgraded;
+import fr.doodz.openmv.api.api.object.IInstallObject;
+import fr.doodz.openmv.api.api.object.Upgraded;
 import fr.doodz.openmv.app.R;
 
 /**

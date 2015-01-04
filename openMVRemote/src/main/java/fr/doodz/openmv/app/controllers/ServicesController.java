@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 import fr.doodz.openmv.UI.business.ManagerFactory;
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
-import fr.doodz.openmv.api.object.Service;
-import fr.doodz.openmv.api.object.SysLog;
-import fr.doodz.openmv.api.object.business.IDiagnosticManager;
+import fr.doodz.openmv.api.api.object.Service;
+import fr.doodz.openmv.api.api.object.SysLog;
+import fr.doodz.openmv.api.api.business.IDiagnosticManager;
 import fr.doodz.openmv.app.Adapters.ServiceAdapter;
 
 /**

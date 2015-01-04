@@ -4,13 +4,13 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import fr.doodz.openmv.api.object.FileLocation;
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.data.IInfoClient;
-import fr.doodz.openmv.api.object.infos.GuiSettings;
-import fr.doodz.openmv.api.object.types.DirectoryMask;
-import fr.doodz.openmv.api.object.types.MediaType;
+import fr.doodz.openmv.api.api.object.FileLocation;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.data.IInfoClient;
+import fr.doodz.openmv.api.api.infos.GuiSettings;
+import fr.doodz.openmv.api.api.types.DirectoryMask;
+import fr.doodz.openmv.api.api.types.MediaType;
 import fr.doodz.openmv.httpapi.Connection;
 import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 

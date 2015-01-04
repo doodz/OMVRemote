@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 
-import fr.doodz.openmv.api.object.data.IEventClient;
+import fr.doodz.openmv.api.api.data.IEventClient;
 
 /**
  * Created by doods on 18/05/14.

@@ -2,10 +2,10 @@ package fr.doodz.openmv.UI.business;
 
 import android.content.Context;
 
-import fr.doodz.openmv.api.object.Output;
-import fr.doodz.openmv.api.object.business.DataResponse;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.business.IOutputManager;
+import fr.doodz.openmv.api.api.object.Output;
+import fr.doodz.openmv.api.api.business.DataResponse;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.business.IOutputManager;
 
 /**
  * Created by doods on 12/10/2014.

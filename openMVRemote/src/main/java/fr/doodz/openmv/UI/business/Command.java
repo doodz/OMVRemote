@@ -2,8 +2,8 @@ package fr.doodz.openmv.UI.business;
 
 import android.util.Log;
 
-import fr.doodz.openmv.api.object.business.DataResponse;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.api.api.business.DataResponse;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
 import fr.doodz.openmv.httpapi.WifiStateException;
 
 /**

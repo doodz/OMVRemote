@@ -15,7 +15,7 @@ import org.json.JSONTokener;
 
 import java.util.ArrayList;
 
-import fr.doodz.openmv.api.object.Host;
+import fr.doodz.openmv.api.api.object.Host;
 import fr.doodz.openmv.dal.HostProvider;
 import fr.doodz.openmv.dal.HostProvider.Hosts;
 

@@ -5,7 +5,7 @@ import android.os.Handler;
 
 import fr.doodz.openmv.UI.business.ManagerFactory;
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
-import fr.doodz.openmv.api.object.business.IInfoManager;
+import fr.doodz.openmv.api.api.business.IInfoManager;
 import fr.doodz.openmv.jsonrpc.client.InfoSystem;
 
 /**

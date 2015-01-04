@@ -24,8 +24,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
 import fr.doodz.openmv.httpapi.NoSettingsException;
 import fr.doodz.openmv.jsonrpc.client.Client;
 import fr.doodz.openmv.utils.Base64;
@@ -40,7 +40,8 @@ public class Connection {
     private static final String TAG = "Connection-JsonRpc";
     private static final String OMV_JSONRPC_BOOTSTRAP = "/rpc.php";
     private static final int SOCKET_CONNECTION_TIMEOUT = 5000;
-    ;
+    private static final String SESSION_NOT_AUTHENTICATED = "Session not authenticated";
+
     /**
      * Singleton class instance
      */
@@ -59,7 +60,7 @@ public class Connection {
      */
     private String authEncoded = null;
     private CookieManager cm;
-
+    private Host host;
     /**
      * Use getInstance() for public class instantiation
      *
@@ -101,6 +102,7 @@ public class Connection {
             setHost(host.addr, host.port);
             setAuth(host.user, host.pass);
         }
+        this.host = host;
     }
 
     /**
@@ -307,7 +309,6 @@ public class Connection {
             uc.setConnectTimeout(SOCKET_CONNECTION_TIMEOUT);
             uc.setReadTimeout(mSocketReadTimeout);
 
-
             if (authEncoded != null) {
                 uc.setRequestProperty("Authorization", "Basic " + authEncoded);
             }
@@ -370,7 +371,13 @@ public class Connection {
             if (result.isNull()) {
                 if (response.get(ERROR_FIELD) == null) {
                     throw new Exception("Weird JSON response, could not parse error.");
-                } else if (!response.get(ERROR_FIELD).get("message").textValue().equals("Invalid params.")) {
+                }
+                else if((response.get(ERROR_FIELD).get("message").textValue().equals("Session not authenticated.")
+                        ||response.get(ERROR_FIELD).get("message").textValue().equals("Session expired")) && this.host != null){
+                    this.login(this.host.user,this.host.pass);
+                    return this.getJson( manager,method,service,parameters);
+                }
+                else if (!response.get(ERROR_FIELD).get("message").textValue().equals("Invalid params.")) {
                     throw new Exception(response.get(ERROR_FIELD).get("message").textValue());
                 } else {
                     Log.d(TAG, "Request returned Invalid Params.");

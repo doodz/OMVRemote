@@ -1,6 +1,6 @@
 package fr.doodz.openmv.jsonrpc;
 
-import fr.doodz.openmv.api.object.Host;
+import fr.doodz.openmv.api.api.object.Host;
 import fr.doodz.openmv.jsonrpc.client.DiagnosticClient;
 import fr.doodz.openmv.jsonrpc.client.InfoClient;
 import fr.doodz.openmv.jsonrpc.client.OutputClient;

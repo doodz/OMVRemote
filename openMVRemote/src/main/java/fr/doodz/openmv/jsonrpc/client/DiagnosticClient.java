@@ -5,15 +5,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import fr.doodz.openmv.api.object.DoagnosticSetings;
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.Service;
-import fr.doodz.openmv.api.object.SysLog;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.data.IDiagnosticClient;
-import fr.doodz.openmv.api.object.types.LogType;
-import fr.doodz.openmv.api.object.types.Sortdir;
-import fr.doodz.openmv.api.object.types.Sortfield;
+import fr.doodz.openmv.api.api.object.DoagnosticSetings;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.object.Service;
+import fr.doodz.openmv.api.api.object.SysLog;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.data.IDiagnosticClient;
+import fr.doodz.openmv.api.api.types.LogType;
+import fr.doodz.openmv.api.api.types.Sortdir;
+import fr.doodz.openmv.api.api.types.Sortfield;
 import fr.doodz.openmv.jsonrpc.Connection;
 
 /**

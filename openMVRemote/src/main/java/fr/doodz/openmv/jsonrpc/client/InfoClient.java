@@ -7,13 +7,13 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import fr.doodz.openmv.api.object.FileLocation;
-import fr.doodz.openmv.api.object.Host;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.data.IInfoClient;
-import fr.doodz.openmv.api.object.types.DirectoryMask;
-import fr.doodz.openmv.api.object.types.MediaType;
-import fr.doodz.openmv.api.object.types.SortType;
+import fr.doodz.openmv.api.api.object.FileLocation;
+import fr.doodz.openmv.api.api.object.Host;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.data.IInfoClient;
+import fr.doodz.openmv.api.api.types.DirectoryMask;
+import fr.doodz.openmv.api.api.types.MediaType;
+import fr.doodz.openmv.api.api.types.SortType;
 import fr.doodz.openmv.jsonrpc.Connection;
 
 /**
@@ -113,7 +113,7 @@ public class InfoClient extends Client implements IInfoClient {
     }
 
     /**
-     * Returns any system info variable, see {@link fr.doodz.openmv.api.object.infos}
+     * Returns any system info variable, see {@link fr.doodz.openmv.api.api.infos}
      *
      * @param field Field to return
      * @return

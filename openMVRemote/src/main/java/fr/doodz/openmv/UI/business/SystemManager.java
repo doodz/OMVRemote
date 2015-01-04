@@ -6,16 +6,16 @@ import java.util.ArrayList;
 
 import fr.doodz.openmv.GeneralSettings;
 import fr.doodz.openmv.TimeSettings;
-import fr.doodz.openmv.api.object.Output;
-import fr.doodz.openmv.api.object.Plugin;
-import fr.doodz.openmv.api.object.UpdatesSettings;
-import fr.doodz.openmv.api.object.Upgraded;
-import fr.doodz.openmv.api.object.WebGuiSetting;
-import fr.doodz.openmv.api.object.business.DataResponse;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.business.ISystemManager;
-import fr.doodz.openmv.api.object.types.Sortdir;
-import fr.doodz.openmv.api.object.types.Sortfield;
+import fr.doodz.openmv.api.api.object.Output;
+import fr.doodz.openmv.api.api.object.Plugin;
+import fr.doodz.openmv.api.api.object.UpdatesSettings;
+import fr.doodz.openmv.api.api.object.Upgraded;
+import fr.doodz.openmv.api.api.object.WebGuiSetting;
+import fr.doodz.openmv.api.api.business.DataResponse;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.business.ISystemManager;
+import fr.doodz.openmv.api.api.types.Sortdir;
+import fr.doodz.openmv.api.api.types.Sortfield;
 
 /**
  * Created by doods on 09/08/14.

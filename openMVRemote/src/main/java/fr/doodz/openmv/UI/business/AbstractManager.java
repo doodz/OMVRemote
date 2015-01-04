@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.doodz.openmv.UI.business.presentation.INotifiableController;
-import fr.doodz.openmv.api.object.business.DataResponse;
-import fr.doodz.openmv.api.object.business.INotifiableManager;
-import fr.doodz.openmv.api.object.data.IDiagnosticClient;
-import fr.doodz.openmv.api.object.data.IInfoClient;
-import fr.doodz.openmv.api.object.data.IOutputClient;
-import fr.doodz.openmv.api.object.data.ISystemClient;
+import fr.doodz.openmv.api.api.business.DataResponse;
+import fr.doodz.openmv.api.api.business.INotifiableManager;
+import fr.doodz.openmv.api.api.data.IDiagnosticClient;
+import fr.doodz.openmv.api.api.data.IInfoClient;
+import fr.doodz.openmv.api.api.data.IOutputClient;
+import fr.doodz.openmv.api.api.data.ISystemClient;
 import fr.doodz.openmv.httpapi.WifiStateException;
 import fr.doodz.openmv.utils.ClientFactory;
 

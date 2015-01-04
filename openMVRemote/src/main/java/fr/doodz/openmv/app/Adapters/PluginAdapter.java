@@ -7,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fr.doodz.openmv.api.object.IInstallObject;
-import fr.doodz.openmv.api.object.Service;
-import fr.doodz.openmv.api.object.Upgraded;
+import fr.doodz.openmv.api.api.object.IInstallObject;
+import fr.doodz.openmv.api.api.object.Upgraded;
 import fr.doodz.openmv.app.R;
 
 /**
